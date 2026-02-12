@@ -1,11 +1,13 @@
-NAME		= megaphone
-CXX			= c++
+NAME		= horde
+CXX			= g++
 CPPFLAGS	= -Wall -Werror -Wextra -std=c++98
 MAKEFLAGS	+= --no-print-directory
 
 OBJ_DIR		= objs
 
-SRCS		= megaphone.cpp \
+SRCS		= 	main.cpp \
+				Zombie.cpp \
+				zombieHorde.cpp
 
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
 
@@ -58,22 +60,6 @@ all:
 	fi
 
 $(NAME):
-
-	# ASCII ART (vor PREPARE)
-	@printf "$(HDR)"
-	cat <<'ASCII'
-	⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡴⠁⠀⡰⠀⠀⠀⠀⠀⠀⠀
-	⠀⠀⠀⠀⠀⠀⠀⠀⢀⡎⢀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀
-	⣀⠀⠀⠀⠀⠀⠀⡠⠬⡡⠬⡋⠀⡄⠀⠀⠀⠀⠀⠀⠀
-	⡀⠁⠢⡀⠀⠀⢰⠠⢷⠰⠆⡅⠀⡇⠀⠀⠀⣀⠔⠂⡂
-	⠱⡀⠀⠈⠒⢄⡸⡑⠊⢒⣂⣦⠄⢃⢀⠔⠈⠀⠀⡰⠁
-	⠀⠱⡀⠀⠀⡰⣁⣼⡿⡿⢿⠃⠠⠚⠁⠀⠀⢀⠜⠀⠀
-	⠀⠀⠐⢄⠜⠀⠈⠓⠒⠈⠁⠀⠀⠀⠀⠀⡰⠃⠀⠀⠀
-	⠀⠀⢀⠊⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠾⡀⠀⠀⠀⠀
-	⠀⠀⢸⣄⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡇⠀⠀⠀
-	ASCII
-	@printf "$(RST)"
-
 	# PREPARE
 	printf "\n$(HDR)%s$(RST)\n" "$(TOP_PREPARE)"
 	if [ -d "$(OBJ_DIR)" ]; then
@@ -167,7 +153,7 @@ clean:
 	printf "\n$(HDR)%s$(RST)\n" "$(TOP_CLEAN)"
 	if ls $(OBJS) >/dev/null 2>&1; then
 		rm -f $(OBJS)
-		printf "$(OK)│ %-*s │$(RST)\n" $(W) "✔ Removed objects from $(OBJ_DIR)/"
+		printf "$(OK)│ %-*s │$(RST)\n" $(W) "✔ Removed objects"
 	else
 		printf "$(ERR)│ %-*s │$(RST)\n" $(W) "⋗ No object files to clean"
 	fi

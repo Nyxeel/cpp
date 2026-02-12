@@ -6,12 +6,12 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 21:38:00 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/02/11 02:59:57 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/02/11 21:31:31 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-#include <cstring>
+#include "megaphone.h"
+
 
 int main(int ac, char **av)
 {
