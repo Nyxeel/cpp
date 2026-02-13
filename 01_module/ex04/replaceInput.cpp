@@ -6,30 +6,21 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 01:22:13 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/02/13 04:12:19 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/02/13 12:05:58 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "iostream"
 #include "fstream"
 
-void replaceInput(std::ifstream &file, std::string filename,
+void replaceInput(std::ifstream &inFile, std::ofstream &outFile,
 				  const std::string str,
 				  const std::string str2)
 {
 
 	std::string line;
 
-	std::string outFile = filename;
-	outFile.append(".replace");
-	std::ofstream output(outFile.c_str());
-
-	if (!output)
-	{
-		std::cout << "Error\nCannot open/create out file" << std::endl;
-		return ;
-	}
-	while (std::getline(file, line))
+	while (std::getline(inFile, line))
 	{
 		std::string finalString;
 		size_t pos = line.find(str);
@@ -37,7 +28,7 @@ void replaceInput(std::ifstream &file, std::string filename,
 		if (pos == std::string::npos) // if nothing found, find returns size_t(-1)
 		{
 			finalString.append(line + '\n');
-			output << finalString;
+			outFile << finalString;
 			continue;
 		}
 
@@ -72,7 +63,7 @@ void replaceInput(std::ifstream &file, std::string filename,
 		}
 		else
 			finalString.append(after);
-		output << finalString;
+		outFile << finalString;
 		std::cout << finalString;
 	}
 }

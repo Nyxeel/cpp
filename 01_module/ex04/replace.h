@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 01:23:01 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/02/13 03:58:12 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/02/13 12:05:05 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "fstream"
 #include "string"
 
-void replaceInput(std::ifstream &file, std::string filename,
+void replaceInput(std::ifstream &file, std::ofstream &outFile,
 				  const std::string str,
 				  const std::string str2);
 
