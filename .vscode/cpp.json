@@ -1,4 +1,4 @@
-//FILE c.json kommt nach -> ~/.config/Code/User/snippets/c.json
+//FILE c.json kommt nach -> ~/.config/Code/User/snippets/cpp.json
 
 {
 
@@ -142,10 +142,10 @@
     	"prefix": "inc",
     	"body":
 		[
-    	    "#include \"${1:libary}.h\"",
+    	    "#include \"${1:libary}${2:.hpp}\"",
 			"$0"
     	],
-    	"description": "42 include libary",
+    	"description": "42 include cpp libary",
     	"scope": "cpp"
 	},
 

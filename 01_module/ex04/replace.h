@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Zombie.cpp                                         :+:      :+:    :+:   */
+/*   replace.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/10 21:38:00 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/02/12 17:34:48 by pjelinek         ###   ########.fr       */
+/*   Created: 2026/02/13 01:23:01 by pjelinek          #+#    #+#             */
+/*   Updated: 2026/02/13 03:58:12 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
-#include <iostream>
+#ifndef REPLACE_H
+#define REPLACE_H
 
-void Zombie::announce()
-{
-	std::cout << name << ": BraiiiiiiinnnzzzZ..." << std::endl;
-}
+#include "fstream"
+#include "string"
 
-void Zombie::setName( std::string name )
-{
-	this->name = name;
-}
+void replaceInput(std::ifstream &file, std::string filename,
+				  const std::string str,
+				  const std::string str2);
 
-Zombie::Zombie()
-{
-}
-
-Zombie::~Zombie()
-{
-	std::cout << name << " destroyed" << std::endl;
-}
+#endif /* REPLACE_H */

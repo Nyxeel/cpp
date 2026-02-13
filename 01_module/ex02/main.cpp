@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Zombie.cpp                                         :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 21:38:00 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/02/12 17:34:48 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/02/12 18:13:34 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
-#include <iostream>
+#include "string"
+#include "iostream"
 
-void Zombie::announce()
+int main(void)
 {
-	std::cout << name << ": BraiiiiiiinnnzzzZ..." << std::endl;
-}
+	std::string var = "HI THIS IS BRAIN";
+	std::string *stringPTR = &var;
+	std::string &stringREF = var;
 
-void Zombie::setName( std::string name )
-{
-	this->name = name;
-}
+	std::cout << "var\t" << var << std::endl;
+	std::cout << "&var\t" << &var << std::endl;
+	std::cout << "var[0]\t" << var[0] << std::endl;
 
-Zombie::Zombie()
-{
-}
+	std::cout << std::endl;
 
-Zombie::~Zombie()
-{
-	std::cout << name << " destroyed" << std::endl;
+	std::cout << "*stringPTR\t" << *stringPTR << std::endl;
+	std::cout << "stringPTR\t" << stringPTR << std::endl;
+	std::cout << "&stringREF\t" << &stringREF << std::endl;
+
+	return (0);
 }
