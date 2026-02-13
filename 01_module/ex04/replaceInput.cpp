@@ -6,19 +6,15 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 01:22:13 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/02/13 12:05:58 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/02/13 12:17:09 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "iostream"
 #include "fstream"
 
-void replaceInput(std::ifstream &inFile, std::ofstream &outFile,
-				  const std::string str,
-				  const std::string str2)
-{
-
-	std::string line;
+/*
+std::string line;
 
 	while (std::getline(inFile, line))
 	{
@@ -63,6 +59,36 @@ void replaceInput(std::ifstream &inFile, std::ofstream &outFile,
 		}
 		else
 			finalString.append(after);
+		outFile << finalString;
+		std::cout << finalString;
+	}
+*/
+
+void replaceInput(std::ifstream &inFile, std::ofstream &outFile,
+				  const std::string str,
+				  const std::string str2)
+{
+
+	std::string line;
+
+	while (std::getline(inFile, line))
+	{
+		std::string finalString;
+		std::string before;
+
+		while (line.size())
+		{
+			size_t end = line.find(str);
+
+			if (end == std::string::npos) // if find returns size_t(-1)
+			{
+				finalString.append(line + '\n');
+				break;
+			}
+			before = line.substr(0, end);
+			line = line.substr(end + str.size(), line.size());
+			finalString.append(before + str2);
+		}
 		outFile << finalString;
 		std::cout << finalString;
 	}

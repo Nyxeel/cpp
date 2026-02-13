@@ -159,7 +159,7 @@ run: $(NAME)
 	@printf "$(EXE)%s$(RST)\n\n" "$(BOT)"
 	@./$(NAME) $(RUN_ARGS); \
 	code=$$?; \
-	printf "\n\033[3mProgram terminated with Exit code: $$code\033[0m\n"; \
+	printf "\n\033[3mMakefile: Program terminated with Exit code: $$code\033[0m\n"; \
 	exit 0
 
 %:
