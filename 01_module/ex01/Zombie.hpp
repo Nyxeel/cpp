@@ -6,14 +6,12 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 21:33:54 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/02/12 05:37:31 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/09 20:16:42 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ZOMBIE_HPP
-#define ZOMBIE_HPP
-
 #include <string>
+#pragma once
 
 class Zombie
 {
@@ -29,5 +27,3 @@ public:
 };
 
 Zombie* zombieHorde( int N, std::string name );
-
-#endif

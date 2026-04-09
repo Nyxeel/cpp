@@ -6,12 +6,13 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 22:33:10 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/02/13 12:19:06 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/09 19:03:45 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "replace.h"
 #include "iostream"
+#include <functional>
 
 int main(int ac, char **av)
 {
@@ -32,6 +33,8 @@ int main(int ac, char **av)
 		return (1);
 	}
 
+
+	
 	/* WRITE into outFile */
 	std::string outFile = av[1];
 	outFile.append(".replace");

@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 21:38:00 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/02/12 17:34:48 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/09 20:16:15 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ void Zombie::setName( std::string name )
 	this->name = name;
 }
 
-Zombie::Zombie()
+Zombie::Zombie():
+	name("Zombie")
 {
+	std::cout << name << " constructed" << std::endl;
 }
 
 Zombie::~Zombie()

@@ -1,4 +1,4 @@
-NAME		= harl
+NAME		= harlFilter
 CXX			= g++
 CPPFLAGS	= -Wall -Werror -Wextra -std=c++98
 MAKEFLAGS	+= --no-print-directory

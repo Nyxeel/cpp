@@ -6,12 +6,12 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 21:38:00 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/02/12 18:13:34 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/09 20:08:22 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "string"
-#include "iostream"
+#include <string>
+#include <iostream>
 
 int main(void)
 {
@@ -19,14 +19,14 @@ int main(void)
 	std::string *stringPTR = &var;
 	std::string &stringREF = var;
 
-	std::cout << "var\t" << var << std::endl;
-	std::cout << "&var\t" << &var << std::endl;
-	std::cout << "var[0]\t" << var[0] << std::endl;
+	std::cout << "var\t" << var << "\n";
+	std::cout << "&var\t" << &var << "\n";
 
-	std::cout << std::endl;
+	std::cout << "\n";
 
-	std::cout << "*stringPTR\t" << *stringPTR << std::endl;
-	std::cout << "stringPTR\t" << stringPTR << std::endl;
+	std::cout << "*stringPTR\t" << *stringPTR << "\n";
+	std::cout << "stringPTR\t" << stringPTR << "\n";
+	std::cout << "stringREF\t" << stringREF << "\n";
 	std::cout << "&stringREF\t" << &stringREF << std::endl;
 
 	return (0);

@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Megaphone.cpp                                      :+:      :+:    :+:   */
+/*   harl.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/10 21:38:00 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/09 19:17:57 by pjelinek         ###   ########.fr       */
+/*   Created: 2026/04/09 21:46:05 by pjelinek          #+#    #+#             */
+/*   Updated: 2026/04/09 21:50:58 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "megaphone.h"
+#ifndef HARL_H
+# define HARL_H
 
-int main(int ac, char **av)
+typedef enum e_level
 {
-	if (ac > 1)
-	{
-		for (int i = 1; i < ac; i++)
-		{
-			for (size_t j = 0; j < (std::strlen(av[i])); j++)
-			{
-				int c = std::toupper(av[i][j]);
-				std::cout << static_cast<char>(c);
-			}
-			std::cout << std::endl;
-		}
-	}
-	else
-		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl;
-	return (0);
-}
+	DEBUG,
+	INFO,
+	WARNING,
+	ERROR,
+	INVALID
+} t_level;
+
+#endif
