@@ -6,6 +6,8 @@ MAKEFLAGS	+= --no-print-directory
 OBJ_DIR		= objs
 
 SRCS		= main.cpp \
+				phonebook.cpp \
+				contacts.cpp
 
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
 

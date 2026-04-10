@@ -10,8 +10,10 @@ class PhoneBook
 
 	private:
 		Contact contacts[8];
+		int checkNumber(std::string input);
 		int currIndex;
 		int currContacts;
+		int index;
 
 	public:
 		PhoneBook();

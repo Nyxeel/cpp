@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 10:06:29 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/10 10:52:35 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/10 13:05:26 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@ int main(void)
 	PhoneBook phonebook;
 	std::string input;
 
-
-
-
 	std::cout << "Welcome to the PhoneBook!" << "\n";
 	while (1)
 	{
@@ -31,11 +28,9 @@ int main(void)
 		if (input == "ADD")
 			phonebook.AddContact();
 		else if (input == "SEARCH")
-			std::cout << "ENTER SEARCH" << "\n";
+			phonebook.SearchContact();
 		else if (input == "EXIT")\
 			break;
-		else
-			std::cout << "NOT FOUND" << "\n";
 	}
 	return (0);
 }
