@@ -6,27 +6,29 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 21:38:00 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/02/11 21:31:16 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/10 10:58:27 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "megaphone.h"
+#include "phonebook.hpp"
 
-int main(int ac, char **av)
+PhoneBook::PhoneBook()
 {
-	if (ac > 1)
-	{
-		for (int i = 1; i < ac; i++)
-		{
-			for (size_t j = 0; j < (std::strlen(av[i])); j++)
-			{
-				int c = std::toupper(av[i][j]);
-				std::cout << (char)c;
-			}
-			std::cout << std::endl;
-		}
-	}
-	else
-		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl;
-	return (0);
+	std::cout << "PhoneBook constructed" << std::endl;
+	currIndex = 0;
+	currContacts = 0;
+}
+
+PhoneBook::~PhoneBook()
+{
+	std::cout << "PhoneBook destructed" << std::endl;
+}
+
+void PhoneBook::AddContact()
+{
+	if (currIndex == 7)
+		currIndex = 0;
+	std::cout << "Enter First Name" << std::endl;
+	std::getline(std::cin, contacts[currIndex].FirstName);
+
 }

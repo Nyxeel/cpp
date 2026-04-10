@@ -1,11 +1,11 @@
-NAME		= megaphone
+NAME		= phonebook
 CXX			= g++
 CPPFLAGS	= -Wall -Werror -Wextra -std=c++98
 MAKEFLAGS	+= --no-print-directory
 
 OBJ_DIR		= objs
 
-SRCS		= phonebook.cpp \
+SRCS		= main.cpp \
 
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
 
