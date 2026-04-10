@@ -1,40 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   phonebook.cpp                                      :+:      :+:    :+:   */
+/*   contacts.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 21:38:00 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/10 12:03:41 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/10 11:56:39 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "phonebook.hpp"
 
-PhoneBook::PhoneBook()
+Contact::Contact()
 {
-	std::cout << "PhoneBook constructed" << std::endl;
-	currIndex = 0;
-	currContacts = 0;
+	std::cout << "Contact constructed" << std::endl;
 }
 
-PhoneBook::~PhoneBook()
+Contact::~Contact()
 {
-	std::cout << "PhoneBook destructed" << std::endl;
+	std::cout << "Contact destructed" << std::endl;
 }
 
-void PhoneBook::AddContact()
+void Contact::setFirstName(std::string name)
 {
-	std::string input;
-	if (currIndex == 7)
-		currIndex = 0;
-	do
-	{
-	    std::cout << "Enter First Name" << std::endl;
-	    std::getline(std::cin, input);
-	}
-	while (input.empty());
-	contacts[currIndex].setFirstName(input);
+	this->firstName = name;
+}
 
+void Contact::setLastName(std::string name)
+{
+	this->lastName = name;
+}
+
+void Contact::setNickName(std::string name)
+{
+	this->nickName = name;
+}
+void Contact::setPhoneNumber(std::string name)
+{
+	this->phoneNumber = name;
+}
+void Contact::setDarkSecret(std::string name)
+{
+	this->darkSecret = name;
 }
