@@ -24,6 +24,10 @@ class Contact
 		void setPhoneNumber(std::string phoneNumber);
 		void setDarkSecret(std::string darkSecret);
 
+		std::string getFirstName();
+		std::string getLastName();
+		std::string getNickName();
+
 };
 
 #endif

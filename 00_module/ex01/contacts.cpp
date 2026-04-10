@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 21:38:00 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/10 11:56:39 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/10 15:06:04 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,19 @@ void Contact::setPhoneNumber(std::string name)
 void Contact::setDarkSecret(std::string name)
 {
 	this->darkSecret = name;
+}
+
+std::string Contact::getFirstName()
+{
+	return (firstName);
+}
+
+std::string Contact::getLastName()
+{
+	return (lastName);
+}
+
+std::string Contact::getNickName()
+{
+	return (nickName);
 }

@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <cstring>
+#include <iomanip>
 #include "contacts.hpp"
 
 class PhoneBook
@@ -10,18 +11,19 @@ class PhoneBook
 
 	private:
 		Contact contacts[8];
-		int checkNumber(std::string input);
-		int currIndex;
-		int currContacts;
-		int index;
+		int		checkNumber(std::string input);
+		void	printContact();
+		std::string formatString(std::string name);
+		int		currIndex;
+		int		currContacts;
+		int		index;
 
 	public:
 		PhoneBook();
 		~PhoneBook();
 
-		void AddContact();
-		void SearchContact();
-
+		void	AddContact();
+		void	SearchContact();
 };
 
 #endif
