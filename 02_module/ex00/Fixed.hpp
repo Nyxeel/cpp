@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 21:23:38 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/10 21:45:25 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/11 19:38:42 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,11 @@
 #ifndef FIXED_HPP
 #define FIXED_HPP
 
-#include <iostream>
-
-
 class Fixed
 {
 	private:
 
-		int fixedPointer;
+		int fixedPointNb;
 		static const int fractBits = 8;
 
 	public:
