@@ -1,0 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Fixed.hpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/10 21:23:38 by pjelinek          #+#    #+#             */
+/*   Updated: 2026/04/10 21:45:25 by pjelinek         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#pragma once
+#ifndef FIXED_HPP
+#define FIXED_HPP
+
+#include <iostream>
+
+
+class Fixed
+{
+	private:
+
+		int fixedPointer;
+		static const int fractBits = 8;
+
+	public:
+		Fixed();
+		Fixed (const Fixed &other);
+		Fixed &operator=(const Fixed &other);
+		~Fixed();
+
+		int getRawBits(void) const;
+		void setRawBits(int const raw);
+};
+
+#endif
