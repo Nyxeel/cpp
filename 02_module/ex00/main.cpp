@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 21:21:09 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/10 21:43:02 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/13 10:59:32 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int main( void )
 {
 	Fixed a;
-	Fixed b( a );
+	Fixed b = a;
 	Fixed c;
 
 	c = b;
