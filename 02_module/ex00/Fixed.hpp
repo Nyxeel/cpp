@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 21:23:38 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/11 19:38:42 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/17 14:08:55 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,19 @@
 #ifndef FIXED_HPP
 #define FIXED_HPP
 
-class Fixed
-{
-	private:
+class Fixed {
+private:
+  int fixedPointNb;
+  static const int fractBits = 8;
 
-		int fixedPointNb;
-		static const int fractBits = 8;
+public:
+  Fixed();
+  Fixed(const Fixed &other);
+  Fixed &operator=(const Fixed &other);
+  ~Fixed();
 
-	public:
-		Fixed();
-		Fixed (const Fixed &other);
-		Fixed &operator=(const Fixed &other);
-		~Fixed();
-
-		int getRawBits(void) const;
-		void setRawBits(int const raw);
+  int getRawBits(void) const;
+  void setRawBits(int const raw);
 };
 
 #endif
