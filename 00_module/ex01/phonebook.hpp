@@ -10,20 +10,21 @@ class PhoneBook
 {
 
 	private:
-		Contact contacts[8];
-		int		checkNumber(std::string input);
-		void	printContact();
+		Contact 	contacts[8];
 		std::string formatString(std::string name);
-		int		currIndex;
-		int		currContacts;
-		int		index;
+		int			checkNumber(std::string input);
+		void		printContact();
+		void		printPhonebook();
+		int			currIndex;
+		int			currContacts;
+		int			index;
 
 	public:
 		PhoneBook();
 		~PhoneBook();
 
-		void	AddContact();
-		void	SearchContact();
+		void		AddContact();
+		void		SearchContact();
 };
 
 #endif

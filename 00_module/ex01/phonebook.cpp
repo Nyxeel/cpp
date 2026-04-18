@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 21:38:00 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/10 16:11:04 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/18 20:00:18 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 #include "stdlib.h"
 
 
-PhoneBook::PhoneBook() {
+PhoneBook::PhoneBook()
+{
   std::cout << "PhoneBook constructed" << std::endl;
   currIndex = 0;
   currContacts = 0;
@@ -97,6 +98,24 @@ std::string PhoneBook::formatString(std::string name)
 
 }
 
+void PhoneBook::printPhonebook()
+{
+	std::cout << std::setw(10) << std::right << "Index" << "|" ;
+	std::cout << std::setw(10) << std::right << "Name" << "|" ;
+	std::cout << std::setw(10) << std::right << "Last Name" << "|" ;
+	std::cout << std::setw(10) << std::right << "Nickname" << "|" ;
+	std::cout << std::endl;
+
+	for(int idx = 0; idx < currContacts; idx++)
+	{
+		std::cout << std::setw(10) << std::right << idx << "|" ;
+		std::cout << std::setw(10) << std::right << formatString(contacts[idx].getFirstName()) << "|" ;
+		std::cout << std::setw(10) << std::right << formatString(contacts[idx].getLastName()) << "|" ;
+		std::cout << std::setw(10) << std::right << formatString(contacts[idx].getNickName()) << "|" ;
+		std::cout << std::endl;
+	}
+	std::cout << std::endl;
+}
 void PhoneBook::printContact()
 {
 
@@ -114,6 +133,7 @@ void PhoneBook::SearchContact() {
 	  std::cout << "No Contacts in PhoneBook atm" << std::endl;
 	  return;
 	}
+	printPhonebook();
 	do
 	{
 	  std::cout << "Enter Contact Index from 0 - 7 to display contact"
