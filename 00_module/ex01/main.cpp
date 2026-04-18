@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 10:06:29 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/10 13:05:26 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/10 16:19:42 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 #include <iostream>
 #include "phonebook.hpp"
 
-
 int main(void)
 {
 	PhoneBook phonebook;
 	std::string input;
 
-	std::cout << "Welcome to the PhoneBook!" << "\n";
+	std::cout << "\n" << "Welcome to the PhoneBook!" << "\n";
 	while (1)
 	{
 		std::cout << "Please enter ADD, SEARCH or EXIT!" << "\n";

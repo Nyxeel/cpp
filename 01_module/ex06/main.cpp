@@ -6,12 +6,11 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 22:33:10 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/09 21:54:25 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/11 19:28:47 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "harl.hpp"
-#include <iostream>
 
 int main(int ac, char **av)
 {

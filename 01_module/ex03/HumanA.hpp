@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 21:33:54 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/02/12 21:58:47 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/11 19:31:25 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 #include <string>
 #include "Weapon.hpp"
-
 
 class HumanA
 {
