@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 12:26:37 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/09 18:58:42 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/11 19:29:20 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define HARL_HPP
 
 #include "string"
-
 
 class Harl
 {

@@ -6,11 +6,12 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 21:38:00 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/18 21:18:29 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/19 00:15:00 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "phonebook.hpp"
+#include "contacts.hpp"
+#include <iostream>
 
 Contact::Contact()
 {
