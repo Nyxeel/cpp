@@ -5,27 +5,30 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/10 21:38:00 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/19 14:11:02 by pjelinek         ###   ########.fr       */
+/*   Created: 2026/04/10 21:21:09 by pjelinek          #+#    #+#             */
+/*   Updated: 2026/04/19 21:43:49 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
 #include <iostream>
+#include "Fixed.hpp"
 
-
-int main(void)
+int main( void )
 {
-	/* Zombie Chuck */
-	Zombie *zombie1;
+	Fixed a;
+	Fixed const b( 10 );
+	Fixed const c( 42.42f );
+	Fixed const d( b );
+	a = Fixed( 1234.4321f );
 
-	zombie1 = newZombie("Chuck");
-	zombie1->announce();
-	delete (zombie1);
+	std::cout << "a is " << a << std::endl;
+	std::cout << "b is " << b << std::endl;
+	std::cout << "c is " << c << std::endl;
+	std::cout << "d is " << d << std::endl;
+	std::cout << "a is " << a.toInt() << " as integer" << std::endl;
+	std::cout << "b is " << b.toInt() << " as integer" << std::endl;
+	std::cout << "c is " << c.toInt() << " as integer" << std::endl;
+	std::cout << "d is " << d.toInt() << " as integer" << std::endl;
 
-
-	/* Zombie Jeff */
-	randomChump("Jeff");
-
-	return (0);
+	return 0;
 }

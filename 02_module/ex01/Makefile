@@ -1,4 +1,4 @@
-NAME		= harl
+NAME		= fixed
 CXX			= g++
 CPPFLAGS	= -Wall -Werror -Wextra -std=c++98
 MAKEFLAGS	+= --no-print-directory
@@ -6,7 +6,7 @@ MAKEFLAGS	+= --no-print-directory
 OBJ_DIR		= objs
 
 SRCS		= 	main.cpp \
-				Harl.cpp
+				Fixed.cpp
 
 
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
@@ -19,7 +19,7 @@ HDR	= \033[1;36m
 RST	= \033[0m
 
 # FIXED BOX WIDTH (innenbreite = 46 chars)
-# Wenn du breiter willst: mehr "─" hier.
+
 TOP_EXEC	= ┌─[ EXECUTE ]──────────────────────────────────────┐
 TOP_ALL     = ┌─[ ALL ]──────────────────────────────────────────┐
 TOP_PREPARE = ┌─[ PREPARE ]──────────────────────────────────────┐
@@ -154,7 +154,7 @@ $(NAME): $(SRCS)
 RUN_ARGS := $(filter-out run,$(MAKECMDGOALS))
 
 run: $(NAME)
-	@printf "\n$(EXE)%s$(RST)\n" "$(TOP_EXEC)"
+	@printf "\n$(EXE)%s$(RST)\n" "$(TOP_ [[fallthrough]];EXEC)"
 	@printf "$(OK)│ %-*.*s │$(RST)\n" 48 $(W) "./$(NAME) $(RUN_ARGS)"
 	@printf "$(EXE)%s$(RST)\n\n" "$(BOT)"
 	@./$(NAME) $(RUN_ARGS); \

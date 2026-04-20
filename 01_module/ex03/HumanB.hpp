@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 21:33:54 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/02/12 22:19:33 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/19 18:23:25 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ class HumanB
 		Weapon *weapon;
 
 	public:
+		HumanB();
 		HumanB(std::string name);
 		~HumanB();
 

@@ -6,11 +6,11 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 12:26:37 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/09 18:54:44 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/19 19:20:57 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "harl.hpp"
+#include "Harl.hpp"
 #include <iostream>
 
 Harl::Harl()

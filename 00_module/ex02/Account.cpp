@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 16:54:39 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/10 19:58:23 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/19 13:55:45 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,29 @@ int Account::_nbAccounts = 0;
 int Account::_totalAmount = 0;
 int Account::_totalNbDeposits = 0;
 int Account::_totalNbWithdrawals = 0;
+
+Account::Account()
+{
+	std::cout << "Account class default constructed" << std::endl;
+}
+
+Account::Account(int deposit)
+	: _accountIndex(_nbAccounts), _amount(deposit)
+{
+ 	_displayTimestamp();
+	std::cout << " index:" << _accountIndex << ";";
+	std::cout << "amount:" << _amount << ";created" << std::endl;
+	_totalAmount += deposit;
+	_nbAccounts++;
+}
+
+
+Account::~Account()
+{
+	_displayTimestamp();
+	std::cout << " index:" << _accountIndex << ";";
+	std::cout << "amount:" << checkAmount() << ";closed" << std::endl;
+}
 
 void Account::_displayTimestamp(void)
 {
@@ -35,22 +58,7 @@ int Account::checkAmount() const
 	return (_amount);
 }
 
-Account::Account(int deposit)
-	: _accountIndex(_nbAccounts), _amount(deposit)
-{
- 	_displayTimestamp();
-	std::cout << " index:" << _accountIndex << ";";
-	std::cout << "amount:" << _amount << ";created" << std::endl;
-	_totalAmount += deposit;
-	_nbAccounts++;
-}
 
-Account::~Account()
-{
-	_displayTimestamp();
-	std::cout << " index:" << _accountIndex << ";";
-	std::cout << "amount:" << checkAmount() << ";closed" << std::endl;
-}
 
 int Account::getNbAccounts()
 {
