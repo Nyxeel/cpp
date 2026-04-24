@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 14:36:15 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/24 20:25:06 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/24 20:57:17 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,54 @@
 
 int	main(void)
 {
-	ClapTrap a("Ben");
-	ClapTrap b("Lukas");
+	ClapTrap a("A");
+	ClapTrap b("B");
 
-	a.attack("Lukas");
-	b.takeDamage(2);
-	a.attack("Lukas");
-	b.takeDamage(1);
-	a.attack("Lukas");
-	b.takeDamage(1);
-	a.attack("Lukas");
-	b.takeDamage(1);
-	a.attack("Lukas");
-	b.takeDamage(1);
-	a.attack("Lukas");
-	b.takeDamage(1);
-	a.attack("Lukas");
-	b.takeDamage(1);
-	a.attack("Lukas");
-	b.takeDamage(1);
-	a.attack("Lukas");
-	b.takeDamage(1);
-	a.attack("Lukas");
-	b.takeDamage(1);
-	a.attack("Lukas");
+	a.attack("B");
+	b.takeDamage(5);
+	b.beRepaired(5);
+	a.attack("B");
+	b.takeDamage(10);
 
-	// No energy points left
+	// B is dead and cant attack or repair or take damage
+	b.attack("A");
+	b.beRepaired(5);
+	b.takeDamage(0);
+
+
+	///////////////////////////////
+
+	ClapTrap c("C");
+
+	a.attack("C");
+	c.takeDamage(1);
+
+	a.attack("C");
+	c.takeDamage(1);
+
+	a.attack("C");
+	c.takeDamage(1);
+
+	a.attack("C");
+	c.takeDamage(1);
+
+	a.attack("C");
+	c.takeDamage(1);
+
+	a.attack("C");
+	c.takeDamage(1);
+
+	a.attack("C");
+	c.takeDamage(1);
+
+	a.attack("C");
+	c.takeDamage(1);
+
+	//A has no energy points left
+	a.attack("C");
+
+
+
 
 
 
