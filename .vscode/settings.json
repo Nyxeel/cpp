@@ -189,6 +189,6 @@
     "C_Cpp.codeAnalysis.clangTidy.path": "clang-tidy",
     "C_Cpp.codeAnalysis.clangTidy.useBuildPath": true,
 	"C_Cpp.codeAnalysis.enabled": true,
-	"C_Cpp.default.compilerPath": "/usr/bin/g++",
+	"C_Cpp.default.compilerPath": "/usr/bin/c++",
 
 }

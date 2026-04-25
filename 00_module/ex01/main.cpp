@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 10:06:29 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/19 00:14:26 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/25 17:03:07 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 #include <iostream>
 #include <string>
 
-int main(void) {
+int main(void)
+{
   PhoneBook phonebook;
   std::string input;
 

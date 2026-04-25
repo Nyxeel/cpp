@@ -1,5 +1,5 @@
 NAME		= accounts
-CXX			= g++
+CXX			= c++
 CPPFLAGS	= -Wall -Werror -Wextra -std=c++98
 MAKEFLAGS	+= --no-print-directory
 
