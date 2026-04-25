@@ -6,13 +6,13 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 14:37:19 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/24 14:54:22 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/25 17:05:25 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#ifndef CLAPTRAP_HPP
-# define CLAPTRAP_HPP
+/* #ifndef CLAPTRAP_HPP
+# define CLAPTRAP_HPP */
 
 #include <string>
 
@@ -38,4 +38,4 @@ class ClapTrap
 
 
 
-#endif /* CLAPTRAP_HPP */
+/* #endif CLAPTRAP_HPP */ 
