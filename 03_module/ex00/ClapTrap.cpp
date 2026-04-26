@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 14:50:48 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/24 20:53:19 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/26 14:30:50 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,38 @@
 
 ClapTrap::ClapTrap() {
   std::cout << "Default Constructor called" << std::endl;
+  name = "";
   hitPoints = 10;
   energyPoints = 10;
   attackDamage = 0;
 }
 
-ClapTrap::ClapTrap(std::string name) : name(name) {
+ClapTrap::ClapTrap(std::string name) : name(name)
+{
   std::cout << "Constructor " << name << " called" << std::endl;
   hitPoints = 10;
   energyPoints = 10;
   attackDamage = 0;
+}
+
+ClapTrap::ClapTrap(const ClapTrap &other) :
+	name(other.name), hitPoints(other.hitPoints), energyPoints(other.energyPoints),
+	attackDamage(other.attackDamage)
+{
+  std::cout << "ClapTrap copy constructor called" << std::endl;
+}
+
+ClapTrap& ClapTrap::operator=(const ClapTrap &other)
+{
+	if (this != &other)
+	{
+		std::cout << "ClapTrap assignment constructor called" << std::endl;
+		name = other.name;
+		hitPoints = other.hitPoints;
+		energyPoints = other.energyPoints;
+		attackDamage = other.attackDamage;
+	}
+	return (*this);
 }
 
 ClapTrap::~ClapTrap()

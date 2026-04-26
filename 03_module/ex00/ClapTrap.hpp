@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 14:37:19 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/25 17:05:25 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/26 14:13:00 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ class ClapTrap
 
 	ClapTrap();
 	ClapTrap(std::string name);
+	ClapTrap(const ClapTrap &other);
+	ClapTrap& operator=(const ClapTrap &other);
 	~ClapTrap();
 
 	void attack(const std::string &target);
@@ -38,4 +40,4 @@ class ClapTrap
 
 
 
-/* #endif CLAPTRAP_HPP */ 
+/* #endif CLAPTRAP_HPP */
