@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Fixed.hpp                                          :+:      :+:    :+:   */
+/*   FragTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/10 21:23:38 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/26 15:10:18 by pjelinek         ###   ########.fr       */
+/*   Created: 2026/04/25 14:11:56 by pjelinek          #+#    #+#             */
+/*   Updated: 2026/04/25 14:33:25 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#ifndef FIXED_HPP
-#define FIXED_HPP
+#ifndef FRAGTRAP_HPP
+#define FRAGTRAP__HPP
 
-class Fixed {
-private:
-  int fixedPointNb;
-  static const int fractBits = 8;
+#include "ClapTrap.hpp"
 
-public:
-  Fixed();
-  Fixed(const Fixed &other);
-  Fixed &operator=(const Fixed &other);
-  ~Fixed();
+class FragTrap : public ClapTrap
+{
+	public:
+		FragTrap();
+		FragTrap(std::string name);
+		FragTrap(const FragTrap &other);
+		FragTrap& operator=(const FragTrap &other);
+		~FragTrap();
 
-  int getRawBits(void) const;
-  void setRawBits(int const raw);
+		void highFivesGuys(void);
 };
 
 #endif

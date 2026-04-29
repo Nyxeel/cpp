@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Fixed.hpp                                          :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/10 21:23:38 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/26 15:10:18 by pjelinek         ###   ########.fr       */
+/*   Created: 2026/04/24 14:36:15 by pjelinek          #+#    #+#             */
+/*   Updated: 2026/04/25 14:41:57 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
-#ifndef FIXED_HPP
-#define FIXED_HPP
+#include "ScavTrap.hpp"
+#include "FragTrap.hpp"
 
-class Fixed {
-private:
-  int fixedPointNb;
-  static const int fractBits = 8;
 
-public:
-  Fixed();
-  Fixed(const Fixed &other);
-  Fixed &operator=(const Fixed &other);
-  ~Fixed();
+int	main(void)
+{
+	FragTrap a("A");
+	FragTrap b("B");
 
-  int getRawBits(void) const;
-  void setRawBits(int const raw);
-};
+	FragTrap c(a);
 
-#endif
+	c.attack("B");
+
+
+
+
+
+	return (0);
+}
