@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:38:33 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/29 23:34:30 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/30 00:46:59 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ class	Cat : public Animal
 		Cat& operator=(const Cat &other);
 		~Cat();
 
-		void makeSound();
+		void makeSound() const;
 };
 
 #endif

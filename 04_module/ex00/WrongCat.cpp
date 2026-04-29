@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:38:33 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/29 23:54:59 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/30 01:05:28 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ WrongCat::WrongCat()
 	type = "WrongCat";
 }
 
-WrongCat::WrongCat(const WrongCat &other) : type(other.type)
+WrongCat::WrongCat(const WrongCat &other) : WrongAnimal(other)
 {
 	std::cout << "WrongCat copy constructor called" << std::endl;
 }
@@ -39,7 +39,7 @@ WrongCat::~WrongCat()
 	std::cout << "WrongCat destructor called" << std::endl;
 }
 
-void WrongCat::makeSound()
+void WrongCat::makeSound() const
 {
 	std::cout << "WrongCat \"QUARK QUARK\"" << std::endl;
 }

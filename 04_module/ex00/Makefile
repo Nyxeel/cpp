@@ -8,7 +8,9 @@ OBJ_DIR		= objs
 SRCS		= 	main.cpp \
 				Animal.cpp \
 				Cat.cpp \
-				Dog.cpp
+				Dog.cpp \
+				WrongAnimal.cpp \
+				WrongCat.cpp
 
 
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))

@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:38:33 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/29 23:35:17 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/30 00:46:47 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ class	Dog : public Animal
 		Dog& operator=(const Dog &other);
 		~Dog();
 
-		void makeSound();
+		void makeSound() const;
 };
 
 #endif

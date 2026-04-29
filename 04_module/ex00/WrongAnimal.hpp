@@ -27,7 +27,7 @@ class	WrongAnimal
 		WrongAnimal& operator=(const WrongAnimal &other);
 		~WrongAnimal();
 
-		void makeSound();
+		void makeSound() const;
 };
 
 #endif
