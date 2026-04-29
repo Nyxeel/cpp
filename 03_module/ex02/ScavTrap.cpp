@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 22:53:45 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/26 14:53:54 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/29 21:34:47 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ ScavTrap::ScavTrap(const ScavTrap &other) : ClapTrap(other)
 
 ScavTrap& ScavTrap::operator=(const ScavTrap &other)
 {
-	std::cout << "ScavTrap assignment constructor called" << std::endl;
+	std::cout << "ScavTrap assignment operator called" << std::endl;
 	if (this != &other)
 	{
 		ClapTrap::operator=(other);

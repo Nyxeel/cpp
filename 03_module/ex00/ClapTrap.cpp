@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 14:50:48 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/26 14:30:50 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/29 21:34:47 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ ClapTrap& ClapTrap::operator=(const ClapTrap &other)
 {
 	if (this != &other)
 	{
-		std::cout << "ClapTrap assignment constructor called" << std::endl;
+		std::cout << "ClapTrap assignment operator called" << std::endl;
 		name = other.name;
 		hitPoints = other.hitPoints;
 		energyPoints = other.energyPoints;

@@ -26,7 +26,7 @@
 
     // === SNIPPETS / SUGGEST GLOBAL ===
     // C/C++-Extension soll keine eigenen Snippets mehr anbieten
-    "C_Cpp.suggestSnippets": false,
+    "C_Cpp.suggestSnippets": true,
 
     // Snippets in der Vorschlagsliste ganz nach oben
     "editor.snippetSuggestions": "top",
@@ -81,7 +81,7 @@
 	},
 
     "[cpp]": {
-        "editor.formatOnSave": true                    // C++ automatisch formatieren beim Speichern
+        "editor.formatOnSave": false                  // C++ automatisch formatieren beim Speichern
     },
     "[javascript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode",
