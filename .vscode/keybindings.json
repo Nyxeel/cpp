@@ -336,5 +336,59 @@
     	"command": "workbench.action.terminal.sendSequence",
     	"args": { "text": "\u000b" },
     	"when": "terminalFocus"
+	},
+
+	// =========================================================
+	// alt + J → zeichenweise nach links springen
+	// =========================================================
+	{
+	    "key": "alt+j",
+	    "command": "cursorLeft",
+	    "when": "editorTextFocus"
+	},
+
+	// =========================================================
+	// ctrl + J → wortweise nach links springen
+	// =========================================================
+	{
+	    "key": "ctrl+j",
+	    "command": "cursorWordLeft",
+	    "when": "editorTextFocus"
+	},
+
+	// =========================================================
+	// alt + L → zeichenweise nach rechts springen
+	// =========================================================
+	{
+	    "key": "alt+l",
+	    "command": "cursorRight",
+	    "when": "editorTextFocus"
+	},
+
+	// =========================================================
+	// alt + L → wortweise nach rechts springen
+	// =========================================================
+	{
+	    "key": "ctrl+l",
+	    "command": "cursorWordRight",
+	    "when": "editorTextFocus"
+	},
+
+	// =========================================================
+	// alt + I → eine Zeile nach oben
+	// =========================================================
+	{
+	    "key": "alt+i",
+	    "command": "cursorUp",
+	    "when": "editorTextFocus"
+	},
+
+	// =========================================================
+	// alt + K → eine Zeile nach unten
+	// =========================================================
+	{
+	    "key": "alt+k",
+	    "command": "cursorDown",
+	    "when": "editorTextFocus"
 	}
 ]

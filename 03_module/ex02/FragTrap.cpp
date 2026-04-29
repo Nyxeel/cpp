@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 14:16:42 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/25 14:45:12 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/29 22:34:26 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ FragTrap::FragTrap(const FragTrap &other) : ClapTrap(other)
 
 FragTrap& FragTrap::operator=(const FragTrap &other)
 {
-	std::cout << "FragTrap assignmnet construtor called" << std::endl;
+	std::cout << "FragTrap assignment construtor called" << std::endl;
 	if (this != &other)
 	{
 		ClapTrap::operator=(other);
