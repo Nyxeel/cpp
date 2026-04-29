@@ -119,6 +119,20 @@ fi
 
 
 
+######################################
+					# my stuff #
+######################################
+gitupdate() {
+    if [ $# -eq 0 ]; then
+        msg="Update progress"
+    else
+        msg="$*"
+    fi
+
+    git add .
+    git commit -m "$msg" && git push
+}
+
 
 
 ##export PS1='\[\e[0;32m\][ nyxeel\[\e[0m\]@ZenDesk\[\e[0m\] ] \[\e[0;32m\]\W\[\e[0m\] ▸ \$ '
