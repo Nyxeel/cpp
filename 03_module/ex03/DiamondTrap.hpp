@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/26 14:36:46 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/26 14:42:21 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/29 14:31:11 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ class DiamondTrap : public ScavTrap, public FragTrap
 		~DiamondTrap();
 
 		void	whoAmI();
+		void	attack(const std::string &target);
 };
 
 #endif /* DIAMONDTRAP_HPP */

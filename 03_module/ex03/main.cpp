@@ -6,22 +6,20 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 14:36:15 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/25 14:41:57 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/29 15:21:39 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ScavTrap.hpp"
-#include "FragTrap.hpp"
-
+#include "DiamondTrap.hpp"
+#include <iostream>
 
 int	main(void)
 {
-	FragTrap a("A");
-	FragTrap b("B");
+	DiamondTrap a("A");
 
-	FragTrap c(a);
+	a.whoAmI();
 
-	c.attack("B");
+	//std::cout << "DiamondTrap Hitpoints: " << a.hitPoints
 
 
 
