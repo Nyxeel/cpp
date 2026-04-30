@@ -6,13 +6,15 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 22:53:45 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/29 21:34:47 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/01 00:07:35 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScavTrap.hpp"
 #include "ClapTrap.hpp"
 #include <iostream>
+
+
 
 ScavTrap::ScavTrap()
 {

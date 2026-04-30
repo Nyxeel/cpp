@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:38:33 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/30 01:03:03 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/30 14:52:17 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ Dog::Dog()
 	type = "Dog";
 }
 
-Dog::Dog(const Dog &other) : Animal(other)
+Dog::Dog(const Dog &other) :
+	Animal(other), type(other.type)
 {
 	std::cout << "Dog copy constructor called" << std::endl;
 }

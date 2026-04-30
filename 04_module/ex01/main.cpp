@@ -6,14 +6,14 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 23:37:37 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/30 23:34:12 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/30 16:37:54 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Animal.hpp"
-#include "WrongAnimal.hpp"
 #include "Cat.hpp"
 #include "Dog.hpp"
+#include "WrongAnimal.hpp"
 #include "WrongCat.hpp"
 #include <iostream>
 
@@ -42,13 +42,6 @@ int main(void)
 	std::cout << std::endl;
 	delete kitten;
 
-
-
-
-
-	
 	WrongCat wrongkitten;
 	wrongkitten.makeSound();	//QUARK QUARK
-
-
 }

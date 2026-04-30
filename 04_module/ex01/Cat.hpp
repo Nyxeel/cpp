@@ -1,33 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.hpp                                         :+:      :+:    :+:   */
+/*   Cat.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:38:33 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/30 23:27:20 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/30 12:35:58 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#ifndef ANIMAL_HPP
-#define ANIMAL_HPP
+#ifndef CAT_HPP
+#define CAT_HPP
 
+#include "Animal.hpp"
+#include "Brain.hpp"
 #include <string>
 
-class	Animal
+class	Cat : public Animal
 {
+	private:
+		Brain *brain;
+
 	protected:
 		std::string  type;
 
 	public:
-		Animal();
-		Animal(const Animal &other);
-		Animal& operator=(const Animal &other);
-		virtual ~Animal();
+		Cat();
+		Cat(const Cat &other);
+		Cat& operator=(const Cat &other);
+		~Cat();
 
-		virtual void makeSound() const;
+		void makeSound() const;
 };
 
 #endif

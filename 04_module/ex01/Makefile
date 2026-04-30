@@ -1,19 +1,21 @@
-NAME		= fragtrap
+NAME		= brain
 CXX			= c++
 CPPFLAGS	= -Wall -Werror -Wextra -MMD -MP -std=c++98
 MAKEFLAGS	+= --no-print-directory
 
 OBJ_DIR		= objs
 
-SRCS		=	main.cpp \
-				ClapTrap.cpp \
-				ScavTrap.cpp \
-				FragTrap.cpp
+SRCS		= 	main.cpp \
+				Animal.cpp \
+				Cat.cpp \
+				Dog.cpp \
+				WrongAnimal.cpp \
+				WrongCat.cpp \
+				Brain.cpp
+
 
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
-DEPS		= $(OBJS:.o=.d)
-HEADERS		= $(wildcard *.hpp *.h)
-COMPILE_LOG	= $(OBJ_DIR)/.compile_log
+DEPS 		= $(OBJS:.o=.d)
 
 # Farben
 OK	= \033[38;5;76m
@@ -21,6 +23,8 @@ ERR	= \033[0;38;5;1m
 EXE = \033[0;38;5;89m
 HDR	= \033[1;36m
 RST	= \033[0m
+
+# FIXED BOX WIDTH (innenbreite = 46 chars)
 
 TOP_EXEC	= ┌─[ EXECUTE ]──────────────────────────────────────┐
 TOP_ALL     = ┌─[ ALL ]──────────────────────────────────────────┐
@@ -32,13 +36,16 @@ TOP_FCLEAN  = ┌─[ FCLEAN ]────────────────�
 TOP_ERROR   = ┌─[ ERROR ]────────────────────────────────────────┐
 BOT         = └──────────────────────────────────────────────────┘
 
+# Innenbreite (muss zu den Linien oben passen!)
+# Zähle Zeichen zwischen '│ ' und ' │' -> hier 50-?; wir setzen bewusst 50.
+# Wenn du TOP/BOT änderst, diese Zahl mit anpassen.
 W = 50
 
 .ONESHELL:
 SHELL := /bin/sh
 .SILENT:
 
-all:
+all: $(NAME)
 	# Missing-Source-Check
 	missing=false
 	for src in $(SRCS); do
@@ -51,15 +58,19 @@ all:
 	done
 	if [ "$$missing" = true ]; then exit 1; fi
 
-	if $(MAKE) -q $(NAME); then
+	if [ -f "$(NAME)" ]; then
 		printf "\n$(OK)%s$(RST)\n" "$(TOP_ALL)"
 		printf "$(OK)│ %-*s │$(RST)\n" $(W) "✔ Nothing to do (already built)"
 		printf "$(OK)%s$(RST)\n\n" "$(BOT)"
 	else
-		rm -f "$(COMPILE_LOG)"
+		$(MAKE) $(NAME)
+	fi
 
-		printf "$(HDR)"
-		cat <<'ASCII'
+$(NAME): $(SRCS)
+
+	# ASCII ART (vor PREPARE)
+	@printf "$(HDR)"
+	cat <<'ASCII'
 	⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡴⠁⠀⡰⠀⠀⠀⠀⠀⠀⠀
 	⠀⠀⠀⠀⠀⠀⠀⠀⢀⡎⢀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀
 	⣀⠀⠀⠀⠀⠀⠀⡠⠬⡡⠬⡋⠀⡄⠀⠀⠀⠀⠀⠀⠀
@@ -70,45 +81,51 @@ all:
 	⠀⠀⢀⠊⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠾⡀⠀⠀⠀⠀
 	⠀⠀⢸⣄⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡇⠀⠀⠀
 	ASCII
-		printf "$(RST)"
+	@printf "$(RST)"
 
-		printf "\n$(HDR)%s$(RST)\n" "$(TOP_PREPARE)"
-		if [ -d "$(OBJ_DIR)" ]; then
-			printf "$(OK)│ %-*s │$(RST)\n" $(W) "📁 Using: $(OBJ_DIR)/"
+	# PREPARE
+	printf "\n$(HDR)%s$(RST)\n" "$(TOP_PREPARE)"
+	if [ -d "$(OBJ_DIR)" ]; then
+		printf "$(OK)│ %-*s │$(RST)\n" $(W) "📁 Using: $(OBJ_DIR)/"
+	else
+		if mkdir -p "$(OBJ_DIR)"; then
+			printf "$(OK)│ %-*s │$(RST)\n" $(W) "📁 Created: $(OBJ_DIR)/"
 		else
-			if mkdir -p "$(OBJ_DIR)"; then
-				printf "$(OK)│ %-*s │$(RST)\n" $(W) "📁 Created: $(OBJ_DIR)/"
+			printf "$(ERR)│ %-*s │$(RST)\n" $(W) "✘ Failed creating: $(OBJ_DIR)/"
+			printf "$(HDR)%s$(RST)\n\n" "$(BOT)"
+			exit 1
+		fi
+	fi
+	printf "$(HDR)%s$(RST)\n" "$(BOT)"
+	sleep 0.15
+
+	# COMPILE (ein Rahmen, mehrere Zeilen)
+	failed=false
+	anything=false
+	printf "\n$(HDR)%s$(RST)\n" "$(TOP_COMPILE)"
+	for src in $(SRCS); do
+		obj="$(OBJ_DIR)/$${src%.cpp}.o"
+		if [ ! -f "$$obj" ] || [ "$$src" -nt "$$obj" ]; then
+			if $(CXX) $(CPPFLAGS) -c "$$src" -o "$$obj"; then
+				printf "$(OK)│ %-*s │$(RST)\n" $(W) "✔ $$obj"
+				anything=true
+				sleep 0.20
 			else
-				printf "$(ERR)│ %-*s │$(RST)\n" $(W) "✘ Failed creating: $(OBJ_DIR)/"
-				printf "$(HDR)%s$(RST)\n\n" "$(BOT)"
-				exit 1
+				printf "$(ERR)│ %-*s │$(RST)\n" $(W) "✘ $$src"
+				failed=true
+				anything=true
+				sleep 0.20
 			fi
 		fi
-		printf "$(HDR)%s$(RST)\n" "$(BOT)"
-
-		$(MAKE) $(NAME)
-	fi
-
-$(OBJ_DIR)/%.o: %.cpp $(HEADERS)
-	mkdir -p "$(OBJ_DIR)"
-	if $(CXX) $(CPPFLAGS) -c "$<" -o "$@"; then
-		printf "$(OK)│ %-*s │$(RST)\n" $(W) "✔ $@" >> "$(COMPILE_LOG)"
-	else
-		printf "\n$(HDR)%s$(RST)\n" "$(TOP_COMPILE)"
-		printf "$(ERR)│ %-*s │$(RST)\n" $(W) "✘ $<"
-		printf "$(HDR)%s$(RST)\n\n" "$(BOT)"
-		exit 1
-	fi
-
-$(NAME): $(OBJS)
-	printf "\n$(HDR)%s$(RST)\n" "$(TOP_COMPILE)"
-	if [ -f "$(COMPILE_LOG)" ]; then
-		cat "$(COMPILE_LOG)"
-	else
+	done
+	if [ "$$anything" = false ]; then
 		printf "$(OK)│ %-*s │$(RST)\n" $(W) "✔ All objects up to date"
 	fi
 	printf "$(HDR)%s$(RST)\n" "$(BOT)"
+	if [ "$$failed" = true ]; then printf "\n"; exit 1; fi
+	sleep 0.10
 
+	# LINK
 	printf "\n$(HDR)%s$(RST)\n" "$(TOP_LINK)"
 
 	link_output=$$( $(CXX) $(OBJS) -o "$(NAME)" 2>&1 )
@@ -118,11 +135,14 @@ $(NAME): $(OBJS)
 		printf "$(OK)│ %-*s │$(RST)\n" $(W) "✔ Compiled: $(NAME)"
 		printf "$(HDR)%s$(RST)\n\n" "$(BOT)"
 	else
+		# WICHTIG: jede Zeile exakt mit "│ <padding> │" (inkl. beider Spaces)
 		printf "$(ERR)│ %-*s │$(RST)\n" $(W) "✘ Link failed: $(NAME)"
 		printf "$(ERR)│ %-*s │$(RST)\n" 48 ""
 
+		# spezifische Fehler erkennen
 		if echo "$$link_output" | grep -q "undefined reference"; then
 			missing=$$(echo "$$link_output" | awk -F'`' '/undefined reference/ {print $$2; exit}')
+			# optional: trailing ' entfernen
 			missing=$$(printf "%s" "$$missing" | sed "s/'$$//")
 			printf "$(ERR)│ %-*s │$(RST)\n" 48 "Missing symbol: $$missing"
 		fi
@@ -135,13 +155,15 @@ $(NAME): $(OBJS)
 		exit 1
 	fi
 
+
+
 RUN_ARGS := $(filter-out run,$(MAKECMDGOALS))
 
-run: all
-	printf "\n$(EXE)%s$(RST)\n" "$(TOP_EXEC)"
-	printf "$(OK)│ %-*.*s │$(RST)\n" 48 $(W) "./$(NAME) $(RUN_ARGS)"
-	printf "$(EXE)%s$(RST)\n\n" "$(BOT)"
-	./$(NAME) $(RUN_ARGS); \
+run: $(NAME)
+	@printf "\n$(EXE)%s$(RST)\n" "$(TOP_ [[fallthrough]];EXEC)"
+	@printf "$(OK)│ %-*.*s │$(RST)\n" 48 $(W) "./$(NAME) $(RUN_ARGS)"
+	@printf "$(EXE)%s$(RST)\n\n" "$(BOT)"
+	@./$(NAME) $(RUN_ARGS); \
 	code=$$?; \
 	printf "\n\033[3mMakefile: Program terminated with Exit code: $$code\033[0m\n"; \
 	exit 0
@@ -149,12 +171,14 @@ run: all
 %:
 	@:
 
+
+
 -include $(DEPS)
 
 clean:
 	printf "\n$(HDR)%s$(RST)\n" "$(TOP_CLEAN)"
 	if ls $(OBJS) >/dev/null 2>&1; then
-		rm -f $(OBJS) $(DEPS) "$(COMPILE_LOG)"
+		rm -f $(OBJS)
 		printf "$(OK)│ %-*s │$(RST)\n" $(W) "✔ Removed objects from $(OBJ_DIR)/"
 	else
 		printf "$(ERR)│ %-*s │$(RST)\n" $(W) "⋗ No object files to clean"
@@ -164,9 +188,9 @@ clean:
 fclean:
 	printf "\n$(HDR)%s$(RST)\n" "$(TOP_FCLEAN)"
 	deleted=false
-	if ls $(OBJS) >/dev/null 2>&1; then rm -f $(OBJS) $(DEPS) "$(COMPILE_LOG)"; deleted=true; fi
-	if [ -f "$(NAME)" ]; then rm -f "$(NAME)"; deleted=true; fi
-	if [ -d "$(OBJ_DIR)" ]; then rm -rf "$(OBJ_DIR)"; deleted=true; fi
+	if ls $(OBJS) >/dev/null 2>&1; then rm -f $(OBJS); deleted=true; fi
+	if [ -f "$(NAME)" ]; then rm -f $(NAME); deleted=true; fi
+	if [ -d "$(OBJ_DIR)" ]; then rm -rf $(OBJ_DIR); deleted=true; fi
 	if [ "$$deleted" = true ]; then
 		printf "$(OK)│ %-*s │$(RST)\n" $(W) "✔ Fully cleaned (objs + bin + dir)"
 	else
@@ -176,4 +200,4 @@ fclean:
 
 re: fclean all
 
-.PHONY: all clean fclean re run
+.PHONY: all clean fclean re

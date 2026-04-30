@@ -6,11 +6,12 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:38:33 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/30 00:50:36 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/30 23:24:45 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cat.hpp"
+#include "Animal.hpp"
 #include <iostream>
 
 Cat::Cat()
@@ -19,7 +20,8 @@ Cat::Cat()
 	type = "Cat";
 }
 
-Cat::Cat(const Cat &other) : Animal(other)
+Cat::Cat(const Cat &other) :
+	Animal(other), type(other.type)
 {
 	std::cout << "Cat copy constructor called" << std::endl;
 }
