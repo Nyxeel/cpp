@@ -6,21 +6,51 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 14:36:15 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/01 00:04:23 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/29 21:39:22 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ScavTrap.hpp"
-#include "FragTrap.hpp"
+#include "DiamondTrap.hpp"
+#include <iostream>
 
 int	main(void)
 {
-	FragTrap a("A");
-	FragTrap b("B");
+	DiamondTrap a("BB");
 
-	FragTrap c(a);
+	std::cout << "a "<< std::endl;
 
-	c.attack("B");
+
+	std::cout << "Who am I??" << std::endl;
+	a.whoAmI();
+
+	std::cout << std::endl;
+	std::cout << std::endl;
+	std::cout << "c"<< std::endl;
+
+
+
+
+	DiamondTrap c;
+	c = a;
+	c.whoAmI(); // BB and BB_clap_name from DiamondTrap a;
+
+	std::cout << std::endl;
+	std::cout << std::endl;
+
+
+	std::cout << "dora"<< std::endl;
+
+	DiamondTrap dora(c);
+	dora.whoAmI();
+
+	std::cout << std::endl;
+	std::cout << std::endl;
+
+	std::cout << "e"<< std::endl;
+
+	DiamondTrap e = a;
+	e.whoAmI();
+	//std::cout << "DiamondTrap Hitpoints: " << a.hitPoints
 
 
 

@@ -1,4 +1,4 @@
-NAME		= fragtrap
+NAME		= diamondtrap
 CXX			= c++
 CPPFLAGS	= -Wall -Werror -Wextra -MMD -MP -std=c++98
 MAKEFLAGS	+= --no-print-directory
@@ -8,7 +8,8 @@ OBJ_DIR		= objs
 SRCS		=	main.cpp \
 				ClapTrap.cpp \
 				ScavTrap.cpp \
-				FragTrap.cpp
+				FragTrap.cpp \
+				DiamondTrap.cpp
 
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
 DEPS		= $(OBJS:.o=.d)

@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 22:53:45 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/29 21:34:47 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/01 00:08:21 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,18 @@ ScavTrap& ScavTrap::operator=(const ScavTrap &other)
 
 ScavTrap::~ScavTrap()
 {
-	std::cout << "ScavTrap destructor called" << std::endl;
+	std::cout << "ScavTrap " << name << " destructor called" << std::endl;
 }
 
-void ScavTrap::attack(const std::string &target) {
+void ScavTrap::attack(const std::string &target)
+{
   if (!energyPoints) {
-    std::cout << "ScavTrap " << name << " has not enough energy points to attack" << std::endl;
+    std::cout << name << " has not enough energy points to attack" << std::endl;
   	std::cout << std::endl;
 	return ;
   }
   if (!hitPoints) {
-    std::cout << "ScavTrap " << name << " is dead and can't attack " << target << std::endl;
+    std::cout << name << " is dead and can't attack " << target << std::endl;
   	std::cout << std::endl;
     return ;
   }

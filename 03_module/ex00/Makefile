@@ -1,6 +1,6 @@
 NAME		= fixed
 CXX			= c++
-CPPFLAGS	= -Wall -Werror -Wextra -std=c++98
+CPPFLAGS	= -Wall -Werror -Wextra -MMD -MP -std=c++98
 MAKEFLAGS	+= --no-print-directory
 
 OBJ_DIR		= objs
@@ -10,6 +10,7 @@ SRCS		= 	main.cpp \
 
 
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
+DEPS		= $(OBJS:.o=.d)
 
 # Farben
 OK	= \033[38;5;76m
@@ -39,7 +40,7 @@ W = 50
 SHELL := /bin/sh
 .SILENT:
 
-all:
+all: $(NAME)
 	# Missing-Source-Check
 	missing=false
 	for src in $(SRCS); do
@@ -167,7 +168,7 @@ run: $(NAME)
 
 
 
-
+-include $(DEPS)
 
 clean:
 	printf "\n$(HDR)%s$(RST)\n" "$(TOP_CLEAN)"

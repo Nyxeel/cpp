@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 14:11:56 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/25 14:33:25 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/01 00:05:41 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #define FRAGTRAP__HPP
 
 #include "ClapTrap.hpp"
+
 
 class FragTrap : public ClapTrap
 {
