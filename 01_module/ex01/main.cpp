@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 21:38:00 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/19 14:17:14 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/01 01:27:53 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ int main()
 		Horde[i].announce();
 	}
 	delete[] (Horde);
+	
 	return (0);
 }

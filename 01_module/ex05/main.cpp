@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 22:33:10 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/19 19:21:45 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/01 01:23:47 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ int main()
 	h.complain("INFO");
 
 	h.complain("NOT_FOUND");
-	return (0);
+		return (0);
 }

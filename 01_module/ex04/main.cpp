@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 22:33:10 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/19 19:11:40 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/01 01:24:52 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int main(int ac, char **av)
 		std::cout << "Error\nCannot open file" << std::endl;
 		return (1);
 	}
-
 	/* WRITE into outFile */
 	std::string outFile = av[1];
 	outFile.append(".replace");

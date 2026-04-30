@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 21:38:00 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/02/12 22:19:28 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/01 01:26:02 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,9 @@ int main()
 		club.setType("some other type of club");
 		bob.attack();
 	}
-
 	{
 		Weapon club = Weapon("crude spiked club");
-		
+
 		HumanB jim("Jim");
 		jim.setWeapon(club);
 		jim.attack();

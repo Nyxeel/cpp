@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 22:33:10 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/19 19:31:34 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/01 01:23:24 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@ int main(int ac, char **av)
 		Harl h;
 		h.complain(av[1]);
 	}
+	
 	return (0);
 }

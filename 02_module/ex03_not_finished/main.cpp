@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 11:03:54 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/20 14:54:56 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/01 01:13:02 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int main(void)
 	std::cout << "c = " << c << std::endl;
 	std::cout << "c-- = " << c-- << std::endl;
 	std::cout << "c = " << c << std::endl;
-	
+
 
 	std::cout << "\n----- min / max -----" << std::endl;
 	std::cout << "min(a, b) = " << Fixed::min(a, b) << std::endl;
