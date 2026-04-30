@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 21:23:38 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/17 14:08:55 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/04/20 12:45:28 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ private:
 public:
   Fixed();
   Fixed(const Fixed &other);
-  Fixed &operator=(const Fixed &other);
+  Fixed& operator=(const Fixed &other);
   ~Fixed();
 
   int getRawBits(void) const;

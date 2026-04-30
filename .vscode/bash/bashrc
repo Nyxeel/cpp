@@ -126,6 +126,19 @@ fi
 PROMPT_COMMAND=update_exit_status_icon
 
 
+
+gitupdate() {
+    if [ $# -eq 0 ]; then
+        msg="Update progress"
+    else
+        msg="$*"
+    fi
+
+    git add .
+    git commit -m "$msg" && git push
+}
+
+
 parse_git_branch()
 {
     local b="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)"
