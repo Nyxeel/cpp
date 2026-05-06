@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 21:44:05 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/20 14:54:35 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/06 17:57:43 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ Fixed::Fixed (const float nb)
 	fixedPointNb = roundf(nb * (1 << fractBits));
 }
 
-Fixed::Fixed(const Fixed &other)
+Fixed::Fixed(const Fixed &other)	:
+	fixedPointNb(other.fixedPointNb)
 {
 	std::cout << "Copy constructor called" << std::endl;
-	*this = other;
 }
 
 Fixed::~Fixed()
