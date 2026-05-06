@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:38:33 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/30 23:24:45 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/06 20:22:21 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ Cat::Cat(const Cat &other) :
 
 Cat& Cat::operator=(const Cat &other)
 {
-	std::cout << "Cat assignment operator called" << std::endl;
+	std::cout << "Cat copy assignment operator called" << std::endl;
 	if (this != &other)
 	{
 		type = other.type;
@@ -43,5 +43,10 @@ Cat::~Cat()
 
 void Cat::makeSound() const
 {
-	std::cout << "Cat \"MIAUUUUU\"" << std::endl;
+	std::cout << "\"MIAUUUUU\"" << std::endl;
+}
+
+const std::string Cat::getType() const
+{
+	return (this->type);
 }

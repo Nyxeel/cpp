@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:38:33 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/30 14:52:17 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/06 20:22:10 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ Dog::Dog(const Dog &other) :
 
 Dog& Dog::operator=(const Dog &other)
 {
-	std::cout << "Dog assignment operator called" << std::endl;
+	std::cout << "Dog copy assignment operator called" << std::endl;
 	if (this != &other)
 	{
 		type = other.type;
@@ -42,5 +42,10 @@ Dog::~Dog()
 
 void Dog::makeSound() const
 {
-	std::cout << "Dog \"WUFF WUFF\"" << std::endl;
+	std::cout << "\"WUFF WUFF\"" << std::endl;
+}
+
+const std::string Dog::getType() const
+{
+	return (this->type);
 }

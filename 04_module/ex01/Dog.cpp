@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:38:33 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/01 01:21:06 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/06 21:45:30 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,15 @@
 Dog::Dog()
 {
 	std::cout << "Dog default constructor called" << std::endl;
+	brain = new Brain();
 	type = "Dog";
 }
 
 Dog::Dog(const Dog &other) :
-	Animal(other), brain(other.brain), type(other.type)
+	Animal(other), type(other.type)
 {
 	std::cout << "Dog copy constructor called" << std::endl;
+	brain = new Brain(*other.brain);
 }
 
 Dog& Dog::operator=(const Dog &other)
@@ -31,6 +33,13 @@ Dog& Dog::operator=(const Dog &other)
 	if (this != &other)
 	{
 		type = other.type;
+		if (brain)
+		{
+			delete brain;
+			brain = new Brain(*other.brain);
+		}
+		else
+			brain = new Brain();
 	}
 	return (*this);
 }
@@ -38,9 +47,15 @@ Dog& Dog::operator=(const Dog &other)
 Dog::~Dog()
 {
 	std::cout << "Dog destructor called" << std::endl;
+	delete brain;
 }
 
 void Dog::makeSound() const
 {
-	std::cout << "Dog \"WUFF WUFF\"" << std::endl;
+	std::cout << "\"WUFF WUFF\"" << std::endl;
+}
+
+const std::string Dog::getType() const
+{
+	return (this->type);
 }

@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:38:33 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/30 00:46:59 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/06 20:22:15 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ class	Cat : public Animal
 		~Cat();
 
 		void makeSound() const;
+		const std::string getType() const;
 };
 
 #endif

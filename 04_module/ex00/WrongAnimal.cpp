@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:38:33 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/30 11:59:06 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/06 20:21:53 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,10 @@ WrongAnimal::~WrongAnimal()
 
 void WrongAnimal::makeSound() const
 {
-	std::cout << "WrongAnimal makes wrong animal sound" << std::endl;
+	std::cout << "makes wrong animal sound" << std::endl;
+}
+
+const std::string WrongAnimal::getType() const
+{
+	return (this->type);
 }

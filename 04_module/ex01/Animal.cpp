@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:38:33 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/30 11:58:50 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/06 22:33:16 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,10 @@ Animal::~Animal()
 
 void Animal::makeSound() const
 {
-	std::cout << "Animal makes animal sound" << std::endl;
+	std::cout << "makes animal sound" << std::endl;
+}
+
+const std::string Animal::getType() const
+{
+	return (this->type);
 }
