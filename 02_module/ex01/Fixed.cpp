@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 21:44:05 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/19 21:56:25 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/06 17:45:40 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,11 @@ Fixed::Fixed (const float nb)
 	fixedPointNb = roundf(nb * (1 << fractBits));
 }
 
-Fixed::Fixed(const Fixed &other)
+
+Fixed::Fixed(const Fixed &other)	:
+	fixedPointNb(other.fixedPointNb)
 {
 	std::cout << "Copy constructor called" << std::endl;
-	*this = other;
 }
 
 Fixed::~Fixed()
@@ -46,7 +47,7 @@ Fixed::~Fixed()
 
 Fixed& Fixed::operator=(const Fixed &other)
 {
-	std::cout << "Copy assignment operator called" << std::endl;
+	std::cout << "Copy Assignment operator called" << std::endl;
 	if (this != &other)
 		fixedPointNb = other.fixedPointNb;
 	return (*this);
@@ -70,7 +71,7 @@ float Fixed::toFloat() const
 
 int Fixed::toInt() const
 {
-	return (static_cast<int> (fixedPointNb) / (1 << fractBits));
+	return (fixedPointNb / (1 << fractBits));
 }
 
 std::ostream& operator<<(std::ostream &out, const Fixed &other)
