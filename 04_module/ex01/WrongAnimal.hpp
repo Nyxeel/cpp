@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
 #ifndef WRONGANIMAL_HPP
 #define WRONGANIMAL_HPP
 

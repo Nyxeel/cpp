@@ -6,11 +6,10 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:38:33 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/06 22:34:14 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/19 20:09:42 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
 #ifndef WRONGCAT_HPP
 #define WRONGCAT_HPP
 
@@ -19,9 +18,6 @@
 
 class	WrongCat : public WrongAnimal
 {
-	protected:
-		std::string  type;
-
 	public:
 		WrongCat();
 		WrongCat(const WrongCat &other);

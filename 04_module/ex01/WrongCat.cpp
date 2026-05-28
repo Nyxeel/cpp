@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:38:33 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/06 21:45:11 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/19 20:11:09 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ WrongCat& WrongCat::operator=(const WrongCat &other)
 	std::cout << "WrongCat assignment operator called" << std::endl;
 	if (this != &other)
 	{
-		type = other.type;
+		WrongAnimal::operator=(other);
 	}
 	return (*this);
 }

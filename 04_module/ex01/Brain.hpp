@@ -6,11 +6,10 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:38:33 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/30 12:12:56 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/19 19:53:57 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
 #ifndef BRAIN_HPP
 #define BRAIN_HPP
 
@@ -26,7 +25,6 @@ class	Brain
 		Brain(const Brain &other);
 		Brain& operator=(const Brain &other);
 		virtual ~Brain();
-
 };
 
 #endif

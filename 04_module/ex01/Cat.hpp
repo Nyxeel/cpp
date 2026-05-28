@@ -6,11 +6,10 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:38:33 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/06 22:34:00 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/22 20:19:36 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
 #ifndef CAT_HPP
 #define CAT_HPP
 
@@ -23,9 +22,6 @@ class	Cat : public Animal
 	private:
 		Brain *brain;
 
-	protected:
-		std::string  type;
-
 	public:
 		Cat();
 		Cat(const Cat &other);
@@ -33,7 +29,6 @@ class	Cat : public Animal
 		~Cat();
 
 		void makeSound() const;
-		const std::string getType() const;
 };
 
 #endif
