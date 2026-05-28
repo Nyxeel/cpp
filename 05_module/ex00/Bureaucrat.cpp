@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 15:17:43 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/28 22:39:54 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/28 23:48:51 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,17 @@ const std::string Bureaucrat::getName() const
 
 int	Bureaucrat::increaseGrade()
 {
-	this->grade -= 1;
-	if (this->grade < 1)
+	if (this->grade - 1 < 1)
 		throw Bureaucrat::GradeTooHighException();
+	this->grade -= 1;
 	return(this->grade);
 }
 
 int	Bureaucrat::decreaseGrade()
 {
-	this->grade += 1;
-	if (this->grade > 150)
+	if (this->grade + 1 > 150)
 		throw Bureaucrat::GradeTooLowException();
+	this->grade += 1;
 	return(this->grade);
 }
 

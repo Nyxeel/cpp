@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 17:31:45 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/28 22:41:18 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/28 23:51:26 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,50 @@ int	main(void)
 
 	try {
 		Bureaucrat john("JohnTooLow", 151);
+		std::cout << john;
+	}
+	catch (const std::exception& e){
+		std::cout << e.what() << std::endl;
+	}
+
+	printNewline();
+
+
+
+	try {
+		Bureaucrat john("John", 100);
+		Bureaucrat peter("Peter", 2);
+
+		peter = john;
+		std::cout << "Copy assignment Test" << std::endl;
+		std::cout << peter;
+
+	}
+	catch (const std::exception& e){
+		std::cout << e.what() << std::endl;
+	}
+
+		printNewline();
+
+
+
+	try {
+		Bureaucrat john("John", 100);
+		Bureaucrat peter(john);
+		std::cout << "Copy constructor Test" << std::endl;
+
+		std::cout << peter;
+
+	}
+	catch (const std::exception& e){
+		std::cout << e.what() << std::endl;
+	}
+
+		printNewline();
+
+
+	try {
+		Bureaucrat john("JohnIntMin", -2147483648);
 		std::cout << john;
 	}
 	catch (const std::exception& e){
