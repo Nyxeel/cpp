@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:38:33 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/22 20:22:02 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/19 20:11:09 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,9 @@ WrongCat::~WrongCat()
 void WrongCat::makeSound() const
 {
 	std::cout << "\"QUARK QUARK\"" << std::endl;
+}
+
+const std::string WrongCat::getType() const
+{
+	return (this->type);
 }

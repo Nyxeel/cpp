@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal copy.hpp                                    :+:      :+:    :+:   */
+/*   Cat.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:38:33 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/k04/29 23:50:29 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/22 20:17:52 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WRONGANIMAL_HPP
-#define WRONGANIMAL_HPP
+#ifndef CAT_HPP
+#define CAT_HPP
 
+#include "Animal.hpp"
+#include "Brain.hpp"
 #include <string>
 
-class	WrongAnimal
+class	Cat : public Animal
 {
-	protected:
-		std::string  type;
+	private:
+		Brain *brain;
 
 	public:
-		WrongAnimal();
-		WrongAnimal(const WrongAnimal &other);
-		WrongAnimal& operator=(const WrongAnimal &other);
-		~WrongAnimal();
+		Cat();
+		Cat(const Cat &other);
+		Cat& operator=(const Cat &other);
+		~Cat();
 
 		void makeSound() const;
-		const std::string getType () const;
 };
 
 #endif

@@ -6,15 +6,13 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 22:53:45 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/01 00:07:35 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/19 18:47:27 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScavTrap.hpp"
 #include "ClapTrap.hpp"
 #include <iostream>
-
-
 
 ScavTrap::ScavTrap()
 {
@@ -55,22 +53,22 @@ ScavTrap::~ScavTrap()
 
 void ScavTrap::attack(const std::string &target)
 {
-  if (!energyPoints) {
-    std::cout << "ScavTrap "<< name << " has not enough energy points to attack" << std::endl;
-  	std::cout << std::endl;
-	return ;
-  }
-  if (!hitPoints) {
-    std::cout << "ScavTrap " << name << " is dead and can't attack " << target << std::endl;
-  	std::cout << std::endl;
-    return ;
-  }
-  this->energyPoints--;
-  std::cout << "ScavTrap " << this->name << " attacks ";
-  std::cout << target << ", causing " << attackDamage;
-  std::cout << " points of damage!" << std::endl;
-  std::cout << this->name << " has " << energyPoints << " energy points left!" << std::endl;
-  std::cout << std::endl;
+	  if (!hitPoints) {
+		std::cout << "ScavTrap " << name << " is dead and can't attack " << target << std::endl;
+		std::cout << std::endl;
+		return ;
+	}
+	if (!energyPoints) {
+	  	std::cout << "ScavTrap "<< name << " has not enough energy points to attack" << std::endl;
+		std::cout << std::endl;
+		return ;
+	}
+	this->energyPoints--;
+	std::cout << "ScavTrap " << this->name << " attacks ";
+	std::cout << target << ", causing " << attackDamage;
+	std::cout << " points of damage!" << std::endl;
+	std::cout << this->name << " has " << energyPoints << " energy points left!" << std::endl;
+	std::cout << std::endl;
 }
 
 

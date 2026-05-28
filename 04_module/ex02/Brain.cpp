@@ -1,33 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal copy.hpp                                    :+:      :+:    :+:   */
+/*   Brain.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:38:33 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/k04/29 23:50:29 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/07 19:15:30 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WRONGANIMAL_HPP
-#define WRONGANIMAL_HPP
+#include "Brain.hpp"
+#include <iostream>
 
-#include <string>
-
-class	WrongAnimal
+Brain::Brain()
 {
-	protected:
-		std::string  type;
+	std::cout << "Brain default constructor called" << std::endl;
+}
 
-	public:
-		WrongAnimal();
-		WrongAnimal(const WrongAnimal &other);
-		WrongAnimal& operator=(const WrongAnimal &other);
-		~WrongAnimal();
+Brain::Brain(const Brain &other)
+{
+	std::cout << "Brain copy constructor called" << std::endl;
+	for(int i = 0; i < 100; i++)
+			ideas[i] = other.ideas[i];
+}
 
-		void makeSound() const;
-		const std::string getType () const;
-};
+Brain& Brain::operator=(const Brain &other)
+{
+	std::cout << "Brain assignment operator called" << std::endl;
+	if (this != &other)
+	{
+		for(int i = 0; i < 100; i++)
+			ideas[i] = other.ideas[i];
+	}
+	return (*this);
+}
 
-#endif
+Brain::~Brain()
+{
+	std::cout << "Brain destructor called" << std::endl;
+}

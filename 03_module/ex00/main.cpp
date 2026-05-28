@@ -6,12 +6,11 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 14:36:15 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/30 23:40:37 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/19 17:15:25 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
-
 
 int	main(void)
 {
@@ -30,7 +29,7 @@ int	main(void)
 	b.takeDamage(0);
 
 
-	///////////////////////////////
+	/////////////////////////////////////////////////////////////////////
 
 	ClapTrap c("C");
 
@@ -58,13 +57,23 @@ int	main(void)
 	a.attack("C");
 	c.takeDamage(1);
 
+	/////////////////////////////////////////////////////////////////
 	//A has no energy points left
 	a.attack("C");
+	a.beRepaired(5);
 
 
 
+	////////////////////////////////////////////////////////////////
+	// Copy constructor and assignment operator test
+	ClapTrap test("Test");
+	ClapTrap d(test);
+	ClapTrap e;
+	e = test;
 
-
+	test.takeDamage(1);		// 9 HP left
+	d.beRepaired(5);		///15 HP lef -> Different Instances
+	e.beRepaired(5);		///15 HP left -> Different Instances
 
 	return (0);
 }

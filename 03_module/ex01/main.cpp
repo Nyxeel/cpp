@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 14:36:15 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/01 00:09:12 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/19 19:38:03 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,56 +14,27 @@
 
 int	main(void)
 {
-	ScavTrap a("A");
-	ScavTrap b("B");
+	// 1) guardGate()
+	ScavTrap gate("Gate");
+	gate.guardGate();
 
-	a.attack("B");
-	b.takeDamage(5);
-	b.beRepaired(5);
-	a.attack("B");
-	b.takeDamage(10);
+	// 2) Copy-Konstruktor
+	ScavTrap original("Original");
+	ScavTrap copyConstructed(original); // copy constructor
 
-	// B is dead and cant attack or repair or take damage
-	b.attack("A");
-	b.beRepaired(5);
-	b.takeDamage(0);
+	// 3) Copy-Assignment
+	ScavTrap assigned("Assigned");
+	assigned = original; // operator=
 
 
-	///////////////////////////////
+	ScavTrap tired("Tired");
+	for (int i = 0; i < 50; ++i)
+	    tired.attack("Dummy");
+	tired.attack("Dummy"); 			// not enough energy
 
-	ScavTrap c("C");
-
-	a.attack("C");
-	c.takeDamage(1);
-
-	a.attack("C");
-	c.takeDamage(1);
-
-	a.attack("C");
-	c.takeDamage(1);
-
-	a.attack("C");
-	c.takeDamage(1);
-
-	a.attack("C");
-	c.takeDamage(1);
-
-	a.attack("C");
-	c.takeDamage(1);
-
-	a.attack("C");
-	c.takeDamage(1);
-
-	a.attack("C");
-	c.takeDamage(1);
-
-	//A has no energy points left
-	a.attack("C");
-
-
-
-
-
+	original.takeDamage(30);
+	copyConstructed.beRepaired(10);
+	assigned.beRepaired(10);
 
 	return (0);
 }

@@ -6,11 +6,10 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:38:33 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/06 20:22:26 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/19 19:53:38 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
 #ifndef ANIMAL_HPP
 #define ANIMAL_HPP
 

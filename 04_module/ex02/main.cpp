@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal copy.hpp                                    :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/29 22:38:33 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/k04/29 23:50:29 by pjelinek         ###   ########.fr       */
+/*   Created: 2026/04/29 23:37:37 by pjelinek          #+#    #+#             */
+/*   Updated: 2026/05/22 20:16:02 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WRONGANIMAL_HPP
-#define WRONGANIMAL_HPP
+#include "Animal.hpp"
+#include "Cat.hpp"
+#include "Dog.hpp"
+#include <iostream>
 
-#include <string>
-
-class	WrongAnimal
+int main(void)
 {
-	protected:
-		std::string  type;
+	const Animal* j = new Dog();
+	const Animal* i = new Cat();
+	std::cout << j->getType() << " Type " << std::endl;
+	std::cout << i->getType() << " Type " << std::endl;
+	std::cout << std::endl;
 
-	public:
-		WrongAnimal();
-		WrongAnimal(const WrongAnimal &other);
-		WrongAnimal& operator=(const WrongAnimal &other);
-		~WrongAnimal();
+	////////////////////////////////////////i->makeSound(); // Expected: Cat sound
 
-		void makeSound() const;
-		const std::string getType () const;
-};
 
-#endif
+	return 0;
+}///////////////////////

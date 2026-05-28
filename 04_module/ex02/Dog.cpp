@@ -1,45 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   WrongCat.cpp                                       :+:      :+:    :+:   */
+/*   Dog.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:38:33 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/22 20:22:02 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/22 20:18:42 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "WrongCat.hpp"
+#include "Dog.hpp"
 #include <iostream>
 
-WrongCat::WrongCat()
+Dog::Dog()
 {
-	std::cout << "WrongCat default constructor called" << std::endl;
-	type = "WrongCat";
+	std::cout << "Dog default constructor called" << std::endl;
+	brain = new Brain();
+	type = "Dog";
 }
 
-WrongCat::WrongCat(const WrongCat &other) : WrongAnimal(other)
+Dog::Dog(const Dog &other) :
+	Animal(other)
 {
-	std::cout << "WrongCat copy constructor called" << std::endl;
+	std::cout << "Dog copy constructor called" << std::endl;
+	brain = new Brain(*other.brain);
 }
 
-WrongCat& WrongCat::operator=(const WrongCat &other)
+Dog& Dog::operator=(const Dog &other)
 {
-	std::cout << "WrongCat assignment operator called" << std::endl;
+	std::cout << "Dog assignment operator called" << std::endl;
 	if (this != &other)
 	{
-		WrongAnimal::operator=(other);
+		Animal::operator=(other);
+		if (brain)
+		{
+			delete brain;
+			brain = new Brain(*other.brain);
+		}
+		else
+			brain = new Brain();
 	}
 	return (*this);
 }
 
-WrongCat::~WrongCat()
+Dog::~Dog()
 {
-	std::cout << "WrongCat destructor called" << std::endl;
+	std::cout << "Dog destructor called" << std::endl;
+	delete brain;
 }
 
-void WrongCat::makeSound() const
+void Dog::makeSound() const
 {
-	std::cout << "\"QUARK QUARK\"" << std::endl;
+	std::cout << "\"WUFF WUFF\"" << std::endl;
 }

@@ -6,14 +6,13 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 14:16:42 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/29 22:34:26 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/19 18:46:21 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FragTrap.hpp"
 #include "ClapTrap.hpp"
 #include <iostream>
-
 
 FragTrap::FragTrap() : ClapTrap()
 {

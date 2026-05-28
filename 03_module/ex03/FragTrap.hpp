@@ -6,13 +6,12 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 14:11:56 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/29 13:27:40 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/19 18:50:41 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
 #ifndef FRAGTRAP_HPP
-#define FRAGTRAP__HPP
+#define FRAGTRAP_HPP
 
 #include "ClapTrap.hpp"
 

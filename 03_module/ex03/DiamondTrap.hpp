@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/26 14:36:46 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/29 14:31:11 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/19 18:50:27 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 #include "FragTrap.hpp"
 #include "ScavTrap.hpp"
-#include "ClapTrap.hpp"
 
 #include <string>
 

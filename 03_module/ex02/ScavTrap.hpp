@@ -6,11 +6,10 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 22:53:45 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/25 14:04:21 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/19 18:47:46 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
 #ifndef SCAVTRAP_HPP
 # define SCAVTRAP_HPP
 
@@ -28,6 +27,5 @@ class ScavTrap : public ClapTrap
 		void	attack(const std::string &target);
 		void	guardGate();
 };
-
 
 #endif /* SCAVTRAP_HPP */

@@ -6,19 +6,17 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 14:37:19 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/26 14:13:00 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/19 17:09:34 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
-/* #ifndef CLAPTRAP_HPP
-# define CLAPTRAP_HPP */
+#ifndef CLAPTRAP_HPP
+# define CLAPTRAP_HPP
 
 #include <string>
 
 class ClapTrap
 {
-
 	private:
 		std::string name;
 		int			hitPoints;		// 10
@@ -38,6 +36,4 @@ class ClapTrap
 	void beRepaired(unsigned int amount);
 };
 
-
-
-/* #endif CLAPTRAP_HPP */
+#endif /* CLAPTRAP_HPP */

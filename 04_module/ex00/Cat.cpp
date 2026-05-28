@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:38:33 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/06 20:22:21 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/22 20:22:18 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ Cat::Cat()
 }
 
 Cat::Cat(const Cat &other) :
-	Animal(other), type(other.type)
+	Animal(other)
 {
 	std::cout << "Cat copy constructor called" << std::endl;
 }
@@ -31,7 +31,7 @@ Cat& Cat::operator=(const Cat &other)
 	std::cout << "Cat copy assignment operator called" << std::endl;
 	if (this != &other)
 	{
-		type = other.type;
+		Animal::operator=(other);
 	}
 	return (*this);
 }
@@ -44,9 +44,4 @@ Cat::~Cat()
 void Cat::makeSound() const
 {
 	std::cout << "\"MIAUUUUU\"" << std::endl;
-}
-
-const std::string Cat::getType() const
-{
-	return (this->type);
 }
