@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 15:11:44 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/29 03:49:52 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/29 15:45:28 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,14 @@ class Bureaucrat
 
 		class	GradeTooLowException : public std::exception
 		{
-			const char* what() const throw();
+			public:
+				const char* what() const throw();
 		};
 
 		class	GradeTooHighException : public std::exception
 		{
-			const char* what() const throw();
+			public:
+				const char* what() const throw();
 		};
 };
 
