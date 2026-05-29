@@ -6,11 +6,12 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 17:31:45 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/29 15:40:38 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/29 20:37:37 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
+#include "PresidentialPardonForm.hpp"
 
 #include <iostream>
 
@@ -127,7 +128,7 @@ int	main(void)
 	// formTests();
 
 	try {
-		Form letter("letter", -1, 50);  // relevant with negativ numbers??
+		PresidentialPardonForm letter("targetname"); 
 		std::cout << letter;
 	}
 	catch (const std::exception& e){
@@ -137,7 +138,7 @@ int	main(void)
 
 	// Not sign Form
 	try {
-		Form letter("letter", 100, 50);
+		PresidentialPardonForm letter("targetname");
 		Bureaucrat john("John", 101);
 		std::cout << john;
 		std::cout << letter;
@@ -152,7 +153,7 @@ int	main(void)
 
 	//Sign Form
 	try {
-		Form letter("letter", 100, 50);
+		PresidentialPardonForm letter("targetname");
 		Bureaucrat john("John", 100);
 		std::cout << john;
 		std::cout << letter;
@@ -168,7 +169,7 @@ int	main(void)
 
 	//Double Sign Form
 	try {
-		Form letter("letter", 100, 50);
+		PresidentialPardonForm letter("targetname");
 		Bureaucrat john("John", 100);
 		std::cout << john;
 		std::cout << letter;

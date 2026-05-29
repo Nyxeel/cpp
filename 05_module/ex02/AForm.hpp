@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 15:11:44 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/29 16:15:06 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/29 21:25:51 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ class AForm
 		const int			signGrade;
 		const int 			execGrade;
 		bool				isSigned;
+		virtual void		executeAction() const = 0;
 
 	public:
 		AForm(const std::string name, const int signGrade, const int execGrade);
@@ -32,14 +33,17 @@ class AForm
 		AForm& operator=(const AForm &other);
 		virtual ~AForm() = 0;
 
+		// signing and executing
 		void				beSigned(const Bureaucrat &other);
+		void 				execute(Bureaucrat const &executor) const;
 
+		//getter
 		const std::string	getName() const;
 		bool 				getSignedStatus() const;
 		int					getSignGrade() const;
 		int					getExecGrade() const;
 
-
+		//Exception classes
 		class	GradeTooLowException : public std::exception
 		{
 			public:
@@ -51,11 +55,16 @@ class AForm
 			public:
 				const char* what() const throw();
 		};
-/* 		class	AFormAlreadySignedException : public std::exception
+		class	FormAlreadySignedException : public std::exception
 		{
 			public:
 				const char* what() const throw();
-		}; */
+		};
+				class	FormNotSignedException : public std::exception
+		{
+			public:
+				const char* what() const throw();
+		};
 };
 
 std::ostream& operator<<(std::ostream &out, const AForm &other);

@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 15:17:43 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/29 16:10:33 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/29 20:33:49 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ Bureaucrat::Bureaucrat(const Bureaucrat &other) :
 
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat &other)
 {
-	std::cout << "Bureaucrat " << name << " copy assignment constructor called" << std::endl;
+	std::cout << "Bureaucrat " << name << " copy assignment operator called" << std::endl;
 	if (this != &other)
 	{
 		grade = other.grade;
@@ -96,6 +96,18 @@ void	Bureaucrat::signForm(AForm &form)
 	}
 	catch (const std::exception& e){
 		std::cout << getName() << " couldn't sign " << form.getName()
+		<< " because " << e.what() << std::endl;
+	}
+}
+
+void	Bureaucrat::executeForm(AForm const &form) const
+{
+	try {
+		form.execute(*this);
+		std::cout << getName() << " executed " << form.getName() << "." << std::endl;
+	}
+	catch (const std::exception& e){
+		std::cout << getName() << " couldn't execute " << form.getName()
 		<< " because " << e.what() << std::endl;
 	}
 }

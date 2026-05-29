@@ -32,7 +32,7 @@ Form::Form(const Form &other) :
 
 Form& Form::operator=(const Form &other)
 {
-	std::cout << "Form " << name << " copy assignment constructor called" << std::endl;
+	std::cout << "Form " << name << " copy assignment operator called" << std::endl;
 	if (this != &other)
 	{
 		isSigned = other.isSigned;

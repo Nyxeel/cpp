@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   AForm.cpp                                     :+:      :+:    :+:   */
+/*   ShrubberyCreationForm.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,91 +10,39 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ShrubberyCreationForm.hpp"
 #include "Bureaucrat.hpp"
 #include <iostream>
 
-AForm::AForm(const std::string name, const int signGrade, const int execGrade) :
-	name(name), signGrade(signGrade), execGrade(execGrade), isSigned(false)
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string target) :
+	AForm("ShrubberyCreationForm", 145, 137), target(target)
 {
-	if (signGrade > 150 || execGrade > 150)
-		throw AForm::GradeTooLowException();
-	if (signGrade < 1 || execGrade < 1)
-		throw AForm::GradeTooHighException();
-	std::cout << "AForm " << name << " constructor called " << std::endl;
+	std::cout << "ShrubberyCreationForm " << target << " constructor called " << std::endl;
 }
 
-AForm::AForm(const AForm &other) :
-	name(other.name), signGrade(other.signGrade), execGrade(other.execGrade), isSigned(other.isSigned)
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &other) :
+	AForm(other)
 {
-	std::cout << "Form " << name << " copy constructor called " << std::endl;
+	std::cout << "ShrubberyCreationForm " << target << " copy constructor called " << std::endl;
 }
 
-AForm& AForm::operator=(const AForm &other)
+ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationForm &other)
 {
-	std::cout << "Form " << name << " copy assignment constructor called" << std::endl;
+	std::cout << "ShrubberyCreationForm " << target << " copy assignment operator called" << std::endl;
 	if (this != &other)
 	{
-		isSigned = other.isSigned;
+		AForm::operator=(other);
+		this->target = other.target;
 	}
 	return (*this);
 }
 
-AForm::~AForm()
+ShrubberyCreationForm::~ShrubberyCreationForm()
 {
-	std::cout << "Form " << name << " destructor called" << std::endl;
+	std::cout << "ShrubberyCreationForm " << target << " destructor called" << std::endl;
 }
 
-const std::string AForm::getName() const
+void 		ShrubberyCreationForm::executeAction() const
 {
-	return (this->name);
-}
-
-bool AForm::getSignedStatus() const
-{
-	return (this->isSigned);
-}
-
-int	AForm::getSignGrade() const
-{
-	return signGrade;
-}
-
-int	AForm::getExecGrade() const
-{
-	return execGrade;
-}
-
-std::ostream& operator<<(std::ostream &out, const AForm &other)
-{
-	out << other.getName() << ", signing grade " << other.getSignGrade()
-	<< ", execution grade " << other.getExecGrade()	<< ", sign status: ";
-	if (other.getSignedStatus())
-		out << "signed" << "." << std::endl;
-	else
-		out << "not signed" << "." << std::endl;
-	return (out);
-}
-
-const char* AForm::GradeTooHighException::what() const throw()
-{
-	return ("Grade is too high to sign the AForm");
-}
-
-const char* AForm::GradeTooLowException::what() const throw()
-{
-	return ("Grade is too low to sign the AForm");
-}
-
-/* const char* AForm::FormAlreadySignedException::what() const throw()
-{
-	return ("is already signed.");
-} */
-
-void	AForm::beSigned(const Bureaucrat &other)
-{
-	if(other.getGrade() > signGrade)
-		throw AForm::GradeTooLowException();
-/* 	if (getSignedStatus())
-		throw AForm::AFormAlreadySignedException(); */
-	isSigned = true;
+	std::cout << "HERE ARE THE ACII TREES EXECUTION from " <<target <<std::endl;
 }
