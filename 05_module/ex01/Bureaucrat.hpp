@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 15:11:44 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/28 22:31:04 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/29 03:49:52 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <string>
 #include <exception>
+#include "Form.hpp"
 
 class Bureaucrat
 {
@@ -32,6 +33,8 @@ class Bureaucrat
 		const std::string	getName() const;
 		int					increaseGrade();
 		int					decreaseGrade();
+
+		void 				signForm(Form &form);
 
 		class	GradeTooLowException : public std::exception
 		{

@@ -6,11 +6,12 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 17:31:45 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/28 23:51:26 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/29 03:47:12 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 #include <iostream>
 
 void printNewline(){
@@ -18,8 +19,10 @@ void printNewline(){
 	std::cout << std::endl;
 }
 
-int	main(void)
+
+void bureaucrateTests()
 {
+
 	try {
 		Bureaucrat john("John", 150);
 		std::cout << john;
@@ -112,5 +115,70 @@ int	main(void)
 	catch (const std::exception& e){
 		std::cout << e.what() << std::endl;
 	}
+
+
+}
+
+
+int	main(void)
+{
+
+	// bureaucrateTests();
+	// formTests();
+
+	try {
+		Form letter("letter", -1, 50);  // relevant with negativ numbers??
+		std::cout << letter;
+	}
+	catch (const std::exception& e){
+		std::cout << e.what() << std::endl;
+	}
+	printNewline();
+
+	// Not sign Form
+	try {
+		Form letter("letter", 100, 50);
+		Bureaucrat john("John", 101);
+		std::cout << john;
+		std::cout << letter;
+		john.signForm(letter);
+		std::cout << letter;
+	}
+	catch (const std::exception& e){
+		std::cout << e.what() << std::endl;
+	}
+	printNewline();
+
+
+	//Sign Form
+	try {
+		Form letter("letter", 100, 50);
+		Bureaucrat john("John", 100);
+		std::cout << john;
+		std::cout << letter;
+		john.signForm(letter);
+		std::cout << letter;
+	}
+	catch (const std::exception& e){
+		std::cout << e.what() << std::endl;
+	}
+	printNewline();
+
+
+
+	//Double Sign Form
+	try {
+		Form letter("letter", 100, 50);
+		Bureaucrat john("John", 100);
+		std::cout << john;
+		std::cout << letter;
+		john.signForm(letter);
+		john.signForm(letter); //double error beauce form is already signed
+		std::cout << letter;
+	}
+	catch (const std::exception& e){
+		std::cout << e.what() << std::endl;
+	}
+	printNewline();
 
 }
