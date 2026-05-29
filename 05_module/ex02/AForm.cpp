@@ -26,12 +26,12 @@ AForm::AForm(const std::string name, const int signGrade, const int execGrade) :
 AForm::AForm(const AForm &other) :
 	name(other.name), signGrade(other.signGrade), execGrade(other.execGrade), isSigned(other.isSigned)
 {
-	std::cout << "Form " << name << " copy constructor called " << std::endl;
+	std::cout << "AForm " << name << " copy constructor called " << std::endl;
 }
 
 AForm& AForm::operator=(const AForm &other)
 {
-	std::cout << "Form " << name << " copy assignment operator called" << std::endl;
+	std::cout << "AForm " << name << " copy assignment operator called" << std::endl;
 	if (this != &other)
 	{
 		isSigned = other.isSigned;
@@ -41,7 +41,7 @@ AForm& AForm::operator=(const AForm &other)
 
 AForm::~AForm()
 {
-	std::cout << "Form " << name << " destructor called" << std::endl;
+	std::cout << "AForm " << name << " destructor called" << std::endl;
 }
 
 const std::string AForm::getName() const
@@ -77,12 +77,12 @@ std::ostream& operator<<(std::ostream &out, const AForm &other)
 
 const char* AForm::GradeTooHighException::what() const throw()
 {
-	return ("signing grade is too high to sign the Form");
+	return ("signing grade is too high to sign the Form.");
 }
 
 const char* AForm::GradeTooLowException::what() const throw()
 {
-	return ("signing grade is too low to sign the Form");
+	return ("signing grade is too low to sign the Form.");
 }
 
 const char* AForm::FormAlreadySignedException::what() const throw()

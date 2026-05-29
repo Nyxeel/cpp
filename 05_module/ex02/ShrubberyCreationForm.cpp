@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "ShrubberyCreationForm.hpp"
-#include "Bureaucrat.hpp"
 #include <iostream>
 
 ShrubberyCreationForm::ShrubberyCreationForm(const std::string target) :

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "PresidentialPardonForm.hpp"
-#include "Bureaucrat.hpp"
 #include <iostream>
 
 PresidentialPardonForm::PresidentialPardonForm(const std::string target) :

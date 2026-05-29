@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "RobotomyRequestForm.hpp"
-#include "Bureaucrat.hpp"
 #include <cstdlib>
 #include <iostream>
 
@@ -45,11 +44,9 @@ RobotomyRequestForm::~RobotomyRequestForm()
 
 void 		RobotomyRequestForm::executeAction() const
 {
-	int randomNum = rand() % 101;
-
-	if (randomNum % 2 == 0)
-		std::cout << "Brrrrr... zzzzzzt... whirrrrr... grrrrrnk... drrr-drrr-drrr..." \
-		<< target <<  " hab been robotomized" << std::endl;
+	if (rand() % 2 == 0)
+		std::cout << "Brrrrr... zzzzzzt... whirrrrr... grrrrrnk... " \
+		<< target <<  " has been robotomized." << std::endl;
 	else
 		std::cout << "Too bad. The robotomy failed." << std::endl;
 
