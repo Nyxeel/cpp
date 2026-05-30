@@ -12,6 +12,7 @@
 
 #include "ShrubberyCreationForm.hpp"
 #include <iostream>
+#include <fstream>
 
 ShrubberyCreationForm::ShrubberyCreationForm(const std::string target) :
 	AForm("ShrubberyCreationForm", 145, 137), target(target)
@@ -20,7 +21,7 @@ ShrubberyCreationForm::ShrubberyCreationForm(const std::string target) :
 }
 
 ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &other) :
-	AForm(other)
+	AForm(other), target(other.target)
 {
 	std::cout << "ShrubberyCreationForm " << target << " copy constructor called " << std::endl;
 }
@@ -41,7 +42,35 @@ ShrubberyCreationForm::~ShrubberyCreationForm()
 	std::cout << "ShrubberyCreationForm " << target << " destructor called" << std::endl;
 }
 
+const char* ShrubberyCreationForm::OpenCreateFileFailed::what() const throw()
+{
+	return ("cannot open/create out file.");
+}
+
+std::string	getAsciiTree()
+{
+	return
+	"              /\\\n"
+	"             /**\\\n"
+	"            /****\\\n"
+	"           /******\\\n"
+	"          /********\\\n"
+	"         /**********\\\n"
+	"        /************\\\n"
+	"       /**************\\\n"
+	"      /****************\\\n"
+	"     /******************\\\n"
+	"            ||||\n"
+	"            ||||\n"
+	"            ||||\n";
+}
 void 		ShrubberyCreationForm::executeAction() const
 {
-	std::cout << "HERE ARE THE ACII TREES EXECUTION from " <<target <<std::endl;
+	std::string outFile = target + "_shrubbery";
+	std::ofstream file(outFile.c_str());
+	if (!file)
+		throw ShrubberyCreationForm::OpenCreateFileFailed();
+	file << getAsciiTree();
 }
+
+

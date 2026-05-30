@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 15:11:44 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/29 20:32:40 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/30 21:11:09 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ class Bureaucrat
 
 		int					getGrade() const;
 		const std::string	getName() const;
-		int					increaseGrade();
-		int					decreaseGrade();
+		int					incrementGrade();
+		int					decrementGrade();
 
 		void 				signForm(AForm &form); //tries to sign form
 		void				executeForm(AForm const & form) const; //tries to execute form

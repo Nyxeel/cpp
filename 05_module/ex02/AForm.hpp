@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 15:11:44 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/29 21:25:51 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/30 20:32:19 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ class AForm
 			public:
 				const char* what() const throw();
 		};
-				class	FormNotSignedException : public std::exception
+		class	FormNotSignedException : public std::exception
 		{
 			public:
 				const char* what() const throw();

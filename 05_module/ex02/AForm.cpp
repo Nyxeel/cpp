@@ -13,6 +13,7 @@
 #include "Bureaucrat.hpp"
 #include <iostream>
 
+
 AForm::AForm(const std::string name, const int signGrade, const int execGrade) :
 	name(name), signGrade(signGrade), execGrade(execGrade), isSigned(false)
 {
@@ -106,10 +107,10 @@ void	AForm::beSigned(const Bureaucrat &other)
 
 void 		AForm::execute(Bureaucrat const &executor) const
 {
-	if (!getSignedStatus())
+	if (!isSigned)
 		throw AForm::FormNotSignedException();
 	if (executor.getGrade() > getExecGrade())  // Bureacrat rank bigger than execution rank
-		throw Bureaucrat::GradeTooLowException();
+		throw AForm::GradeTooLowException();
 
 	executeAction();
 }

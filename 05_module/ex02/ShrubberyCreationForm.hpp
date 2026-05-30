@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 15:11:44 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/29 21:20:35 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/30 20:44:16 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@ class ShrubberyCreationForm : public AForm
 		ShrubberyCreationForm& operator=(const ShrubberyCreationForm &other);
 		~ShrubberyCreationForm();
 
-	void 		execute(Bureaucrat const &executor) const;
+	class	OpenCreateFileFailed : public std::exception
+	{
+		public:
+			const char* what() const throw();
+	};
 
 };
 
