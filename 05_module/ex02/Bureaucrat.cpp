@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 15:17:43 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/30 21:31:59 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/30 21:47:18 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	Bureaucrat::decrementGrade()
 
 std::ostream& operator<<(std::ostream &out, const Bureaucrat &other)
 {
-	out << other.getName() << ", bureaucrat grade " << other.getGrade() << "." << std::endl;
+	out << other.getName() << ", bureaucrat grade " << other.getGrade() << ".";
 	return (out);
 }
 

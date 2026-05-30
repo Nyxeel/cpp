@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 17:31:45 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/30 21:42:48 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/30 21:44:51 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ void	presidentialTests()
 		signer.signForm(form);
 		std::cout << form;
 		std::cout << executor;
-		form.execute(executor);
+		executor.executeForm(form);
 	}
 	catch (const std::exception& e) {
 		std::cout << e.what() << std::endl;
