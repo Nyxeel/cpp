@@ -107,10 +107,10 @@ void	AForm::beSigned(const Bureaucrat &other)
 
 void 		AForm::execute(Bureaucrat const &executor) const
 {
-	if (!isSigned)
-		throw AForm::FormNotSignedException();
 	if (executor.getGrade() > getExecGrade())  // Bureacrat rank bigger than execution rank
 		throw AForm::GradeTooLowException();
+	if (!isSigned)
+		throw AForm::FormNotSignedException();
 
 	executeAction();
 }
