@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 00:58:28 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/01 18:25:01 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/01 21:31:45 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,12 @@ int	detectType(const std::string &str){
 } */
 
 void	printChar(double num){
-	if (num >= 0 && (num < 32 || num == 127))
-		std::cout << "char: Non displayable" << std::endl;
-	else if (num > 127 || num < 0)
-		std::cout << "char: impossible" << std::endl;
-	else
+	if (num >= 32 && num <= 126)
 		std::cout << "char: \'" << static_cast<char>(num) << "\'" <<  std::endl;
+	else if (num >= 0 && num <= 127)
+		std::cout << "char: Non displayable" << std::endl;
+	else
+		std::cout << "char: impossible" << std::endl;
 }
 
 
@@ -110,20 +110,16 @@ void	printFloat(double num, int errorCode){
 
 	if (errorCode == ERANGE || num < -FLT_MAX || num > FLT_MAX)
 		std::cout << "float: impossible" << std::endl;
-	else if (std::floor(num) == num)
-		std::cout << "float: " << static_cast<float>(num) << ".0f" << std::endl;
 	else
-		std::cout << "float: " << static_cast<float>(num) << "f" << std::endl;
+		std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(num) << "f" << std::endl;
 }
 
 void	printDouble(double num, int errorCode){
 
 	if (errorCode == ERANGE) //overflow at 10^308 !!
 		std::cout << "double: impossible" << std::endl;
-	else if (std::floor(num) == num)
-		std::cout << "double: " << static_cast<double>(num) << ".0" << std::endl;
 	else
-		std::cout << "double: " << static_cast<double>(num) << std::endl;
+		std::cout << "double: " << std::fixed << std::setprecision(1) << static_cast<double>(num) << std::endl;
 }
 
 void	ScalarConverter::convert(const std::string &str){
@@ -151,14 +147,14 @@ void	ScalarConverter::convert(const std::string &str){
 	else if (type == INT_TYPE || type == FLOAT_TYPE || type == DOUBLE_TYPE)
 	{
 		char *endptr;
-		int errorCode;
+
+		errno = 0;
 		double num = std::strtod(str.c_str(), &endptr);
-		errorCode = errno;
 
 		printChar(num);
-		printInt(num, errorCode);
-		printFloat(num, errorCode);
-		printDouble(num, errorCode);
+		printInt(num, errno);
+		printFloat(num, errno);
+		printDouble(num, errno);
 	}
 	else if (type == PSEUDO_DOUBLE || type == PSEUDO_FLOAT)
 	{
