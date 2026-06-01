@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 13:57:51 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/31 15:21:43 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/01 00:48:42 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ AForm*	createShrubbery(const std::string &target)
 
 AForm* Intern::makeForm(const std::string &formName, const std::string &target)
 {
-	std::string names[] =
+	std::string internNames[] =
 	{
 		"presidential pardon",
 		"robotomy request",
@@ -77,7 +77,7 @@ AForm* Intern::makeForm(const std::string &formName, const std::string &target)
 	};
 
 	for (int i = 0; i < 3; i++){
-		if (formName == names[i])
+		if (formName == internNames[i])
 			return (creator[i](target));
 	}
 	throw Intern::FormNotExisting();

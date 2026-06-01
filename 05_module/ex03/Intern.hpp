@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 13:57:51 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/31 15:25:57 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/01 00:44:22 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ class Intern
 {
 	private:
 		typedef AForm* (*FormCreator)(const std::string& target);
-
 
 	public:
 		Intern();

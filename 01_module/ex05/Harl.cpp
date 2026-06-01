@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   harl.cpp                                           :+:      :+:    :+:   */
+/*   Harl.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 12:26:37 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/04/19 19:20:57 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/05/31 14:22:43 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void Harl::error()
 
 void Harl::complain(std::string level)
 {
-	void (Harl::*fn[4]) () = { &Harl::debug, &Harl::info, &Harl::warning, &Harl::error };
+	void (Harl::*fn[4])() = { &Harl::debug, &Harl::info, &Harl::warning, &Harl::error };
 	std::string action[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 
 	for (int i = 0; i < 4; i++) {
