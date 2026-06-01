@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 00:58:28 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/01 16:43:38 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/01 18:25:01 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	detectType(const std::string &str){
 	return INVALID;
 }
 
-void	printType(int type){
+/* void	printType(int type){
 	if (type == CHAR_TYPE)
 		std::cout << "CHAR Type " << std::endl;
 	else if (type == INT_TYPE)
@@ -86,7 +86,7 @@ void	printType(int type){
 		std::cout << "PSEUDO_DOUBLE Type " << std::endl;
 	else
 		std::cout << "INVALID Type " << std::endl;
-}
+} */
 
 void	printChar(double num){
 	if (num >= 0 && (num < 32 || num == 127))
@@ -118,7 +118,7 @@ void	printFloat(double num, int errorCode){
 
 void	printDouble(double num, int errorCode){
 
-	if (errorCode == ERANGE) //overflow bei 10^308 !!
+	if (errorCode == ERANGE) //overflow at 10^308 !!
 		std::cout << "double: impossible" << std::endl;
 	else if (std::floor(num) == num)
 		std::cout << "double: " << static_cast<double>(num) << ".0" << std::endl;
