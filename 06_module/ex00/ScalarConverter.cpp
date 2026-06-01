@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 00:58:28 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/01 06:40:22 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/01 16:43:38 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,40 +31,15 @@ ScalarConverter::~ScalarConverter(){
 	std::cout << "ScalarConverter destructor called" << std::endl;
 }
 
-bool	isInt(const std::string &str){
 
-	size_t idx = 0;
+int	detectType(const std::string &str){
 
-	if (str[0] == '+' || str[0] == '-')
-		idx = 1;
-	for(size_t i = idx; i < str.length(); i++){
-		if (!std::isdigit(str[i]))
-			return false;
-	}
-	return true;
-}
-
-bool	isDouble(const std::string &str){
-
-	int comma = 0;
-	size_t idx = 0;
-	int 	num = 0;
-
-	if (str[0] == '+' || str[0] == '-')
-		idx = 1;
-	for(size_t i = idx; i < str.length(); i++){
-		if (str[i] == '.'){
-			comma++;
-			continue ;
-		}
-		if (!std::isdigit(str[i]))
-			return false;
-		num++;
-	}
-	return comma == 1 && num >= 2;
-}
-
-bool	isFloat(const std::string &str){
+	if (str.length() == 1 && !std::isdigit(str[0]))
+		return CHAR_TYPE;
+	if (str == "-inff" || str == "+inff" || str == "nanf")
+		return (PSEUDO_FLOAT);
+	if (str == "-inf" || str == "+inf" || str == "nan")
+		return (PSEUDO_DOUBLE);
 
 	int		comma = 0;
 	int 	fchar = 0;
@@ -84,35 +59,16 @@ bool	isFloat(const std::string &str){
 			continue ;
 		}
 		if (!std::isdigit(str[i]))
-			return false;
+			return INVALID;
 		num++;
 	}
-	return comma == 1 && fchar == 1 && num >= 2;
-}
-
-bool	isPseudoFloat(const std::string &str){
-	return(str == "-inff" || str == "+inff" || str == "nanf");
-}
-
-bool	isPseudoDouble(const std::string &str){
-	return(str == "-inf" || str == "+inf" || str == "nan");
-}
-
-int	detectType(const std::string &str)
-{
-	if (str.length() == 1 && !std::isdigit(str[0]))
-		return CHAR_TYPE;
-	if (isInt(str))
-		return INT_TYPE;
-	if (isDouble(str))
-		return DOUBLE_TYPE;
-	if (isFloat(str))
+	if (comma == 1 && fchar == 1 && num >= 2)
 		return FLOAT_TYPE;
-	if (isPseudoDouble(str))
-		return	PSEUDO_DOUBLE;
-	if (isPseudoFloat(str))
-		return	PSEUDO_FLOAT;
-	return (INVALID);
+	if (comma == 1 && num >= 2)
+		return DOUBLE_TYPE;
+	if (num >= 1 && comma == 0 && fchar == 0)
+		return INT_TYPE;
+	return INVALID;
 }
 
 void	printType(int type){
@@ -176,8 +132,12 @@ void	ScalarConverter::convert(const std::string &str){
 		return ;
 	int type = detectType(str);
 
+	//printType(type); //debug
 
-	printType(type); //debug
+	if (type == INVALID){
+		std::cout << "Conversion for \"" << str << "\" not possible" << std::endl;
+		return;
+	}
 
 	if (type == CHAR_TYPE)
 	{
@@ -204,9 +164,18 @@ void	ScalarConverter::convert(const std::string &str){
 	{
 		std::cout << "char: impossible" << std::endl;
 		std::cout << "int: impossible" << std::endl;
-		if (PSEUDO_FLOAT)
-			
-
+		if (str == "nan" || str == "nanf"){
+			std::cout << "float: nanf" << std::endl;
+			std::cout << "double: nan" << std::endl;
+		}
+		else if (str == "-inf" || str == "-inff"){
+			std::cout << "float: -inff" << std::endl;
+			std::cout << "double: -inf" << std::endl;
+		}
+		else if (str == "+inf" || str == "+inff"){
+			std::cout << "float: +inff" << std::endl;
+			std::cout << "double: +inf" << std::endl;
+		}
 	}
 
 }
