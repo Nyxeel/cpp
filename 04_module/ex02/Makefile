@@ -7,7 +7,7 @@ MAKEFLAGS	+= --no-print-directory
 OBJ_DIR		= objs
 
 SRCS		=	main.cpp \
-				Animal.cpp \
+				AAnimal.cpp \
 				Cat.cpp \
 				Dog.cpp \
 				WrongAnimal.cpp \

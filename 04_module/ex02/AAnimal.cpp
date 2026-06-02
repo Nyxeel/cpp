@@ -6,27 +6,27 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:38:33 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/06 22:33:16 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/02 15:15:59 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 #include <iostream>
 
-Animal::Animal()
+AAnimal::AAnimal()
 {
-	std::cout << "Animal default constructor called" << std::endl;
-	type = "Animal";
+	std::cout << "AAnimal default constructor called" << std::endl;
+	type = "AAnimal";
 }
 
-Animal::Animal(const Animal &other) : type(other.type)
+AAnimal::AAnimal(const AAnimal &other) : type(other.type)
 {
-	std::cout << "Animal copy constructor called" << std::endl;
+	std::cout << "AAnimal copy constructor called" << std::endl;
 }
 
-Animal& Animal::operator=(const Animal &other)
+AAnimal& AAnimal::operator=(const AAnimal &other)
 {
-	std::cout << "Animal assignment operator called" << std::endl;
+	std::cout << "AAnimal assignment operator called" << std::endl;
 	if (this != &other)
 	{
 		type = other.type;
@@ -34,17 +34,17 @@ Animal& Animal::operator=(const Animal &other)
 	return (*this);
 }
 
-Animal::~Animal()
+AAnimal::~AAnimal()
 {
-	std::cout << "Animal destructor called" << std::endl;
+	std::cout << "AAnimal destructor called" << std::endl;
 }
 
-void Animal::makeSound() const
+void AAnimal::makeSound() const
 {
-	std::cout << "makes animal sound" << std::endl;
+	std::cout << "makes AAnimal sound" << std::endl;
 }
 
-const std::string Animal::getType() const
+const std::string AAnimal::getType() const
 {
 	return (this->type);
 }

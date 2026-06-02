@@ -6,18 +6,18 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:38:33 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/22 20:17:52 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/02 15:16:14 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CAT_HPP
 #define CAT_HPP
 
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 #include "Brain.hpp"
 #include <string>
 
-class	Cat : public Animal
+class	Cat : public AAnimal
 {
 	private:
 		Brain *brain;

@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:38:33 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/22 20:22:14 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/02 14:50:01 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #define CAT_HPP
 
 #include "Animal.hpp"
-#include <string>
 
 class	Cat : public Animal
 {
