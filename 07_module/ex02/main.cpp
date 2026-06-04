@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 01:04:48 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/04 05:43:41 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/04 05:47:17 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int main()
 	////////////////////////////////////////////////
 
 	printNewline();
-	std::cout << "\033[32mTest #6 : Assignment operator (same text) \033[0m" << std::endl;
+	std::cout << "\033[32mTest #6 : index == arrSize \033[0m" << std::endl;
 	try{
 		Array<std::string> a(5);
 
@@ -134,6 +134,25 @@ int main()
 		a[4] = "Waschen";
 
 		std::cout << a[5] << std::endl;
+	}
+	catch (std::exception& e){
+		std::cout << e.what() << std::endl;
+	}
+
+	////////////////////////////////////////////////
+
+	printNewline();
+	std::cout << "\033[32mTest #7 : print size for Array a[5]; \033[0m" << std::endl;
+	try{
+		Array<std::string> a(5);
+
+		a[0] = "Wir";
+		a[1] = "Wollen";
+		a[2] = "Wenig";
+		a[3] = "Wäsche";
+		a[4] = "Waschen";
+
+		std::cout << "Size: " << a.size() << std::endl;
 	}
 	catch (std::exception& e){
 		std::cout << e.what() << std::endl;
