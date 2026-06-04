@@ -13,19 +13,37 @@
 #ifndef ARRAY_HPP
 # define ARRAY_HPP
 
+#include <stdexcept>
+#include <exception>
+
 template <typename T>
 class Array {
 
 	private:
 
 		T*				arr;
-		unsigned int	size;
+		unsigned int	arrSize;
 
 
 	public:
+
 		Array();
-		Array(unsigned int n);
+		Array(unsigned int size);
+		Array(const Array &other);
+		Array&	operator=(const Array &other);
+		~Array();
+
+		T&	operator[](const unsigned int index);
+		unsigned int	size() const;
+
+		class IndexOutOfBounds : public std::exception {
+
+			public:
+				const char* what() const throw();
+		};
 };
+
+#include "Array.tpp"
 
 
 #endif /* ARRAY_HPP */

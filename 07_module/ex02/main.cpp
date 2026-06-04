@@ -6,18 +6,19 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 01:04:48 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/02 05:00:34 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/04 05:43:41 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "iter.hpp"
+#include "Array.hpp"
 #include <iostream>
 
-template <typename T>
-void	printArr(T* arr, int length){
 
-	for(int i = 0; i < length; i++){
-		std::cout << arr[i] << std::endl;
+template <typename T>
+void	printArr(T& arr, unsigned int size){
+
+	for(unsigned int i = 0; i < size; i++){
+		std::cout << "a[" << i << "] " << arr[i] << std::endl;
 	}
 }
 
@@ -25,58 +26,122 @@ void	printNewline(){
 	std::cout << std::endl;
 }
 
-void	incrementAscii(char& c){
-	if (c == 126)
-		c = 33;
-	else
-		c += 1;
-}
-
-void	plusTen(int& num){
-	num += 10;
-}
-
-template <typename T>
-void	printValue(T& value){
-	std::cout << value << std::endl;
-}
-
 int main()
 {
- 	char		arrChar[5] = {'A', 'B', 'C', 'D', 'E'};
 
-	std::cout << "\033[32mTEST #1 - Increment Ascii value for arrChar[5]\033[0m" << std::endl << "OLD:" << std::endl;
-
-	printArr(arrChar, 5);
+	std::cout << "\033[32mTest #1 : Try to acces arr with out-of-bounds index a[1] \033[0m" << std::endl;
+	try{
+		Array<int> a;
+		std::cout << a[1] << std::endl;
+	}
+	catch (std::exception& e){
+		std::cout << e.what() << std::endl;
+	}
 	printNewline();
+	////////////////////////////////////////////////
 
-	::iter(arrChar, 5, incrementAscii);
-
-	std::cout << "NEW:" << std::endl;
-	printArr(arrChar, 5);
 	printNewline();
+	std::cout << "\033[32mTest #2 : Int array \033[0m" << std::endl;
+	try{
+		Array<int> a(5);
 
-	//////////////////////////////////////////////////
+		a[0] = 10;
+		a[1] = 20;
+		a[2] = 30;
+		a[3] = 40;
+		a[4] = 50;
 
-	int			arrInt[5] = {32, 212, 89, 153, 625};
+		std::cout << a[1] << std::endl;
+	}
+	catch (std::exception& e){
+		std::cout << e.what() << std::endl;
+	}
 
-	std::cout << "\033[32mTEST #2 - num + 10 for arrInt[5]\033[0m" << std::endl << "OLD:" << std::endl;
-	printArr(arrInt, 5);
+	////////////////////////////////////////////////
+
 	printNewline();
+	std::cout << "\033[32mTest #3 : String array \033[0m" << std::endl;
+	try{
+		Array<std::string> a(5);
 
-	::iter(arrInt, 5, plusTen);
+		a[0] = "Wir";
+		a[1] = "Wollen";
+		a[2] = "Wenig";
+		a[3] = "Wäsche";
+		a[4] = "Waschen";
 
-	std::cout << "NEW: + 10" << std::endl;
-	printArr(arrInt, 5);
+		printArr(a, 5);
+	}
+	catch (std::exception& e){
+		std::cout << e.what() << std::endl;
+	}
+
+	////////////////////////////////////////////////
+
 	printNewline();
+	std::cout << "\033[32mTest #4 : Copy constructor (same text)\033[0m" << std::endl;
+	try{
+		Array<std::string> a(5);
 
-	/////////////////////////////////////////////////
+		a[0] = "Wir";
+		a[1] = "Wollen";
+		a[2] = "Wenig";
+		a[3] = "Wäsche";
+		a[4] = "Waschen";
 
-	const std::string arrString[5] = {"Anita", "Bob", "Christian", "Doris", "Emil"};
-	std::cout << "\033[32mTEST #3 - print strings from const arrString\033[0m" << std::endl;
+		Array<std::string> b(a);
 
-	::iter(arrString, 5, printValue);
+		printArr(b, 5);
+	}
+	catch (std::exception& e){
+		std::cout << e.what() << std::endl;
+	}
+
+
+	////////////////////////////////////////////////
+
 	printNewline();
+	std::cout << "\033[32mTest #5 : Assignment operator (same text) \033[0m" << std::endl;
+	try{
+		Array<std::string> a(5);
 
+		a[0] = "Wir";
+		a[1] = "Wollen";
+		a[2] = "Wenig";
+		a[3] = "Wäsche";
+		a[4] = "Waschen";
+
+		Array<std::string> b;
+		b = a;
+
+		printArr(b, 5);
+	}
+	catch (std::exception& e){
+		std::cout << e.what() << std::endl;
+	}
+
+	////////////////////////////////////////////////
+
+	printNewline();
+	std::cout << "\033[32mTest #6 : Assignment operator (same text) \033[0m" << std::endl;
+	try{
+		Array<std::string> a(5);
+
+		a[0] = "Wir";
+		a[1] = "Wollen";
+		a[2] = "Wenig";
+		a[3] = "Wäsche";
+		a[4] = "Waschen";
+
+		std::cout << a[5] << std::endl;
+	}
+	catch (std::exception& e){
+		std::cout << e.what() << std::endl;
+	}
+
+
+
+	printNewline();
 	return 0;
 }
+

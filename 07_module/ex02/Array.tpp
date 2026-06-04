@@ -12,23 +12,72 @@
 
 #include "Array.hpp"
 
-tempalte <typename T>
-Array::Array() {
-
-	Array arr = new T;	//ALLOCATE WITH NEW ?
-	size = 0;
+template <typename T>
+Array<T>::Array() : arr(NULL), arrSize(0)
+{
+	//default constructor
 }
 
+template <typename T>
+Array<T>::Array(unsigned int n) {
 
-tempalte <typename T>
-Array::Array(unsigned int n) {
-
-	 Array<T> arr = new Array[n];
-	 size = n;
+	arr = new T[n];
+	arrSize = n;
 }
 
-tempalte <typename T>
-Array::Array(const Array &other) : arr(new T(other.size)), size(other.size) {
+template <typename T>
+Array<T>::Array(const Array<T> &other) :
+	arr(other.arrSize > 0 ? new T[other.arrSize] : NULL), arrSize(other.arrSize)
+{
+		if (arr){
 
-	 arr
+			for(unsigned int i = 0; i < arrSize; i++) {
+				this->arr[i] = other.arr[i];
+			}
+		}
+		//copy constructor
+}
+
+template <typename T>
+Array<T>&	Array<T>::operator=(const Array<T> &other){
+
+	if (this != &other) {
+
+		if (arr)
+			delete[] arr;
+		arr = other.arrSize > 0 ? new T[other.arrSize] : NULL;
+		arrSize = other.arrSize;
+		if (arr)
+			for(unsigned int i = 0; i < arrSize; i++) {
+
+				this->arr[i] = other.arr[i];
+			}
+	}
+	return *this;
+}
+
+template <typename T>
+Array<T>::~Array()
+{
+	delete[] arr;
+}
+
+template <typename T>
+unsigned int Array<T>::size() const {
+
+	return (arrSize);
+}
+
+template <typename T>
+const char*	Array<T>::IndexOutOfBounds::what() const throw() {
+
+	return ("Index out of bounds");
+}
+
+template <typename T>
+T&	Array<T>::operator[](const unsigned int index){
+
+	if (index >= arrSize)
+		throw IndexOutOfBounds();
+	return arr[index];
 }

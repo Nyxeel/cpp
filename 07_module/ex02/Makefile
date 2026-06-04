@@ -6,7 +6,7 @@ MAKEFLAGS	+= --no-print-directory
 OBJ_DIR		= objs
 
 SRCS		=	main.cpp \
-				Array.cpp
+
 
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
 DEPS		= $(OBJS:.o=.d)
