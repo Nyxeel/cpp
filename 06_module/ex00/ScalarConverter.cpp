@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 00:58:28 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/09 21:33:52 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/10 01:45:08 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,25 +108,54 @@ void	printInt(double num, int errorCode){
 		std::cout << "int: " << static_cast<int>(num) << std::endl;
 }
 
-void	printFloat(double num, int errorCode){
+void	printFloat(double num, int errorCode, int type, size_t decimalPlace){
 
 	if (errorCode == ERANGE || num < -FLT_MAX || num > FLT_MAX)
 		std::cout << "float: impossible" << std::endl;
 	else if (num >= PRINT_SCIENTIFIC)
 		std::cout << "float: " << static_cast<float>(num) << "f" << std::endl;
+	else if (type == FLOAT_TYPE || type == DOUBLE_TYPE) {
+
+		/* if (decimalPlace > 6)
+			decimalPlace = 6; */
+		std::cout << "float: " << std::fixed << std::setprecision(decimalPlace) << static_cast<float>(num) << "f" << std::endl;
+	}
 	else
 		std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(num) << "f" << std::endl;
 }
 
-void	printDouble(double num, int errorCode){
+void	printDouble(double num, int errorCode, int type, size_t decimalPlace){
 
 	if (errorCode == ERANGE) //overflow at 10^308 !!
 		std::cout << "double: impossible" << std::endl;
 	else if (num >= PRINT_SCIENTIFIC)
 		std::cout << "double: " << static_cast<double>(num) << std::endl;
+	else if (type == FLOAT_TYPE || type == DOUBLE_TYPE) {
+
+		/* if (decimalPlace > 6)
+			decimalPlace = 6; */
+		std::cout << "double: " << std::fixed << std::setprecision(decimalPlace) << static_cast<double>(num) << std::endl;
+	}
 	else
 		std::cout << "double: " << std::fixed << std::setprecision(1) << static_cast<double>(num) << std::endl;
 }
+
+
+size_t	getPrecision(const std::string str) {
+
+	bool flag = false;
+	size_t decimalPlace = 0;
+
+	for (size_t i = 0; i < str.size(); i++){
+
+		if (flag)
+			decimalPlace++;
+		if (str[i] == '.')
+			flag = true;
+	}
+	return decimalPlace;
+}
+
 
 void	ScalarConverter::convert(const std::string &str){
 
@@ -153,14 +182,18 @@ void	ScalarConverter::convert(const std::string &str){
 	else if (type == INT_TYPE || type == FLOAT_TYPE || type == DOUBLE_TYPE)
 	{
 		char *endptr;
+		size_t decimalPlace;
 
 		errno = 0;
 		double num = std::strtod(str.c_str(), &endptr);
 
+		if (type == FLOAT_TYPE || type == DOUBLE_TYPE)
+			decimalPlace = getPrecision(str);
+
 		printChar(num);
 		printInt(num, errno);
-		printFloat(num, errno);
-		printDouble(num, errno);
+		printFloat(num, errno, type, decimalPlace);
+		printDouble(num, errno, type, decimalPlace);
 	}
 	else if (type == PSEUDO_DOUBLE || type == PSEUDO_FLOAT)
 	{

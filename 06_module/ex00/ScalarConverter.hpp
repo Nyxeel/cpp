@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 00:52:48 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/09 21:33:17 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/09 22:50:47 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 #include <cfloat>
 #include <climits>
 #include <cmath>
-
 
 enum {
 	CHAR_TYPE,
