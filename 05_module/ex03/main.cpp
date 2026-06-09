@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 17:31:45 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/31 15:19:49 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/09 21:10:54 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -419,22 +419,166 @@ int	main(void)
 	//presidentialTests();
 	//robotomizeTests();
 
-	try {
-		std::cout << "\033[32mIntern creates shrubbery creation form\033[0m" << std::endl;
-		Intern someRandomIntern;
-		AForm *form;
+	{
+		AForm *form = NULL;
 
-		form = someRandomIntern.makeForm("presidential pardon", "garden");
-		if (form != NULL) {
-			Bureaucrat john("John", 100);
+		try {
+			std::cout << "\033[32mIntern creates shrubbery creation form\033[0m" << std::endl;
+			Intern someRandomIntern;
 
-			std::cout << *form;
-			john.signForm(*form);
-			john.executeForm(*form);
+			form = someRandomIntern.makeForm("shrubbery creation", "garden");
+			if (form != NULL) {
+				Bureaucrat john("John", 1);
+
+				std::cout << john << std::endl;
+				std::cout << *form;
+				john.signForm(*form);
+				john.executeForm(*form);
+				delete form;
+				form = NULL;
+			}
+		}
+		catch (const std::exception& e) {
 			delete form;
+			std::cout << e.what() << std::endl;
 		}
 	}
-	catch (const std::exception& e) {
-		std::cout << e.what() << std::endl;
+
+	printNewline();
+	printNewline();
+
+	{
+		AForm *form = NULL;
+
+		try {
+			std::cout << "\033[32mIntern creates robotomy request form\033[0m" << std::endl;
+			Intern someRandomIntern;
+
+			form = someRandomIntern.makeForm("robotomy request", "Bender");
+			if (form != NULL) {
+				Bureaucrat john("John", 1);
+
+				std::cout << john << std::endl;
+				std::cout << *form;
+				john.signForm(*form);
+				john.executeForm(*form);
+				delete form;
+				form = NULL;
+			}
+		}
+		catch (const std::exception& e) {
+			delete form;
+			std::cout << e.what() << std::endl;
+		}
 	}
+
+	printNewline();
+	printNewline();
+
+	{
+		AForm *form = NULL;
+
+		try {
+			std::cout << "\033[32mIntern creates presidential pardon form\033[0m" << std::endl;
+			Intern someRandomIntern;
+
+			form = someRandomIntern.makeForm("presidential pardon", "Arthur Dent");
+			if (form != NULL) {
+				Bureaucrat john("John", 1);
+
+				std::cout << john << std::endl;
+				std::cout << *form;
+				john.signForm(*form);
+				john.executeForm(*form);
+				delete form;
+				form = NULL;
+			}
+		}
+		catch (const std::exception& e) {
+			delete form;
+			std::cout << e.what() << std::endl;
+		}
+	}
+
+	printNewline();
+	printNewline();
+
+	{
+		AForm *form = NULL;
+
+		try {
+			std::cout << "\033[32mIntern tries to create unknown form\033[0m" << std::endl;
+			Intern someRandomIntern;
+
+			form = someRandomIntern.makeForm("coffee request", "office");
+			if (form != NULL) {
+				std::cout << *form;
+				delete form;
+				form = NULL;
+			}
+		}
+		catch (const std::exception& e) {
+			delete form;
+			std::cout << e.what() << std::endl;
+		}
+	}
+
+	printNewline();
+	printNewline();
+
+	{
+		AForm *form = NULL;
+
+		try {
+			std::cout << "\033[32mIntern creates form but bureaucrat does not sign it\033[0m" << std::endl;
+			Intern someRandomIntern;
+
+			form = someRandomIntern.makeForm("presidential pardon", "Ford Prefect");
+			if (form != NULL) {
+				Bureaucrat john("John", 1);
+
+				std::cout << john << std::endl;
+				std::cout << *form;
+				john.executeForm(*form);
+				delete form;
+				form = NULL;
+			}
+		}
+		catch (const std::exception& e) {
+			delete form;
+			std::cout << e.what() << std::endl;
+		}
+	}
+
+	printNewline();
+	printNewline();
+
+	{
+		AForm *form = NULL;
+
+		try {
+			std::cout << "\033[32mIntern creates form but bureaucrat grade is too low\033[0m" << std::endl;
+			Intern someRandomIntern;
+
+			form = someRandomIntern.makeForm("robotomy request", "Bender");
+			if (form != NULL) {
+				Bureaucrat boss("Boss", 1);
+				Bureaucrat low("Low", 150);
+
+				std::cout << boss << std::endl;
+				std::cout << low << std::endl;
+				std::cout << *form;
+				boss.signForm(*form);
+				low.executeForm(*form);
+				delete form;
+				form = NULL;
+			}
+		}
+		catch (const std::exception& e) {
+			delete form;
+			std::cout << e.what() << std::endl;
+		}
+	}
+
+	return (0);
 }

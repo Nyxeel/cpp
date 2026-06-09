@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 15:11:44 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/05/30 20:32:19 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/09 20:47:52 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,11 @@ class AForm
 				const char* what() const throw();
 		};
 		class	FormNotSignedException : public std::exception
+		{
+			public:
+				const char* what() const throw();
+		};
+		class	ExecutionGradeTooLowException : public std::exception
 		{
 			public:
 				const char* what() const throw();

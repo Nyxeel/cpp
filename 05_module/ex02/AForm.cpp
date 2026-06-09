@@ -21,18 +21,18 @@ AForm::AForm(const std::string name, const int signGrade, const int execGrade) :
 		throw AForm::GradeTooLowException();
 	if (signGrade < 1 || execGrade < 1)
 		throw AForm::GradeTooHighException();
-	std::cout << "AForm " << name << " constructor called " << std::endl;
+	std::cout << "AForm constructor called " << std::endl;
 }
 
 AForm::AForm(const AForm &other) :
 	name(other.name), signGrade(other.signGrade), execGrade(other.execGrade), isSigned(other.isSigned)
 {
-	std::cout << "AForm " << name << " copy constructor called " << std::endl;
+	std::cout << "AForm copy constructor called " << std::endl;
 }
 
 AForm& AForm::operator=(const AForm &other)
 {
-	std::cout << "AForm " << name << " copy assignment operator called" << std::endl;
+	std::cout << "AForm copy assignment operator called" << std::endl;
 	if (this != &other)
 	{
 		isSigned = other.isSigned;
@@ -42,7 +42,7 @@ AForm& AForm::operator=(const AForm &other)
 
 AForm::~AForm()
 {
-	std::cout << "AForm " << name << " destructor called" << std::endl;
+	std::cout << "AForm destructor called" << std::endl;
 }
 
 const std::string AForm::getName() const
@@ -96,6 +96,11 @@ const char* AForm::FormNotSignedException::what() const throw()
 	return ("Form is not signed.");
 }
 
+const char* AForm::ExecutionGradeTooLowException::what() const throw()
+{
+	return ("execution grade is too low to execute the Form.");
+}
+
 void	AForm::beSigned(const Bureaucrat &other)
 {
 	if(other.getGrade() > signGrade)
@@ -107,10 +112,9 @@ void	AForm::beSigned(const Bureaucrat &other)
 
 void 		AForm::execute(Bureaucrat const &executor) const
 {
-	if (executor.getGrade() > getExecGrade())  // Bureacrat rank bigger than execution rank
-		throw AForm::GradeTooLowException();
 	if (!isSigned)
 		throw AForm::FormNotSignedException();
-
+	if (executor.getGrade() > getExecGrade())  // Bureacrat rank bigger than execution rank
+		throw AForm::ExecutionGradeTooLowException();
 	executeAction();
 }
