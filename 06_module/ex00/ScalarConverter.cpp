@@ -6,11 +6,13 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 00:58:28 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/01 21:31:45 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/09 21:33:52 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScalarConverter.hpp"
+#include <iostream>
+#include <iomanip>
 
 ScalarConverter::ScalarConverter(){
 	std::cout << "ScalarConverter constructor called" << std::endl;
@@ -110,6 +112,8 @@ void	printFloat(double num, int errorCode){
 
 	if (errorCode == ERANGE || num < -FLT_MAX || num > FLT_MAX)
 		std::cout << "float: impossible" << std::endl;
+	else if (num >= PRINT_SCIENTIFIC)
+		std::cout << "float: " << static_cast<float>(num) << "f" << std::endl;
 	else
 		std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(num) << "f" << std::endl;
 }
@@ -118,6 +122,8 @@ void	printDouble(double num, int errorCode){
 
 	if (errorCode == ERANGE) //overflow at 10^308 !!
 		std::cout << "double: impossible" << std::endl;
+	else if (num >= PRINT_SCIENTIFIC)
+		std::cout << "double: " << static_cast<double>(num) << std::endl;
 	else
 		std::cout << "double: " << std::fixed << std::setprecision(1) << static_cast<double>(num) << std::endl;
 }

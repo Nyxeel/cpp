@@ -6,13 +6,12 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 01:04:48 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/01 20:00:35 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/02 15:01:45 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Base.hpp"
 
-#include <iostream>
 #include <cstdlib>
 #include <ctime>
 

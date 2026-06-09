@@ -26,14 +26,14 @@ Base::~Base(){
 
 Base*	generate(void){
 
-	Base *random;
+	Base *random = NULL;
 
 	int num = rand() % 100;
 	if (num % 3 == 0)
 		random = new A();
 	else if (num % 3 == 1)
 		random = new B();
-	else if (num % 3 == 2)
+	else
 		random = new C();
 	return random;
 }
@@ -86,24 +86,19 @@ void	identify(Base& p){
 		std::cout << "A" << std::endl;
 		return ;
 	}
-	catch (...){
-
-	}
+	catch (...){	}
 
 	try{
 		getBRef(p);
 		std::cout << "B" << std::endl;
 		return ;
 	}
-	catch (...){
+	catch (...){	};
 
-	};
 	try{
 		getCRef(p);
 		std::cout << "C" << std::endl;
 		return ;
 	}
-	catch (...){
-
-	};
+	catch (...){	};
 }

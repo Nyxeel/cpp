@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 00:52:48 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/01 06:04:25 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/09 21:33:17 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 #define	SCALARCONVERTER_HPP
 
 #include <string>
-#include <iostream>
 #include <cctype>
-#include <iomanip>
 #include <cerrno>
 #include <cstdlib>
 #include <cfloat>
@@ -31,7 +29,8 @@ enum {
 	DOUBLE_TYPE,
 	PSEUDO_FLOAT,
 	PSEUDO_DOUBLE,
-	INVALID
+	INVALID,
+	PRINT_SCIENTIFIC = 1000000
 };
 
 class ScalarConverter
