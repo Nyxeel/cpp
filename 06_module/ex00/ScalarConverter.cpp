@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 00:58:28 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/10 02:54:30 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/10 11:06:50 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,8 @@ void	printFloat(double num, int errorCode, int type, size_t decimalPlace){
 		std::cout << "float: " << static_cast<float>(num) << "f" << std::endl;
 	else if (type == FLOAT_TYPE || type == DOUBLE_TYPE) {
 
-		/* if (decimalPlace > 6)
-			decimalPlace = 6; */
+		if (decimalPlace > 6)
+			decimalPlace = 6;
 		std::cout << "float: " << std::fixed << std::setprecision(decimalPlace) << static_cast<float>(num) << "f" << std::endl;
 	}
 	else
@@ -132,8 +132,8 @@ void	printDouble(double num, int errorCode, int type, size_t decimalPlace){
 		std::cout << "double: " << static_cast<double>(num) << std::endl;
 	else if (type == FLOAT_TYPE || type == DOUBLE_TYPE) {
 
-		/* if (decimalPlace > 15)
-			decimalPlace = 15; */
+		if (decimalPlace > 6)
+			decimalPlace = 6;
 		std::cout << "double: " << std::fixed << std::setprecision(decimalPlace) << static_cast<double>(num) << std::endl;
 	}
 	else

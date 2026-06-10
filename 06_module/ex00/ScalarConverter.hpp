@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 00:52:48 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/10 02:20:34 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/10 11:01:00 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ enum {
 	PSEUDO_FLOAT,
 	PSEUDO_DOUBLE,
 	INVALID,
-	PRINT_SCIENTIFIC = 1000000
+	PRINT_SCIENTIFIC = 10000000000
 };
 
 class ScalarConverter
