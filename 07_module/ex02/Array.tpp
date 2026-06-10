@@ -19,10 +19,8 @@ Array<T>::Array() : arr(NULL), arrSize(0)
 }
 
 template <typename T>
-Array<T>::Array(unsigned int n) {
-
-	arr = new T[n];
-	arrSize = n;
+Array<T>::Array(unsigned int n) : arr(new T[n]()), arrSize(n) {
+	//initializes values for arr!
 }
 
 template <typename T>
@@ -76,6 +74,14 @@ const char*	Array<T>::IndexOutOfBounds::what() const throw() {
 
 template <typename T>
 T&	Array<T>::operator[](const unsigned int index){
+
+	if (index >= arrSize)
+		throw IndexOutOfBounds();
+	return arr[index];
+}
+
+template <typename T>
+const T&	Array<T>::operator[](const unsigned int index) const {
 
 	if (index >= arrSize)
 		throw IndexOutOfBounds();

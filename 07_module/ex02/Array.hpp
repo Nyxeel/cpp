@@ -33,7 +33,8 @@ class Array {
 		Array&	operator=(const Array &other);
 		~Array();
 
-		T&	operator[](const unsigned int index);
+		T&			operator[](const unsigned int index);
+		const T&	operator[](const unsigned int index) const;
 		unsigned int	size() const;
 
 		class IndexOutOfBounds : public std::exception {

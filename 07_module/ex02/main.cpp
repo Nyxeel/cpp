@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 01:04:48 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/04 05:47:17 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/10 03:27:02 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ template <typename T>
 void	printArr(T& arr, unsigned int size){
 
 	for(unsigned int i = 0; i < size; i++){
-		std::cout << "a[" << i << "] " << arr[i] << std::endl;
+		std::cout << "a[" << i << "]: " << arr[i] << std::endl;
 	}
 }
 
@@ -158,6 +158,39 @@ int main()
 		std::cout << e.what() << std::endl;
 	}
 
+	////////////////////////////////////////////////
+
+	printNewline();
+	std::cout << "\033[32mTest #8 : Test for const Array with operator b[2] \033[0m" << std::endl;
+	try{
+		Array<std::string> a(5);
+
+		a[0] = "Wir";
+		a[1] = "Wollen";
+		a[2] = "Wenig";
+		a[3] = "Wäsche";
+		a[4] = "Waschen";
+
+		const Array<std::string> b(a);
+		std::cout << "b[2]: " << b[2] << std::endl;
+	}
+	catch (std::exception& e){
+		std::cout << e.what() << std::endl;
+	}
+
+
+	////////////////////////////////////////////////
+
+	printNewline();
+	std::cout << "\033[32mTest #9 : print out arr values when they are not explicitly set\033[0m" << std::endl;
+	try{
+		Array<int> a(5);
+		printArr(a, 5);
+		// because of arr(new T[n]() ) in constructor values are 0 for int!!
+	}
+	catch (std::exception& e){
+		std::cout << e.what() << std::endl;
+	}
 
 
 	printNewline();
