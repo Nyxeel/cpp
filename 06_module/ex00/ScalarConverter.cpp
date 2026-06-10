@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 00:58:28 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/10 01:45:08 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/10 02:54:30 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,8 @@ void	printInt(double num, int errorCode){
 void	printFloat(double num, int errorCode, int type, size_t decimalPlace){
 
 	if (errorCode == ERANGE || num < -FLT_MAX || num > FLT_MAX)
-		std::cout << "float: impossible" << std::endl;
-	else if (num >= PRINT_SCIENTIFIC)
+		std::cout << "float: impossible" << std::endl; //overflow at 10^39 !
+	else if (num >= PRINT_SCIENTIFIC || num <= -PRINT_SCIENTIFIC)
 		std::cout << "float: " << static_cast<float>(num) << "f" << std::endl;
 	else if (type == FLOAT_TYPE || type == DOUBLE_TYPE) {
 
@@ -128,12 +128,12 @@ void	printDouble(double num, int errorCode, int type, size_t decimalPlace){
 
 	if (errorCode == ERANGE) //overflow at 10^308 !!
 		std::cout << "double: impossible" << std::endl;
-	else if (num >= PRINT_SCIENTIFIC)
+	else if (num >= PRINT_SCIENTIFIC || num <= -PRINT_SCIENTIFIC)
 		std::cout << "double: " << static_cast<double>(num) << std::endl;
 	else if (type == FLOAT_TYPE || type == DOUBLE_TYPE) {
 
-		/* if (decimalPlace > 6)
-			decimalPlace = 6; */
+		/* if (decimalPlace > 15)
+			decimalPlace = 15; */
 		std::cout << "double: " << std::fixed << std::setprecision(decimalPlace) << static_cast<double>(num) << std::endl;
 	}
 	else
@@ -148,11 +148,13 @@ size_t	getPrecision(const std::string str) {
 
 	for (size_t i = 0; i < str.size(); i++){
 
-		if (flag)
+		if (flag && str[i] != 'f')
 			decimalPlace++;
 		if (str[i] == '.')
 			flag = true;
 	}
+
+	//std::cout << "str size " << str.size() << " decimal " << decimalPlace << std::endl;
 	return decimalPlace;
 }
 

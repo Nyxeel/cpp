@@ -40,17 +40,17 @@ Base*	generate(void){
 
 A*	getAPtr(Base *p){
 
-	return dynamic_cast<A*>(p);
+	return dynamic_cast<A*>(p); // if not A dynamic_cast throws std::bad_cast
 }
 
 B*	getBPtr(Base *p){
 
-	return dynamic_cast<B*>(p);
+	return dynamic_cast<B*>(p); // if not B dynamic_cast throws std::bad_cast
 }
 
 C*	getCPtr(Base *p){
 
-	return dynamic_cast<C*>(p);
+	return dynamic_cast<C*>(p); // if not C dynamic_cast throws std::bad_cast
 }
 
 void 	identify(Base* p){
