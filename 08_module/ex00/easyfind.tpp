@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   easyfind.hpp                                       :+:      :+:    :+:   */
+/*   easyfind.tpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 19:15:16 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/11 22:39:47 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/11 22:49:19 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EASYFIND_HPP
-# define EASYFIND_HPP
+#include "easyfind.hpp"
+#include <algorithm>
+#include <vector>
+#include <list>
+#include <deque>
 
-#include <exception>
+const char*		NotFoundException::what() const throw(){
+
+	return ("Number not found in container.");
+}
 
 template<typename T>
-typename T::iterator	easyfind(T& container, int num);
+typename T::iterator	easyfind(T& container, int num) {
 
-class NotFoundException : public std::exception {
+	typename T::iterator it;
+	typename T::iterator begin = container.begin();
+	typename T::iterator end = container.end();
 
-	public:
-		const char* what() const throw ();
-};
-
-#include "easyfind.tpp"
-
-#endif
+	it = std::find(begin, end, num);
+	if (it != container.end())
+		return it;
+	throw NotFoundException();
+}
