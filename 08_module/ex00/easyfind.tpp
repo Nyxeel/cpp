@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 19:15:16 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/11 22:49:19 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/11 23:13:52 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typename T::iterator	easyfind(T& container, int num) {
 	typename T::iterator end = container.end();
 
 	it = std::find(begin, end, num);
-	if (it != container.end())
+	if (it != end)
 		return it;
 	throw NotFoundException();
 }
