@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   easyfind.hpp                                       :+:      :+:    :+:   */
+/*   Span.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/11 19:15:16 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/12 13:33:48 by pjelinek         ###   ########.fr       */
+/*   Created: 2026/06/12 13:58:43 by pjelinek          #+#    #+#             */
+/*   Updated: 2026/06/12 14:13:07 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EASYFIND_HPP
-# define EASYFIND_HPP
+#ifndef SPAN_HPP
+# define SPAN_HPP
 
-#include <exception>
+class Span {
 
-template<typename T>
-typename T::iterator	easyfind(T& container, int num);
-
-template<typename T>
-typename T::const_iterator	easyfind(const T& container, int num);
-
-class NotFoundException : public std::exception {
+	private:
+		unsigned int maxStore;
 
 	public:
-		const char* what() const throw ();
+		Span(unsigned int N);
+		Span(const Span &other);
+		Span& operator=(const Span &other);
+		~Span();
+
+		void addNumber(int num);
+		void addMultipleNumbers();
+
+		int	shortestSpan();
+		int	longestSpan();
 };
 
-#include "easyfind.tpp"
 
-#endif
+
+#endif /* SPAN_HPP */
