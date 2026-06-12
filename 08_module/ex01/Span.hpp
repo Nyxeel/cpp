@@ -6,17 +6,20 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 13:58:43 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/12 14:13:07 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/12 22:00:17 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SPAN_HPP
 # define SPAN_HPP
 
+#include <vector>
+
 class Span {
 
 	private:
-		unsigned int maxStore;
+		unsigned int 		maxStore;
+		std::vector<int> 	container;
 
 	public:
 		Span(unsigned int N);
@@ -29,6 +32,18 @@ class Span {
 
 		int	shortestSpan();
 		int	longestSpan();
+
+		class MaxStoreException : public std::exception {
+
+			public:
+				const char* what() const throw();
+		};
+
+		class NoSpanException : public std::exception {
+
+			public:
+				const char* what() const throw();
+		};
 };
 
 
