@@ -15,7 +15,6 @@
 #include <sys/time.h>
 #include <cctype>
 #include <stdexcept>
-#include <string>
 #include <iostream>
 #include <cstdlib>
 #include <climits>
@@ -52,6 +51,7 @@ PmergeMe::~PmergeMe() {
 // ######################################################################
 // #########################   H E L P E R   ############################
 // ######################################################################
+
 
 double	getTimeUsec(void)
 {
@@ -95,21 +95,22 @@ void	PmergeMe::parseNumbersAndFillContainer(char **arr, int ac) {
 		double num = strtod(arr[i], &endptr);
 		if (*endptr != '\0')
 			throw std::runtime_error("Error: invalid char detected");
-		if (num < 1 || num > INT_MAX)
+		if (num < 1 || num > UINT_MAX)
 			throw std::runtime_error("Error: number not in range from 1 to INT_MAX");
-		_vector.push_back(static_cast<int> (num));
-		_deque.push_back(static_cast<int> (num));
+
+		_vector.push_back(static_cast<unsigned int> (num));
+		_deque.push_back(static_cast<unsigned int> (num));
 	}
 }
 
 
-void	PmergeMe::sortVector() {
+std::vector<unsigned int>& PmergeMe::sortVector() {
 
 
 	return ;
 }
 
-void	PmergeMe::sortDeque() {
+std::deque<unsigned int>&	PmergeMe::sortDeque() {
 
 	return ;
 }
@@ -119,24 +120,21 @@ void	PmergeMe::runSort() {
 	if (_vector.empty() || _deque.empty())
 		throw std::runtime_error("Error: container empty");
 
-	std::vector<int> vectorBefore = _vector;
-
 
 	// ######################################################################
 	// SORT VECTOR
-	
+
 	time startVector = getTimeUsec();
-	sortVector();
+	std::vector<unsigned int> sortedVector = sortVector(_vector);
 	time endVector = getTimeUsec();
 	time vectorTime = endVector - startVector;
-
 
 
 	// ######################################################################
 	// SORT DEQUE
 
 	time startDeque = getTimeUsec();
-	sortDeque();
+	std::deque<unsigned int> sortedDeque = sortDeque(_deque);
 	time endDeque = getTimeUsec();
 	time dequeTime = endDeque - startDeque;
 
@@ -148,7 +146,7 @@ void	PmergeMe::runSort() {
 	printContainer(_vector);
 
 	std::cout << "After: ";
-	printContainer(_vector);
+	printContainer(sortedVector);
 
 	std::cout << std::fixed << std::setprecision(6) << "Time to process a range of "
 		<< _vector.size() << " elements with std::vector : " << vectorTime << " us" << std::endl;

@@ -6,13 +6,13 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 14:57:38 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/17 19:44:00 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/18 15:00:05 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
 
-#include <exception>
+//#include <exception>
 #include <iostream>
 
 void	printError(std::string str) {

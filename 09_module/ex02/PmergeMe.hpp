@@ -13,7 +13,6 @@
 #ifndef PmergeMe_HPP
 # define PmergeMe_HPP
 
-#include <string>
 #include <vector>
 #include <deque>
 
@@ -23,11 +22,11 @@ class PmergeMe {
 
 	private:
 
-		void				parseNumbersAndFillContainer(char **arr, int ac);
-		void				sortVector();
-		void				sortDeque();
-		std::vector<int>	_vector;
-		std::deque<int>		_deque;
+		void						parseNumbersAndFillContainer(char **arr, int ac);
+		std::vector<unsigned int>&	sortVector(std::vector<unsigned int> vector);
+		std::deque<unsigned int>&	sortDeque(std::deque<unsigned int> deque);
+		std::vector<unsigned int>	_vector;
+		std::deque<unsigned int>	_deque;
 
 	public:
 		PmergeMe(char** arr, int ac);
