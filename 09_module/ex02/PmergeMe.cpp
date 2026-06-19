@@ -19,8 +19,6 @@
 #include <cstdlib>
 #include <climits>
 #include <iomanip>
-#include <unistd.h>
-
 
 
 PmergeMe::PmergeMe(char **arr, int ac) :_compareOperation(0){
@@ -53,13 +51,29 @@ PmergeMe::~PmergeMe() {
 // #########################   H E L P E R   ############################
 // ######################################################################
 
-
 double	getTimeUsec(void)
 {
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
 	return ((double)tv.tv_sec + (double)tv.tv_usec / 1000000.0);
+}
+
+unsigned int countDigits(unsigned int n)
+{
+	unsigned int count = 1;
+
+	while (n >= 10)
+	{
+		n /= 10;
+		count++;
+	}
+	return count;
+}
+
+void	print(std::string str) {
+
+	std::cout  << str;
 }
 
 void	printNewline() {
@@ -75,32 +89,22 @@ void	printContainer(T container) {
 
 	for(; begin != end; begin++) {
 
-		std::cout << *begin;
-		if (begin + 1 != end)
-			std::cout << " ";
+		int width = countDigits(*begin) + 1;
+		std::cout << std::setw(width) << std::right << *begin;
 	}
 	printNewline();
 }
 
+template <typename T>
+void	printPairs(T& pairVec) {
 
-// ######################################################################
-// ######################################################################
-// ######################################################################
+	typename T::iterator begin = pairVec.begin();
+	typename T::iterator end = pairVec.end();
+	for(; begin != end; begin++ ) {
 
-
-void	PmergeMe::parseNumbersAndFillContainer(char **arr, int ac) {
-
-	for (int i = 1; i < ac; i++) {
-
-		char* endptr = NULL;
-		double num = strtod(arr[i], &endptr);
-		if (*endptr != '\0')
-			throw std::runtime_error("Error: invalid char detected");
-		if (num < 1 || num > UINT_MAX)
-			throw std::runtime_error("Error: number not in range from 1 to INT_MAX");
-
-		_vector.push_back(static_cast<unsigned int> (num));
-		_deque.push_back(static_cast<unsigned int> (num));
+		std::cout 	<< "First: " << begin->first
+					<< " Second: " <<  begin->second
+					<< std::endl;
 	}
 }
 
@@ -124,16 +128,25 @@ pairVector	makePairs(containerVector& vector) {
 	return pairVec;
 }
 
-template <typename T>
-void	printPairs(T& pairVec) {
 
-	typename T::iterator begin = pairVec.begin();
-	typename T::iterator end = pairVec.end();
-	for(; begin != end; begin++ ) {
+// ######################################################################
+// ######################################################################
+// ######################################################################
 
-		std::cout 	<< "Left: " << begin->first
-					<< " Right: " <<  begin->second
-					<< std::endl;
+
+void	PmergeMe::parseNumbersAndFillContainer(char **arr, int ac) {
+
+	for (int i = 1; i < ac; i++) {
+
+		char* endptr = NULL;
+		double num = strtod(arr[i], &endptr);
+		if (*endptr != '\0')
+			throw std::runtime_error("Error: invalid char detected");
+		if (num < 1 || num > UINT_MAX)
+			throw std::runtime_error("Error: number not in range from 1 to INT_MAX");
+
+		_vector.push_back(static_cast<unsigned int> (num));
+		_deque.push_back(static_cast<unsigned int> (num));
 	}
 }
 
@@ -160,10 +173,15 @@ void	PmergeMe::comparePairs(pairVector& pairVec,
 	}
 }
 
+void	jacobsIndex(std::vector<unsigned int>& smaller) {
+
+	return;
+}
+
 
 containerVector& PmergeMe::sortVector(containerVector& vector) {
 
-	if (vector.size() == 1)
+	if (vector.size() <= 1)
 		return vector;
 
 	ssize_t leftover = -1;
@@ -177,10 +195,36 @@ containerVector& PmergeMe::sortVector(containerVector& vector) {
 	if (leftover != -1)
 		std::cout << "leftover: " << leftover << std::endl;
 
+	printNewline();
 	std::vector<unsigned int> smaller;
 	std::vector<unsigned int> bigger;
 
 	comparePairs(pairVec, smaller, bigger);
+
+	print("SMALLER\t");
+	printContainer(smaller);
+	print("BIGGER\t");
+	printContainer(bigger);
+
+	printNewline();
+
+	//std::cout << "Bigger Size " << bigger.size() << std::endl;
+
+	std::vector<unsigned int> mainVec = sortVector(bigger);
+
+
+	jacobsIndex(smaller);
+
+
+
+	// print("MAIN VEC\t");
+	// printContainer(mainVec);
+
+	//std::cout << "Compare " << _compareOperation << std::endl;
+
+
+
+
 
 
 
@@ -220,10 +264,10 @@ void	PmergeMe::runSort() {
 	// ######################################################################
 	// PRINT
 
-	std::cout << "Before: ";
+	std::cout << "Before:\t";
 	printContainer(_vector);
 
-	std::cout << "After: ";
+	std::cout << " After:\t";
 	printContainer(sortedVector);
 
 	std::cout << std::fixed << std::setprecision(6) << "Time to process a range of "
