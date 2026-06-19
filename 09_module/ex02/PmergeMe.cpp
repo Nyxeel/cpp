@@ -23,13 +23,13 @@
 
 
 
-PmergeMe::PmergeMe(char **arr, int ac){
+PmergeMe::PmergeMe(char **arr, int ac) :_compareOperation(0){
 
 	parseNumbersAndFillContainer(arr, ac);
 }
 
 PmergeMe::PmergeMe(const PmergeMe &other) :
-	_vector(other._vector), _deque(other._deque) {
+	_vector(other._vector), _deque(other._deque), _compareOperation(0) {
 
 }
 
@@ -39,6 +39,7 @@ PmergeMe& PmergeMe::operator=(const PmergeMe &other){
 
 		_vector = other._vector;
 		_deque = other._deque;
+		_compareOperation = other._compareOperation;
 	}
 	return (*this);
 }
@@ -103,16 +104,93 @@ void	PmergeMe::parseNumbersAndFillContainer(char **arr, int ac) {
 	}
 }
 
+pairVector	makePairs(containerVector& vector) {
 
-std::vector<unsigned int>& PmergeMe::sortVector() {
+	containerVector::iterator begin = vector.begin();
+	containerVector::iterator end = vector.end();
+	std::pair<unsigned int, unsigned int> pair;
+	pairVector pairVec;
 
+	for(; begin != end; ++begin) {
 
-	return ;
+		if ((pairVec.size() * 2 + 1) == vector.size() )
+			break;
+		pair = std::make_pair(*begin, *(begin + 1));
+		pairVec.push_back(pair);
+		if (begin + 1 != end)
+			++begin;
+
+	}
+	return pairVec;
 }
 
-std::deque<unsigned int>&	PmergeMe::sortDeque() {
+template <typename T>
+void	printPairs(T& pairVec) {
 
-	return ;
+	typename T::iterator begin = pairVec.begin();
+	typename T::iterator end = pairVec.end();
+	for(; begin != end; begin++ ) {
+
+		std::cout 	<< "Left: " << begin->first
+					<< " Right: " <<  begin->second
+					<< std::endl;
+	}
+}
+
+void	PmergeMe::comparePairs(pairVector& pairVec,
+			std::vector<unsigned int>& smaller,
+			std::vector<unsigned int>& bigger) {
+
+	pairVector::iterator begin = pairVec.begin();
+	pairVector::iterator end = pairVec.end();
+
+	for(; begin != end; begin++) {
+
+		if (begin->first < begin->second) {
+
+			smaller.push_back((begin->first));
+			bigger.push_back((begin->second));
+		}
+		else {
+
+			smaller.push_back((begin->second));
+			bigger.push_back((begin->first));
+		}
+		_compareOperation++;
+	}
+}
+
+
+containerVector& PmergeMe::sortVector(containerVector& vector) {
+
+	if (vector.size() == 1)
+		return vector;
+
+	ssize_t leftover = -1;
+	pairVector pairVec = makePairs(vector);
+
+	if ((pairVec.size() * 2 + 1) == vector.size() )
+		leftover = *(vector.end() - 1);
+
+	printPairs(pairVec);	//TODO: delete later, debug print
+
+	if (leftover != -1)
+		std::cout << "leftover: " << leftover << std::endl;
+
+	std::vector<unsigned int> smaller;
+	std::vector<unsigned int> bigger;
+
+	comparePairs(pairVec, smaller, bigger);
+
+
+
+
+	return vector;
+}
+
+containerDeque&	PmergeMe::sortDeque(containerDeque& deque) {
+
+	return deque;
 }
 
 void	PmergeMe::runSort() {
@@ -125,7 +203,7 @@ void	PmergeMe::runSort() {
 	// SORT VECTOR
 
 	time startVector = getTimeUsec();
-	std::vector<unsigned int> sortedVector = sortVector(_vector);
+	containerVector sortedVector = sortVector(_vector);
 	time endVector = getTimeUsec();
 	time vectorTime = endVector - startVector;
 
@@ -134,7 +212,7 @@ void	PmergeMe::runSort() {
 	// SORT DEQUE
 
 	time startDeque = getTimeUsec();
-	std::deque<unsigned int> sortedDeque = sortDeque(_deque);
+	containerDeque sortedDeque = sortDeque(_deque);
 	time endDeque = getTimeUsec();
 	time dequeTime = endDeque - startDeque;
 

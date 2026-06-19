@@ -16,6 +16,11 @@
 #include <vector>
 #include <deque>
 
+typedef std::vector<std::pair<unsigned int, unsigned int> > pairVector;
+typedef std::vector<unsigned int> containerVector;
+typedef std::deque<unsigned int> containerDeque;
+
+
 class PmergeMe {
 
 	typedef double time;
@@ -23,10 +28,15 @@ class PmergeMe {
 	private:
 
 		void						parseNumbersAndFillContainer(char **arr, int ac);
-		std::vector<unsigned int>&	sortVector(std::vector<unsigned int> vector);
-		std::deque<unsigned int>&	sortDeque(std::deque<unsigned int> deque);
-		std::vector<unsigned int>	_vector;
+		containerVector&			sortVector(containerVector& vector);
+		containerDeque&				sortDeque(containerDeque& deque);
+		void						comparePairs(pairVector& pairVec,
+											std::vector<unsigned int>& smaller,
+											std::vector<unsigned int>& bigger);
+
+		containerVector				_vector;
 		std::deque<unsigned int>	_deque;
+		double						_compareOperation;
 
 	public:
 		PmergeMe(char** arr, int ac);
@@ -37,6 +47,7 @@ class PmergeMe {
 		void	runSort();
 
 };
+
 
 template <typename T>
 void		printContainer(T container);
