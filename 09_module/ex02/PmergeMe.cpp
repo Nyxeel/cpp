@@ -19,6 +19,7 @@
 #include <cstdlib>
 #include <climits>
 #include <iomanip>
+#include <sys/types.h>
 
 
 PmergeMe::PmergeMe(char **arr, int ac) :_compareOperation(0){
@@ -181,7 +182,6 @@ std::vector<ssize_t>	getJacobsIndex(std::vector<unsigned int>& smaller) {
 	ssize_t smallerSize = smaller.size();
 	print("Smaller\t");
 	printContainer(smaller);
-	std::cout << "Smaller Size " <<  smallerSize << std::endl;
 	if (smallerSize == 1) {
 
 		arr.push_back(0);
@@ -190,40 +190,70 @@ std::vector<ssize_t>	getJacobsIndex(std::vector<unsigned int>& smaller) {
 
 	ssize_t prev0 = 0;
 	ssize_t prev1 = 1;
-	ssize_t jacobsBorderNum = -1;
+	ssize_t jacobsBorderNum = 0;
 	while (smallerSize >= jacobsBorderNum) {
 
 		jacobsBorderNum = prev1 + 2 * prev0; 	// Jacobs Num Calc
-		if (jacobsBorderNum < smallerSize)
+		if (jacobsBorderNum <= smallerSize)
 			arr.push_back(jacobsBorderNum);
-		std::cout << "Prev " <<  prev1 << std::endl;
-		std::cout << "Jacobs Num " <<  jacobsBorderNum << std::endl;
-
 
 		ssize_t tmp = jacobsBorderNum;
-		while (tmp != prev1) {
-
-			printNewline();
-
-			std::cout << "tmp " <<  tmp << std::endl;
+		while (tmp > prev1) {
 
 			tmp -= 1;
-			if (tmp < smallerSize)
+			if (tmp <= smallerSize && tmp != prev1)
 				arr.push_back(tmp);
-			if ((tmp - 1) == prev1)
-				break ;
 		}
-
-		printNewline();printNewline();
-
-
 		prev0 = prev1;
 		prev1 = jacobsBorderNum;
-
-
 	}
 	return arr;
 }
+
+unsigned int	binaryInsert(
+		unsigned int target,
+		std::vector<unsigned int>::iterator start,
+		std::vector<unsigned int>::iterator end) {
+
+	if (start > end)
+		throw std::runtime_error("Error");
+
+	std::vector<unsigned int>::iterator middle = start + (end - start) / 2;
+
+	if (target == *middle)
+			return (*middle);
+	if (target < *middle)
+			return (binaryInsert(target, start, middle -1));
+
+	if (target > *middle)
+			return (binaryInsert(target, middle + 1, end));
+
+
+}
+
+
+std::vector<unsigned int>&	insertSmaller(
+			std::vector<ssize_t>& jacobsIndexVec,
+			std::vector<unsigned int>& smaller,
+			std::vector<unsigned int>& mainVec) {
+
+	std::vector<ssize_t>::iterator idx = jacobsIndexVec.begin();
+	std::vector<ssize_t>::iterator end = jacobsIndexVec.end();
+	std::vector<unsigned int>::iterator smallBegin = smaller.begin();
+	std::vector<unsigned int>::iterator smallEnd = smaller.end();
+
+	for( ; idx != end; idx++) {
+
+		unsigned int pos = binaryInsert(smallBegin[*idx], mainVec.begin(), mainVec.end());
+		mainVec.insert(pos, smallBegin[*idx]);
+		smallBegin++;
+
+	}
+
+	return mainVec;
+}
+
+
 
 
 containerVector& PmergeMe::sortVector(containerVector& vector) {
@@ -261,8 +291,10 @@ containerVector& PmergeMe::sortVector(containerVector& vector) {
 
 	std::vector<ssize_t> jacobsIndexVec = getJacobsIndex(smaller);
 
-	print("Jacobs Index\t");
-	printContainer(jacobsIndexVec);
+	mainVec = insertSmaller(jacobsIndexVec, smaller, mainVec);
+
+	//print("Jacobs Index\t");
+	//printContainer(jacobsIndexVec);
 
 	// print("MAIN VEC\t");
 	// printContainer(mainVec);
