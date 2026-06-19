@@ -173,9 +173,39 @@ void	PmergeMe::comparePairs(pairVector& pairVec,
 	}
 }
 
-void	jacobsIndex(std::vector<unsigned int>& smaller) {
 
-	return;
+std::vector<ssize_t>	getJacobsIndex(std::vector<unsigned int>& smaller) {
+
+	std::vector<ssize_t> arr;
+
+	ssize_t smallerSize = smaller.size();
+	if (smallerSize == 1) {
+
+		arr.push_back(0);
+		return (arr);
+	}
+
+	ssize_t prev0 = 0;
+	ssize_t prev1 = 1;
+	for(;;) {
+
+		ssize_t jacobsBorderNum = prev1 + 2 * prev0;
+
+		prev0 = prev1;
+		prev1 = jacobsBorderNum;
+
+		arr.push_back(jacobsBorderNum - 1);
+
+		ssize_t last = arr.back();
+		while ((jacobsBorderNum - 1) != last && jacobsBorderNum != last) {
+
+				int tmp = jacobsBorderNum - 1;
+				arr.push_back(tmp - 1);
+		}
+		if (smallerSize <= jacobsBorderNum)
+			break;
+	}
+	return arr;
 }
 
 
@@ -190,7 +220,7 @@ containerVector& PmergeMe::sortVector(containerVector& vector) {
 	if ((pairVec.size() * 2 + 1) == vector.size() )
 		leftover = *(vector.end() - 1);
 
-	printPairs(pairVec);	//TODO: delete later, debug print
+	//printPairs(pairVec);	//TODO: delete later, debug print
 
 	if (leftover != -1)
 		std::cout << "leftover: " << leftover << std::endl;
@@ -203,8 +233,8 @@ containerVector& PmergeMe::sortVector(containerVector& vector) {
 
 	print("SMALLER\t");
 	printContainer(smaller);
-	print("BIGGER\t");
-	printContainer(bigger);
+	//print("BIGGER\t");
+	//printContainer(bigger);
 
 	printNewline();
 
@@ -212,10 +242,10 @@ containerVector& PmergeMe::sortVector(containerVector& vector) {
 
 	std::vector<unsigned int> mainVec = sortVector(bigger);
 
+	std::vector<ssize_t> jacobsIndexVec = getJacobsIndex(smaller);
 
-	jacobsIndex(smaller);
-
-
+	print("Jacobs Index\t");
+	printContainer(jacobsIndexVec);
 
 	// print("MAIN VEC\t");
 	// printContainer(mainVec);
