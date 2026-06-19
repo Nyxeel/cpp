@@ -179,6 +179,9 @@ std::vector<ssize_t>	getJacobsIndex(std::vector<unsigned int>& smaller) {
 	std::vector<ssize_t> arr;
 
 	ssize_t smallerSize = smaller.size();
+	print("Smaller\t");
+	printContainer(smaller);
+	std::cout << "Smaller Size " <<  smallerSize << std::endl;
 	if (smallerSize == 1) {
 
 		arr.push_back(0);
@@ -187,23 +190,37 @@ std::vector<ssize_t>	getJacobsIndex(std::vector<unsigned int>& smaller) {
 
 	ssize_t prev0 = 0;
 	ssize_t prev1 = 1;
-	for(;;) {
+	ssize_t jacobsBorderNum = -1;
+	while (smallerSize >= jacobsBorderNum) {
 
-		ssize_t jacobsBorderNum = prev1 + 2 * prev0;
+		jacobsBorderNum = prev1 + 2 * prev0; 	// Jacobs Num Calc
+		if (jacobsBorderNum < smallerSize)
+			arr.push_back(jacobsBorderNum);
+		std::cout << "Prev " <<  prev1 << std::endl;
+		std::cout << "Jacobs Num " <<  jacobsBorderNum << std::endl;
+
+
+		ssize_t tmp = jacobsBorderNum;
+		while (tmp != prev1) {
+
+			printNewline();
+
+			std::cout << "tmp " <<  tmp << std::endl;
+
+			tmp -= 1;
+			if (tmp < smallerSize)
+				arr.push_back(tmp);
+			if ((tmp - 1) == prev1)
+				break ;
+		}
+
+		printNewline();printNewline();
+
 
 		prev0 = prev1;
 		prev1 = jacobsBorderNum;
 
-		arr.push_back(jacobsBorderNum - 1);
 
-		ssize_t last = arr.back();
-		while ((jacobsBorderNum - 1) != last && jacobsBorderNum != last) {
-
-				int tmp = jacobsBorderNum - 1;
-				arr.push_back(tmp - 1);
-		}
-		if (smallerSize <= jacobsBorderNum)
-			break;
 	}
 	return arr;
 }
