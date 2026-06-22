@@ -109,6 +109,12 @@ void	printPairs(T& pairVec) {
 	}
 }
 
+
+// ######################################################################
+// #########################  V E C T O R  ##############################
+// ######################################################################
+
+
 pairVector	makePairs(containerVector& vector) {
 
 	containerVector::iterator begin = vector.begin();
@@ -129,27 +135,6 @@ pairVector	makePairs(containerVector& vector) {
 	return pairVec;
 }
 
-
-// ######################################################################
-// ######################################################################
-// ######################################################################
-
-
-void	PmergeMe::parseNumbersAndFillContainer(char **arr, int ac) {
-
-	for (int i = 1; i < ac; i++) {
-
-		char* endptr = NULL;
-		double num = strtod(arr[i], &endptr);
-		if (*endptr != '\0')
-			throw std::runtime_error("Error: invalid char detected");
-		if (num < 1 || num > UINT_MAX)
-			throw std::runtime_error("Error: number not in range from 1 to INT_MAX");
-
-		_vector.push_back(static_cast<unsigned int> (num));
-		_deque.push_back(static_cast<unsigned int> (num));
-	}
-}
 
 void	PmergeMe::comparePairs(pairVector& pairVec,
 			std::vector<unsigned int>& smaller,
@@ -275,10 +260,177 @@ containerVector PmergeMe::sortVector(containerVector& vector) {
 	return mainVec;
 }
 
-containerDeque&	PmergeMe::sortDeque(containerDeque& deque) {
 
-	return deque;
+
+// ######################################################################
+// #########################   D E Q U E   ##############################
+// ######################################################################
+
+pairDeque	makePairs(containerDeque& deque) {
+
+	containerDeque::iterator begin = deque.begin();
+	containerDeque::iterator end = deque.end();
+	std::pair<unsigned int, unsigned int> pair;
+	pairDeque pairDeque;
+
+	for(; begin != end; ++begin) {
+
+		if ((pairDeque.size() * 2 + 1) == deque.size() )
+			break;
+		pair = std::make_pair(*begin, *(begin + 1));
+		pairDeque.push_back(pair);
+		if (begin + 1 != end)
+			++begin;
+
+	}
+	return pairDeque;
 }
+
+
+void	PmergeMe::comparePairs(pairDeque& pairDeque,
+			std::deque<unsigned int>& smaller,
+			std::deque<unsigned int>& bigger) {
+
+	pairDeque::iterator begin = pairDeque.begin();
+	pairDeque::iterator end = pairDeque.end();
+
+	for(; begin != end; begin++) {
+
+		if (begin->first < begin->second) {
+
+			smaller.push_back((begin->first));
+			bigger.push_back((begin->second));
+		}
+		else {
+
+			smaller.push_back((begin->second));
+			bigger.push_back((begin->first));
+		}
+		_compareOperation++;
+	}
+}
+
+
+std::deque<ssize_t>	getJacobsIndex(std::deque<unsigned int>& smaller) {
+
+	std::deque<ssize_t> arr;
+
+	ssize_t smallerSize = smaller.size();
+	if (smallerSize == 1) {
+
+		arr.push_back(0);
+		return (arr);
+	}
+
+	ssize_t prev0 = 0;
+	ssize_t prev1 = 1;
+	ssize_t jacobsBorderNum = 0;
+	while (smallerSize >= jacobsBorderNum) {
+
+		jacobsBorderNum = prev1 + 2 * prev0; 	// Jacobs Num Calc
+		if (jacobsBorderNum <= smallerSize)
+			arr.push_back(jacobsBorderNum - 1);
+
+		ssize_t tmp = jacobsBorderNum;
+		while (tmp > prev1) {
+
+			tmp -= 1;
+			if (tmp <= smallerSize && tmp != prev1)
+				arr.push_back(tmp - 1);
+		}
+		prev0 = prev1;
+		prev1 = jacobsBorderNum;
+	}
+	return arr;
+}
+
+
+std::deque<unsigned int>::iterator	binaryInsert(
+		unsigned int target,
+		std::deque<unsigned int>::iterator start,
+		std::deque<unsigned int>::iterator end) {
+
+	if (start == end)
+			return start;
+
+	std::deque<unsigned int>::iterator middle = start + (end - start) / 2;
+
+	if (target <= *middle)
+			return (binaryInsert(target, start, middle));
+
+	if (target > *middle)
+		return (binaryInsert(target, middle + 1, end));
+	throw std::runtime_error("Error");
+}
+
+
+std::deque<unsigned int>&	insertSmaller(
+			std::deque<ssize_t>& jacobsIndexVec,
+			std::deque<unsigned int>& smaller,
+			std::deque<unsigned int>& mainDeque) {
+
+	std::deque<ssize_t>::iterator idx = jacobsIndexVec.begin();
+	std::deque<ssize_t>::iterator end = jacobsIndexVec.end();
+	std::deque<unsigned int>::iterator smallBegin = smaller.begin();
+
+	for( ; idx != end; idx++) {
+
+		std::deque<unsigned int>::iterator pos = binaryInsert(smallBegin[*idx], mainDeque.begin(), mainDeque.end());
+
+		//std::cout << " insert " << smallBegin[*idx] << " before number " << *pos << "\n";
+		mainDeque.insert(pos, smallBegin[*idx]);
+	}
+	return mainDeque;
+}
+
+
+
+containerDeque PmergeMe::sortDeque(containerDeque& deque) {
+
+	if (deque.size() <= 1)
+		return deque;
+
+	ssize_t leftover = -1;
+	pairDeque pairDeque = makePairs(deque);
+
+	if ((pairDeque.size() * 2 + 1) == deque.size() )
+		leftover = *(deque.end() - 1);
+
+	std::deque<unsigned int> smaller;
+	std::deque<unsigned int> bigger;
+
+	comparePairs(pairDeque, smaller, bigger);
+
+	std::deque<unsigned int> mainDeque = sortDeque(bigger);
+	std::deque<ssize_t> jacobsIndexDeque = getJacobsIndex(smaller);
+
+	mainDeque = insertSmaller(jacobsIndexDeque, smaller, mainDeque);
+
+	if (leftover != -1) {
+
+		std::deque<unsigned int>::iterator pos = binaryInsert(leftover, mainDeque.begin(), mainDeque.end());
+		mainDeque.insert(pos, leftover);
+	}
+	return mainDeque;
+}
+
+
+void	PmergeMe::parseNumbersAndFillContainer(char **arr, int ac) {
+
+	for (int i = 1; i < ac; i++) {
+
+		char* endptr = NULL;
+		double num = strtod(arr[i], &endptr);
+		if (*endptr != '\0')
+			throw std::runtime_error("Error: invalid char detected");
+		if (num < 1 || num > UINT_MAX)
+			throw std::runtime_error("Error: number not in range from 1 to INT_MAX");
+
+		_vector.push_back(static_cast<unsigned int> (num));
+		_deque.push_back(static_cast<unsigned int> (num));
+	}
+}
+
 
 void	PmergeMe::runSort() {
 
@@ -313,10 +465,10 @@ void	PmergeMe::runSort() {
 	std::cout << " After:\t";
 	printContainer(sortedVector);
 
-	std::cout << std::fixed << std::setprecision(6) << "Time to process a range of "
+	std::cout << std::fixed << std::setprecision(5) << "Time to process a range of "
 		<< _vector.size() << " elements with std::vector : " << vectorTime << " us" << std::endl;
 
-	std::cout << std::fixed << std::setprecision(6) << "Time to process a range of "
+	std::cout << std::fixed << std::setprecision(5) << "Time to process a range of "
 		<< _deque.size() << " elements with std::deque : " << dequeTime << " us" << std::endl;
 }
 
