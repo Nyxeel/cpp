@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 13:58:43 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/13 20:51:05 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/22 23:05:57 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@ class Span {
 		Span& operator=(const Span &other);
 		~Span();
 
-		void addNumber(int num);
-		void addMultipleNumbers(std::vector<int>::iterator begin,
+		void	addNumber(int num);
+
+		void	addMultipleNumbers(std::vector<int>::iterator begin,
 								std::vector<int>::iterator end);
 
-		int	shortestSpan() const;
-		int	longestSpan() const;
+		double	shortestSpan() const;
+		double	longestSpan() const;
 
 		std::vector<int> getContainer();
 
-		
 		class MaxStoreException : public std::exception {
 
 			public:

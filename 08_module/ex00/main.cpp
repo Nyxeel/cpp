@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 13:33:31 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/12 13:53:08 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/22 22:44:57 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,8 +144,6 @@ void	vectorTests() {
 
 }
 
-
-
 void	listTests() {
 
 	//std::vector<int>::reverse_iterator rev = a.rbegin();
@@ -186,7 +184,7 @@ void	listTests() {
 	printNewline();
 
 
-	a.push_back(223);
+	a.push_back(223234234);
 	a.push_back(-4);
 	a.push_back(543);
 
@@ -249,7 +247,6 @@ void	dequeTests() {
 
 	printNewline();
 
-
 	a.push_back(223);
 	a.push_back(-4);
 	a.push_back(543);
@@ -275,9 +272,9 @@ void	dequeTests() {
 
 int	main(void)
 {
-	//vectorTests();
+	vectorTests();
 	//listTests();
-	dequeTests();
+	//dequeTests();
 	// std::list<int>		b;
 	// std::deque<int>		c;
 

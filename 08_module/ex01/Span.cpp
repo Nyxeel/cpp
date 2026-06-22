@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 13:58:43 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/13 21:06:40 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/22 23:06:04 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ Span::Span(unsigned int N) : maxStore(N) {
 
 }
 
-Span::Span(const Span &other) : maxStore(other.maxStore), container(other.container) {
+Span::Span(const Span &other) :
+	maxStore(other.maxStore), container(other.container) {
 
 }
 
@@ -61,16 +62,17 @@ void	Span::addNumber(int num) {
 	container.push_back(num);
 }
 
-void	Span::addMultipleNumbers(std::vector<int>::iterator begin,
-		std::vector<int>::iterator end) {
+void	Span::addMultipleNumbers(
+			std::vector<int>::iterator begin,
+			std::vector<int>::iterator end) {
 
-	for (; begin != end; begin++) {
+	if (container.size() + std::distance(begin, end) > maxStore)
+		throw NoSpanException();
 
-		this->addNumber(*begin);
-	}
+	container.insert(container.end(), begin, end);
 }
 
-int	Span::shortestSpan() const {
+double	Span::shortestSpan() const {
 
 
 	if (container.size() <= 1)
@@ -81,25 +83,21 @@ int	Span::shortestSpan() const {
 	std::vector<int>::iterator end = tmp.end();
 	std::vector<int>::iterator next = begin + 1;
 
-	int span = INT_MAX;
-	int distance;
+	double span = LLONG_MAX;
 
 	std::sort(begin, end);
 
-	for(; begin != end; begin++) {
+	for(; next != end; begin++, next++) {
 
-		if (next != end)
-			distance = *next - *begin ;
+		double distance = *next - *begin ;
 		if (distance < span)
 			span = distance;
-
-		next++;
 	}
 	return span;
 }
 
 
-int	Span::longestSpan() const {
+double	Span::longestSpan() const {
 
 
 	if (container.size() <= 1)
@@ -108,8 +106,8 @@ int	Span::longestSpan() const {
 	std::vector<int>::const_iterator begin = container.begin();
 	std::vector<int>::const_iterator end = container.end();
 
-	int min = *std::min_element(begin, end);
-	int max = *std::max_element(begin, end);
+	double min = *std::min_element(begin, end);
+	double max = *std::max_element(begin, end);
 
 	return max - min;
 }
