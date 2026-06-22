@@ -180,8 +180,6 @@ std::vector<ssize_t>	getJacobsIndex(std::vector<unsigned int>& smaller) {
 	std::vector<ssize_t> arr;
 
 	ssize_t smallerSize = smaller.size();
-	print("Smaller\t");
-	printContainer(smaller);
 	if (smallerSize == 1) {
 
 		arr.push_back(0);
@@ -195,14 +193,14 @@ std::vector<ssize_t>	getJacobsIndex(std::vector<unsigned int>& smaller) {
 
 		jacobsBorderNum = prev1 + 2 * prev0; 	// Jacobs Num Calc
 		if (jacobsBorderNum <= smallerSize)
-			arr.push_back(jacobsBorderNum);
+			arr.push_back(jacobsBorderNum - 1);
 
 		ssize_t tmp = jacobsBorderNum;
 		while (tmp > prev1) {
 
 			tmp -= 1;
 			if (tmp <= smallerSize && tmp != prev1)
-				arr.push_back(tmp);
+				arr.push_back(tmp - 1);
 		}
 		prev0 = prev1;
 		prev1 = jacobsBorderNum;
@@ -210,25 +208,22 @@ std::vector<ssize_t>	getJacobsIndex(std::vector<unsigned int>& smaller) {
 	return arr;
 }
 
-unsigned int	binaryInsert(
+std::vector<unsigned int>::iterator	binaryInsert(
 		unsigned int target,
 		std::vector<unsigned int>::iterator start,
 		std::vector<unsigned int>::iterator end) {
 
-	if (start > end)
-		throw std::runtime_error("Error");
+	if (start == end)
+			return start;
 
 	std::vector<unsigned int>::iterator middle = start + (end - start) / 2;
 
-	if (target == *middle)
-			return (*middle);
-	if (target < *middle)
-			return (binaryInsert(target, start, middle -1));
+	if (target <= *middle)
+			return (binaryInsert(target, start, middle));
 
 	if (target > *middle)
-			return (binaryInsert(target, middle + 1, end));
-
-
+		return (binaryInsert(target, middle + 1, end));
+	throw std::runtime_error("Error");
 }
 
 
@@ -240,23 +235,18 @@ std::vector<unsigned int>&	insertSmaller(
 	std::vector<ssize_t>::iterator idx = jacobsIndexVec.begin();
 	std::vector<ssize_t>::iterator end = jacobsIndexVec.end();
 	std::vector<unsigned int>::iterator smallBegin = smaller.begin();
-	std::vector<unsigned int>::iterator smallEnd = smaller.end();
 
 	for( ; idx != end; idx++) {
 
-		unsigned int pos = binaryInsert(smallBegin[*idx], mainVec.begin(), mainVec.end());
+		std::vector<unsigned int>::iterator pos = binaryInsert(smallBegin[*idx], mainVec.begin(), mainVec.end());
+
+		//std::cout << " insert " << smallBegin[*idx] << " before number " << *pos << "\n";
 		mainVec.insert(pos, smallBegin[*idx]);
-		smallBegin++;
-
 	}
-
 	return mainVec;
 }
 
-
-
-
-containerVector& PmergeMe::sortVector(containerVector& vector) {
+containerVector PmergeMe::sortVector(containerVector& vector) {
 
 	if (vector.size() <= 1)
 		return vector;
@@ -267,48 +257,22 @@ containerVector& PmergeMe::sortVector(containerVector& vector) {
 	if ((pairVec.size() * 2 + 1) == vector.size() )
 		leftover = *(vector.end() - 1);
 
-	//printPairs(pairVec);	//TODO: delete later, debug print
-
-	if (leftover != -1)
-		std::cout << "leftover: " << leftover << std::endl;
-
-	printNewline();
 	std::vector<unsigned int> smaller;
 	std::vector<unsigned int> bigger;
 
 	comparePairs(pairVec, smaller, bigger);
 
-	print("SMALLER\t");
-	printContainer(smaller);
-	//print("BIGGER\t");
-	//printContainer(bigger);
-
-	printNewline();
-
-	//std::cout << "Bigger Size " << bigger.size() << std::endl;
-
 	std::vector<unsigned int> mainVec = sortVector(bigger);
-
 	std::vector<ssize_t> jacobsIndexVec = getJacobsIndex(smaller);
 
 	mainVec = insertSmaller(jacobsIndexVec, smaller, mainVec);
 
-	//print("Jacobs Index\t");
-	//printContainer(jacobsIndexVec);
+	if (leftover != -1) {
 
-	// print("MAIN VEC\t");
-	// printContainer(mainVec);
-
-	//std::cout << "Compare " << _compareOperation << std::endl;
-
-
-
-
-
-
-
-
-	return vector;
+		std::vector<unsigned int>::iterator pos = binaryInsert(leftover, mainVec.begin(), mainVec.end());
+		mainVec.insert(pos, leftover);
+	}
+	return mainVec;
 }
 
 containerDeque&	PmergeMe::sortDeque(containerDeque& deque) {

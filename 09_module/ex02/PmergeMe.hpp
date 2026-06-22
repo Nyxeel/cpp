@@ -28,7 +28,7 @@ class PmergeMe {
 	private:
 
 		void						parseNumbersAndFillContainer(char **arr, int ac);
-		containerVector&			sortVector(containerVector& vector);
+		containerVector			sortVector(containerVector& vector);
 		containerDeque&				sortDeque(containerDeque& deque);
 		void						comparePairs(pairVector& pairVec,
 											std::vector<unsigned int>& smaller,
