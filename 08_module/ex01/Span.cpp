@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 13:58:43 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/29 14:52:00 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/29 17:15:28 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 #include <algorithm>
 #include <climits>
-
-
 
 Span::Span(unsigned int N) : maxStore(N) {
 
@@ -72,7 +70,7 @@ void	Span::addMultipleNumbers(
 	container.insert(container.end(), begin, end);
 }
 
-double	Span::shortestSpan() const {
+long	Span::shortestSpan() const {
 
 
 	if (container.size() <= 1)
@@ -83,13 +81,13 @@ double	Span::shortestSpan() const {
 	std::vector<int>::iterator end = tmp.end();
 	std::vector<int>::iterator next = begin + 1;
 
-	double span = LLONG_MAX;
+	long span = LONG_MAX;
 
 	std::sort(begin, end);
 
 	for(; next != end; begin++, next++) {
 
-		double distance = *next - *begin ;
+		long distance = (long)*next - (long)*begin ;
 		if (distance < span)
 			span = distance;
 	}
@@ -97,7 +95,7 @@ double	Span::shortestSpan() const {
 }
 
 
-double	Span::longestSpan() const {
+long	Span::longestSpan() const {
 
 
 	if (container.size() <= 1)
@@ -106,8 +104,8 @@ double	Span::longestSpan() const {
 	std::vector<int>::const_iterator begin = container.begin();
 	std::vector<int>::const_iterator end = container.end();
 
-	double min = *std::min_element(begin, end);
-	double max = *std::max_element(begin, end);
+	long min = *std::min_element(begin, end);
+	long max = *std::max_element(begin, end);
 
 	return max - min;
 }

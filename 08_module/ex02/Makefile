@@ -1,4 +1,4 @@
-NAME		= span
+NAME		= mutantstack
 CXX			= c++
 CPPFLAGS	= -Wall -Werror -Wextra -MMD -MP -std=c++98
 MAKEFLAGS	+= --no-print-directory
