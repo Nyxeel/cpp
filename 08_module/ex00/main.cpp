@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 13:33:31 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/22 22:44:57 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/29 14:44:29 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,11 +273,8 @@ void	dequeTests() {
 int	main(void)
 {
 	vectorTests();
-	//listTests();
-	//dequeTests();
-	// std::list<int>		b;
-	// std::deque<int>		c;
-
+	listTests();
+	dequeTests();
 
 	return (0);
 }

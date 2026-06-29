@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 13:33:31 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/13 20:50:20 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/29 14:55:32 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,28 @@ int	main(void)
 			std::cout << e.what() << std::endl;
 		}
 
+	}
+
+	printNewline();
+
+	{
+		// TEST 5
+		std::cout << "\033[32mTest #5 : Add more numbers than capacity (MaxStoreException) \033[0m" << std::endl;
+
+		Span sp = Span(3);
+
+		try {
+			sp.addNumber(1);
+			sp.addNumber(2);
+			sp.addNumber(3);
+			sp.addNumber(4);
+
+			std::cout << sp.shortestSpan() << std::endl;
+			std::cout << sp.longestSpan() << std::endl;
+		}
+		catch (std::exception& e) {
+			std::cout << e.what() << std::endl;
+		}
 	}
 
 	return (0);

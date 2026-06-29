@@ -6,15 +6,11 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 19:15:16 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/12 13:33:38 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/29 14:43:06 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "easyfind.hpp"
 #include <algorithm>
-#include <vector>
-#include <list>
-#include <deque>
 
 const char*		NotFoundException::what() const throw(){
 

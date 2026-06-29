@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 13:58:43 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/22 23:06:04 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/29 14:52:00 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ std::vector<int> Span::getContainer() {
 
 const char*	Span::MaxStoreException::what() const throw() {
 
-	return("Reached maximun capacity for container");
+	return("Cant add more numbers - Reached maximun capacity for container");
 }
 
 const char*	Span::NoSpanException::what() const throw() {
@@ -67,7 +67,7 @@ void	Span::addMultipleNumbers(
 			std::vector<int>::iterator end) {
 
 	if (container.size() + std::distance(begin, end) > maxStore)
-		throw NoSpanException();
+		throw MaxStoreException();
 
 	container.insert(container.end(), begin, end);
 }
