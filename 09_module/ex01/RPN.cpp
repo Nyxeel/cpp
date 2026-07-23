@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 14:34:49 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/16 20:50:57 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/07/23 13:07:20 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	RPN::calcRPN(const std::string& str) {
 			stack.push(result);
 
 		}
-		else if(isdigit(str[i]) && str[i + 1] == SPACE) {
+		else if(isdigit(str[i]) && (str[i + 1] == SPACE || str[i + 1] == '\0')) {
 
 			double num = str[i] - '0';
 			stack.push(num);

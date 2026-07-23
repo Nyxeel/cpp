@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 16:19:03 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/15 22:44:54 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/07/23 13:02:02 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,9 @@ void	BitcoinExchange::loadDatabase() {
 
 		char *endptr;
 		double value = strtod(exchangeRate.c_str(), &endptr);
+		if (endptr == exchangeRate.c_str() || *endptr != '\0') {
+			continue;
+		}
 		this->database[key] = value;
 
 		//std::cout << std::setprecision(15) << key << " " << value << std::endl;
@@ -240,7 +243,7 @@ void	BitcoinExchange::processData(std::string str) {
 
 			std::cout << "Error: bad input => " << line << std::endl;
 			continue;
-		} //
+		}
 
 		date = line.substr(0, pipe);
 		rightPart = line.substr(pipe + 1);
@@ -252,6 +255,10 @@ void	BitcoinExchange::processData(std::string str) {
 
 		char *endptr;
 		double bitcoins = strtod(rightPart.c_str(), &endptr);
+		if (endptr == rightPart.c_str() || *endptr != '\0') {
+			std::cout << "Error: not a number." << std::endl;
+			continue;
+		}
 
 		if (bitcoins < 0) {
 			std::cout << "Error: not a positive number." << std::endl;
@@ -268,7 +275,7 @@ void	BitcoinExchange::processData(std::string str) {
 			continue;
 		}
 
-		std::cout << std::setprecision(2) << date << " => " << bitcoins
+		std::cout << std::fixed << std::setprecision(2) << date << " => " << bitcoins
 		<< " = " << price * bitcoins << std::endl;
 
 	}
