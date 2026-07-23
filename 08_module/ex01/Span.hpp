@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 13:58:43 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/22 23:05:57 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/29 17:08:13 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ class Span {
 		void	addMultipleNumbers(std::vector<int>::iterator begin,
 								std::vector<int>::iterator end);
 
-		double	shortestSpan() const;
-		double	longestSpan() const;
+		long	shortestSpan() const;
+		long	longestSpan() const;
 
 		std::vector<int> getContainer();
 

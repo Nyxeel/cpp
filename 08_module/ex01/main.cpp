@@ -6,7 +6,7 @@
 /*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 13:33:31 by pjelinek          #+#    #+#             */
-/*   Updated: 2026/06/29 14:55:32 by pjelinek         ###   ########.fr       */
+/*   Updated: 2026/06/29 17:16:24 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	main(void)
 		Span span(5);
 		try
 		{
-			span.addNumber(4);
+			span.addNumber(433333333);
 			std::vector<int> container = span.getContainer();
 
 			printContainer(container.begin(), container.end());
