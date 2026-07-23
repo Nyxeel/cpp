@@ -15,6 +15,7 @@
 
 #include <vector>
 #include <deque>
+#include <cstddef>
 
 
 typedef std::vector<std::pair<unsigned int, unsigned int> > pairVector;
@@ -41,9 +42,11 @@ class PmergeMe {
 
 		containerVector				_vector;
 		std::deque<unsigned int>	_deque;
-		double						_compareOperation;
+		size_t						_vectorComparisons;
+		size_t						_dequeComparisons;
 
 	public:
+		PmergeMe();
 		PmergeMe(char** arr, int ac);
 		PmergeMe(const PmergeMe &other);
 		PmergeMe& operator=(const PmergeMe &other);

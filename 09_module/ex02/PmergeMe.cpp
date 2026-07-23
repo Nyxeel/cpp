@@ -22,13 +22,20 @@
 #include <sys/types.h>
 
 
-PmergeMe::PmergeMe(char **arr, int ac) :_compareOperation(0){
+PmergeMe::PmergeMe() : _vectorComparisons(0), _dequeComparisons(0) {
+
+}
+
+PmergeMe::PmergeMe(char **arr, int ac) :
+	_vectorComparisons(0), _dequeComparisons(0) {
 
 	parseNumbersAndFillContainer(arr, ac);
 }
 
 PmergeMe::PmergeMe(const PmergeMe &other) :
-	_vector(other._vector), _deque(other._deque), _compareOperation(0) {
+	_vector(other._vector), _deque(other._deque),
+	_vectorComparisons(other._vectorComparisons),
+	_dequeComparisons(other._dequeComparisons) {
 
 }
 
@@ -38,7 +45,8 @@ PmergeMe& PmergeMe::operator=(const PmergeMe &other){
 
 		_vector = other._vector;
 		_deque = other._deque;
-		_compareOperation = other._compareOperation;
+		_vectorComparisons = other._vectorComparisons;
+		_dequeComparisons = other._dequeComparisons;
 	}
 	return (*this);
 }
@@ -57,7 +65,7 @@ double	getTimeUsec(void)
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-	return ((double)tv.tv_sec + (double)tv.tv_usec / 1000000.0);
+	return ((double)tv.tv_sec * 1000000.0 + (double)tv.tv_usec);
 }
 
 unsigned int countDigits(unsigned int n)
@@ -155,7 +163,7 @@ void	PmergeMe::comparePairs(pairVector& pairVec,
 			smaller.push_back((begin->second));
 			bigger.push_back((begin->first));
 		}
-		_compareOperation++;
+		_vectorComparisons++;
 	}
 }
 
@@ -196,18 +204,20 @@ std::vector<ssize_t>	getJacobsIndex(std::vector<unsigned int>& smaller) {
 std::vector<unsigned int>::iterator	binaryInsert(
 		unsigned int target,
 		std::vector<unsigned int>::iterator start,
-		std::vector<unsigned int>::iterator end) {
+		std::vector<unsigned int>::iterator end,
+		size_t& comparisons) {
 
 	if (start == end)
 			return start;
 
 	std::vector<unsigned int>::iterator middle = start + (end - start) / 2;
 
+	comparisons++;
 	if (target <= *middle)
-			return (binaryInsert(target, start, middle));
+			return (binaryInsert(target, start, middle, comparisons));
 
 	if (target > *middle)
-		return (binaryInsert(target, middle + 1, end));
+		return (binaryInsert(target, middle + 1, end, comparisons));
 	throw std::runtime_error("Error");
 }
 
@@ -215,7 +225,8 @@ std::vector<unsigned int>::iterator	binaryInsert(
 std::vector<unsigned int>&	insertSmaller(
 			std::vector<ssize_t>& jacobsIndexVec,
 			std::vector<unsigned int>& smaller,
-			std::vector<unsigned int>& mainVec) {
+			std::vector<unsigned int>& mainVec,
+			size_t& comparisons) {
 
 	std::vector<ssize_t>::iterator idx = jacobsIndexVec.begin();
 	std::vector<ssize_t>::iterator end = jacobsIndexVec.end();
@@ -223,7 +234,7 @@ std::vector<unsigned int>&	insertSmaller(
 
 	for( ; idx != end; idx++) {
 
-		std::vector<unsigned int>::iterator pos = binaryInsert(smallBegin[*idx], mainVec.begin(), mainVec.end());
+		std::vector<unsigned int>::iterator pos = binaryInsert(smallBegin[*idx], mainVec.begin(), mainVec.end(), comparisons);
 
 		//std::cout << " insert " << smallBegin[*idx] << " before number " << *pos << "\n";
 		mainVec.insert(pos, smallBegin[*idx]);
@@ -250,11 +261,11 @@ containerVector PmergeMe::sortVector(containerVector& vector) {
 	std::vector<unsigned int> mainVec = sortVector(bigger);
 	std::vector<ssize_t> jacobsIndexVec = getJacobsIndex(smaller);
 
-	mainVec = insertSmaller(jacobsIndexVec, smaller, mainVec);
+	mainVec = insertSmaller(jacobsIndexVec, smaller, mainVec, _vectorComparisons);
 
 	if (leftover != -1) {
 
-		std::vector<unsigned int>::iterator pos = binaryInsert(leftover, mainVec.begin(), mainVec.end());
+		std::vector<unsigned int>::iterator pos = binaryInsert(leftover, mainVec.begin(), mainVec.end(), _vectorComparisons);
 		mainVec.insert(pos, leftover);
 	}
 	return mainVec;
@@ -306,7 +317,7 @@ void	PmergeMe::comparePairs(pairDeque& pairDeque,
 			smaller.push_back((begin->second));
 			bigger.push_back((begin->first));
 		}
-		_compareOperation++;
+		_dequeComparisons++;
 	}
 }
 
@@ -348,18 +359,20 @@ std::deque<ssize_t>	getJacobsIndex(std::deque<unsigned int>& smaller) {
 std::deque<unsigned int>::iterator	binaryInsert(
 		unsigned int target,
 		std::deque<unsigned int>::iterator start,
-		std::deque<unsigned int>::iterator end) {
+		std::deque<unsigned int>::iterator end,
+		size_t& comparisons) {
 
 	if (start == end)
 			return start;
 
 	std::deque<unsigned int>::iterator middle = start + (end - start) / 2;
 
+	comparisons++;
 	if (target <= *middle)
-			return (binaryInsert(target, start, middle));
+			return (binaryInsert(target, start, middle, comparisons));
 
 	if (target > *middle)
-		return (binaryInsert(target, middle + 1, end));
+		return (binaryInsert(target, middle + 1, end, comparisons));
 	throw std::runtime_error("Error");
 }
 
@@ -367,7 +380,8 @@ std::deque<unsigned int>::iterator	binaryInsert(
 std::deque<unsigned int>&	insertSmaller(
 			std::deque<ssize_t>& jacobsIndexVec,
 			std::deque<unsigned int>& smaller,
-			std::deque<unsigned int>& mainDeque) {
+			std::deque<unsigned int>& mainDeque,
+			size_t& comparisons) {
 
 	std::deque<ssize_t>::iterator idx = jacobsIndexVec.begin();
 	std::deque<ssize_t>::iterator end = jacobsIndexVec.end();
@@ -375,7 +389,7 @@ std::deque<unsigned int>&	insertSmaller(
 
 	for( ; idx != end; idx++) {
 
-		std::deque<unsigned int>::iterator pos = binaryInsert(smallBegin[*idx], mainDeque.begin(), mainDeque.end());
+		std::deque<unsigned int>::iterator pos = binaryInsert(smallBegin[*idx], mainDeque.begin(), mainDeque.end(), comparisons);
 
 		//std::cout << " insert " << smallBegin[*idx] << " before number " << *pos << "\n";
 		mainDeque.insert(pos, smallBegin[*idx]);
@@ -404,11 +418,11 @@ containerDeque PmergeMe::sortDeque(containerDeque& deque) {
 	std::deque<unsigned int> mainDeque = sortDeque(bigger);
 	std::deque<ssize_t> jacobsIndexDeque = getJacobsIndex(smaller);
 
-	mainDeque = insertSmaller(jacobsIndexDeque, smaller, mainDeque);
+	mainDeque = insertSmaller(jacobsIndexDeque, smaller, mainDeque, _dequeComparisons);
 
 	if (leftover != -1) {
 
-		std::deque<unsigned int>::iterator pos = binaryInsert(leftover, mainDeque.begin(), mainDeque.end());
+		std::deque<unsigned int>::iterator pos = binaryInsert(leftover, mainDeque.begin(), mainDeque.end(), _dequeComparisons);
 		mainDeque.insert(pos, leftover);
 	}
 	return mainDeque;
@@ -465,11 +479,14 @@ void	PmergeMe::runSort() {
 	std::cout << " After:\t";
 	printContainer(sortedVector);
 
-	std::cout << std::fixed << std::setprecision(5) << "Time to process a range of "
+	std::cout << "Time to process a range of "
 		<< _vector.size() << " elements with std::vector : " << vectorTime << " us" << std::endl;
 
-	std::cout << std::fixed << std::setprecision(5) << "Time to process a range of "
+	std::cout << "Time to process a range of "
 		<< _deque.size() << " elements with std::deque : " << dequeTime << " us" << std::endl;
+
+	std::cout << "Comparisons used for std::vector : " << _vectorComparisons << std::endl;
+	std::cout << "Comparisons used for std::deque : " << _dequeComparisons << std::endl;
 }
 
 
