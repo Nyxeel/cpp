@@ -16,12 +16,20 @@
 #include <vector>
 #include <deque>
 #include <cstddef>
+#include <utility>
 
 
-typedef std::vector<std::pair<unsigned int, unsigned int> > pairVector;
-typedef std::deque<std::pair<unsigned int, unsigned int> > pairDeque;
 typedef std::vector<unsigned int> containerVector;
 typedef std::deque<unsigned int> containerDeque;
+
+// Wert + eindeutige Ursprungs-ID; die ID wandert beim Sortieren automatisch mit
+typedef std::pair<unsigned int, size_t> TaggedUint;
+
+typedef std::vector<TaggedUint> taggedVector;
+typedef std::vector<std::pair<TaggedUint, TaggedUint> > taggedPairVector;
+
+typedef std::deque<TaggedUint> taggedDeque;
+typedef std::deque<std::pair<TaggedUint, TaggedUint> > taggedPairDeque;
 
 class PmergeMe {
 
@@ -32,13 +40,18 @@ class PmergeMe {
 		void						parseNumbersAndFillContainer(char **arr, int ac);
 		containerVector				sortVector(containerVector& vector);
 		containerDeque				sortDeque(containerDeque& deque);
-		void						comparePairs(pairVector& pairVec,
-											std::vector<unsigned int>& smaller,
-											std::vector<unsigned int>& bigger);
 
-		void						comparePairs(pairDeque& pairVec,
-											std::deque<unsigned int>& smaller,
-											std::deque<unsigned int>& bigger);
+		// rekursiver Ford-Johnson-Kern + Paarvergleich, arbeiten auf getaggten Werten (vector)
+		taggedVector				sortVectorTagged(taggedVector& vec);
+		void						comparePairsTagged(taggedPairVector& pairVec,
+											taggedVector& smaller,
+											taggedVector& bigger);
+
+		// dasselbe fuer deque
+		taggedDeque					sortDequeTagged(taggedDeque& deq);
+		void						comparePairsTagged(taggedPairDeque& pairVec,
+											taggedDeque& smaller,
+											taggedDeque& bigger);
 
 		containerVector				_vector;
 		std::deque<unsigned int>	_deque;

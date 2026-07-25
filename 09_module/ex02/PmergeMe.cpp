@@ -20,6 +20,7 @@
 #include <climits>
 #include <iomanip>
 #include <sys/types.h>
+#include <map>
 
 
 PmergeMe::PmergeMe() : _vectorComparisons(0), _dequeComparisons(0) {
@@ -123,19 +124,53 @@ void	printPairs(T& pairVec) {
 // ######################################################################
 
 
-pairVector	makePairs(containerVector& vector) {
+// liefert die Jacobsthal-Einfuegereihenfolge (Indizes in "smaller") fuer n Elemente
+std::vector<ssize_t>	getJacobsIndex(size_t smallerSizeIn) {
 
-	containerVector::iterator begin = vector.begin();
-	containerVector::iterator end = vector.end();
-	std::pair<unsigned int, unsigned int> pair;
-	pairVector pairVec;
+	std::vector<ssize_t> arr;
+
+	ssize_t smallerSize = smallerSizeIn;
+	if (smallerSize == 1) {
+
+		arr.push_back(0);
+		return (arr);
+	}
+
+	ssize_t prev0 = 0;
+	ssize_t prev1 = 1;
+	ssize_t jacobsBorderNum = 0;
+	while (smallerSize >= jacobsBorderNum) {
+
+		jacobsBorderNum = prev1 + 2 * prev0; 	// Jacobs Num Calc
+		if (jacobsBorderNum <= smallerSize)
+			arr.push_back(jacobsBorderNum - 1);
+
+		ssize_t tmp = jacobsBorderNum;
+		while (tmp > prev1) {
+
+			tmp -= 1;
+			if (tmp <= smallerSize && tmp != prev1)
+				arr.push_back(tmp - 1);
+		}
+		prev0 = prev1;
+		prev1 = jacobsBorderNum;
+	}
+	return arr;
+}
+
+
+// gruppiert aufeinanderfolgende Elemente zu Paaren (ak,bk), traegt die id unveraendert mit
+taggedPairVector	makeTaggedPairs(taggedVector& vec) {
+
+	taggedVector::iterator begin = vec.begin();
+	taggedVector::iterator end = vec.end();
+	taggedPairVector pairVec;
 
 	for(; begin != end; ++begin) {
 
-		if ((pairVec.size() * 2 + 1) == vector.size() )
+		if ((pairVec.size() * 2 + 1) == vec.size() )
 			break;
-		pair = std::make_pair(*begin, *(begin + 1));
-		pairVec.push_back(pair);
+		pairVec.push_back(std::make_pair(*begin, *(begin + 1)));
 		if (begin + 1 != end)
 			++begin;
 
@@ -144,131 +179,141 @@ pairVector	makePairs(containerVector& vector) {
 }
 
 
-void	PmergeMe::comparePairs(pairVector& pairVec,
-			std::vector<unsigned int>& smaller,
-			std::vector<unsigned int>& bigger) {
+// vergleicht jedes Paar nach .first (Wert); .second (id) bleibt am Element haengen
+void	PmergeMe::comparePairsTagged(taggedPairVector& pairVec,
+			taggedVector& smaller,
+			taggedVector& bigger) {
 
-	pairVector::iterator begin = pairVec.begin();
-	pairVector::iterator end = pairVec.end();
+	taggedPairVector::iterator begin = pairVec.begin();
+	taggedPairVector::iterator end = pairVec.end();
 
 	for(; begin != end; begin++) {
 
-		if (begin->first < begin->second) {
+		if (begin->first.first < begin->second.first) {
 
-			smaller.push_back((begin->first));
-			bigger.push_back((begin->second));
+			smaller.push_back(begin->first);
+			bigger.push_back(begin->second);
 		}
 		else {
 
-			smaller.push_back((begin->second));
-			bigger.push_back((begin->first));
+			smaller.push_back(begin->second);
+			bigger.push_back(begin->first);
 		}
 		_vectorComparisons++;
 	}
 }
 
 
-std::vector<ssize_t>	getJacobsIndex(std::vector<unsigned int>& smaller) {
-
-	std::vector<ssize_t> arr;
-
-	ssize_t smallerSize = smaller.size();
-	if (smallerSize == 1) {
-
-		arr.push_back(0);
-		return (arr);
-	}
-
-	ssize_t prev0 = 0;
-	ssize_t prev1 = 1;
-	ssize_t jacobsBorderNum = 0;
-	while (smallerSize >= jacobsBorderNum) {
-
-		jacobsBorderNum = prev1 + 2 * prev0; 	// Jacobs Num Calc
-		if (jacobsBorderNum <= smallerSize)
-			arr.push_back(jacobsBorderNum - 1);
-
-		ssize_t tmp = jacobsBorderNum;
-		while (tmp > prev1) {
-
-			tmp -= 1;
-			if (tmp <= smallerSize && tmp != prev1)
-				arr.push_back(tmp - 1);
-		}
-		prev0 = prev1;
-		prev1 = jacobsBorderNum;
-	}
-	return arr;
-}
-
-std::vector<unsigned int>::iterator	binaryInsert(
-		unsigned int target,
-		std::vector<unsigned int>::iterator start,
-		std::vector<unsigned int>::iterator end,
+// binaere Suche nach der Einfuegeposition von target im Bereich [start,end)
+taggedVector::iterator	binaryInsertTagged(
+		TaggedUint target,
+		taggedVector::iterator start,
+		taggedVector::iterator end,
 		size_t& comparisons) {
 
 	if (start == end)
 			return start;
 
-	std::vector<unsigned int>::iterator middle = start + (end - start) / 2;
+	taggedVector::iterator middle = start + (end - start) / 2;
 
 	comparisons++;
-	if (target <= *middle)
-			return (binaryInsert(target, start, middle, comparisons));
+	if (target.first <= middle->first)
+			return (binaryInsertTagged(target, start, middle, comparisons));
 
-	if (target > *middle)
-		return (binaryInsert(target, middle + 1, end, comparisons));
+	if (target.first > middle->first)
+		return (binaryInsertTagged(target, middle + 1, end, comparisons));
 	throw std::runtime_error("Error");
 }
 
 
-std::vector<unsigned int>&	insertSmaller(
+// fuegt jedes ak in Jacobsthal-Reihenfolge ein; sucht nur bis zur bekannten Position von bk
+taggedVector&	insertSmallerTagged(
 			std::vector<ssize_t>& jacobsIndexVec,
-			std::vector<unsigned int>& smaller,
-			std::vector<unsigned int>& mainVec,
+			taggedVector& smaller,
+			taggedVector& bigger,
+			taggedVector& mainVec,
 			size_t& comparisons) {
+
+	// einmaliger Durchlauf: id -> aktuelle Position in mainVec (kein Suchen noetig)
+	std::map<size_t, size_t> positionOf;
+	for (size_t i = 0; i < mainVec.size(); i++)
+		positionOf[mainVec[i].second] = i;
 
 	std::vector<ssize_t>::iterator idx = jacobsIndexVec.begin();
 	std::vector<ssize_t>::iterator end = jacobsIndexVec.end();
-	std::vector<unsigned int>::iterator smallBegin = smaller.begin();
 
 	for( ; idx != end; idx++) {
 
-		std::vector<unsigned int>::iterator pos = binaryInsert(smallBegin[*idx], mainVec.begin(), mainVec.end(), comparisons);
+		TaggedUint target = smaller[*idx];
+		size_t partnerId = bigger[*idx].second;
+		size_t bound = positionOf[partnerId];		// Obergrenze = Position von bk, statt end()
 
-		//std::cout << " insert " << smallBegin[*idx] << " before number " << *pos << "\n";
-		mainVec.insert(pos, smallBegin[*idx]);
+		taggedVector::iterator pos = binaryInsertTagged(target, mainVec.begin(), mainVec.begin() + bound, comparisons);
+		size_t insertIndex = pos - mainVec.begin();
+
+		mainVec.insert(pos, target);
+
+		// Verschiebung durch die Einfuegung nachfuehren: alle Positionen ab insertIndex ruecken um 1
+		std::map<size_t, size_t>::iterator mapIt = positionOf.begin();
+		std::map<size_t, size_t>::iterator mapEnd = positionOf.end();
+		for (; mapIt != mapEnd; ++mapIt) {
+
+			if (mapIt->second >= insertIndex)
+				mapIt->second++;
+		}
 	}
 	return mainVec;
 }
 
-containerVector PmergeMe::sortVector(containerVector& vector) {
 
-	if (vector.size() <= 1)
-		return vector;
+// eigentlicher rekursiver Ford-Johnson-Kern, arbeitet auf getaggten Werten
+taggedVector	PmergeMe::sortVectorTagged(taggedVector& vec) {
 
-	ssize_t leftover = -1;
-	pairVector pairVec = makePairs(vector);
+	if (vec.size() <= 1)
+		return vec;
 
-	if ((pairVec.size() * 2 + 1) == vector.size() )
-		leftover = *(vector.end() - 1);
+	bool hasLeftover = false;
+	TaggedUint leftover;
+	taggedPairVector pairVec = makeTaggedPairs(vec);
 
-	std::vector<unsigned int> smaller;
-	std::vector<unsigned int> bigger;
+	if ((pairVec.size() * 2 + 1) == vec.size() ) {
 
-	comparePairs(pairVec, smaller, bigger);
+		hasLeftover = true;
+		leftover = *(vec.end() - 1);
+	}
 
-	std::vector<unsigned int> mainVec = sortVector(bigger);
-	std::vector<ssize_t> jacobsIndexVec = getJacobsIndex(smaller);
+	taggedVector smaller;
+	taggedVector bigger;
 
-	mainVec = insertSmaller(jacobsIndexVec, smaller, mainVec, _vectorComparisons);
+	comparePairsTagged(pairVec, smaller, bigger);
 
-	if (leftover != -1) {
+	taggedVector mainVec = sortVectorTagged(bigger);
+	std::vector<ssize_t> jacobsIndexVec = getJacobsIndex(smaller.size());
 
-		std::vector<unsigned int>::iterator pos = binaryInsert(leftover, mainVec.begin(), mainVec.end(), _vectorComparisons);
+	mainVec = insertSmallerTagged(jacobsIndexVec, smaller, bigger, mainVec, _vectorComparisons);
+
+	if (hasLeftover) {
+
+		taggedVector::iterator pos = binaryInsertTagged(leftover, mainVec.begin(), mainVec.end(), _vectorComparisons);
 		mainVec.insert(pos, leftover);
 	}
 	return mainVec;
+}
+
+
+// oeffentliche API: taggt die Werte, ruft den getaggten Kern auf, streift die ids wieder ab
+containerVector PmergeMe::sortVector(containerVector& vector) {
+
+	taggedVector tagged;
+	for (size_t i = 0; i < vector.size(); i++)
+		tagged.push_back(std::make_pair(vector[i], i));
+
+	taggedVector sorted = sortVectorTagged(tagged);
+
+	containerVector result;
+	for (size_t i = 0; i < sorted.size(); i++)
+		result.push_back(sorted[i].first);
+	return result;
 }
 
 
@@ -277,155 +322,162 @@ containerVector PmergeMe::sortVector(containerVector& vector) {
 // #########################   D E Q U E   ##############################
 // ######################################################################
 
-pairDeque	makePairs(containerDeque& deque) {
+// gruppiert aufeinanderfolgende Elemente zu Paaren (ak,bk), traegt die id unveraendert mit
+taggedPairDeque	makeTaggedPairs(taggedDeque& deq) {
 
-	containerDeque::iterator begin = deque.begin();
-	containerDeque::iterator end = deque.end();
-	std::pair<unsigned int, unsigned int> pair;
-	pairDeque pairDeque;
+	taggedDeque::iterator begin = deq.begin();
+	taggedDeque::iterator end = deq.end();
+	taggedPairDeque pairDeq;
 
 	for(; begin != end; ++begin) {
 
-		if ((pairDeque.size() * 2 + 1) == deque.size() )
+		if ((pairDeq.size() * 2 + 1) == deq.size() )
 			break;
-		pair = std::make_pair(*begin, *(begin + 1));
-		pairDeque.push_back(pair);
+		pairDeq.push_back(std::make_pair(*begin, *(begin + 1)));
 		if (begin + 1 != end)
 			++begin;
 
 	}
-	return pairDeque;
+	return pairDeq;
 }
 
 
-void	PmergeMe::comparePairs(pairDeque& pairDeque,
-			std::deque<unsigned int>& smaller,
-			std::deque<unsigned int>& bigger) {
+// vergleicht jedes Paar nach .first (Wert); .second (id) bleibt am Element haengen
+void	PmergeMe::comparePairsTagged(taggedPairDeque& pairVec,
+			taggedDeque& smaller,
+			taggedDeque& bigger) {
 
-	pairDeque::iterator begin = pairDeque.begin();
-	pairDeque::iterator end = pairDeque.end();
+	taggedPairDeque::iterator begin = pairVec.begin();
+	taggedPairDeque::iterator end = pairVec.end();
 
 	for(; begin != end; begin++) {
 
-		if (begin->first < begin->second) {
+		if (begin->first.first < begin->second.first) {
 
-			smaller.push_back((begin->first));
-			bigger.push_back((begin->second));
+			smaller.push_back(begin->first);
+			bigger.push_back(begin->second);
 		}
 		else {
 
-			smaller.push_back((begin->second));
-			bigger.push_back((begin->first));
+			smaller.push_back(begin->second);
+			bigger.push_back(begin->first);
 		}
 		_dequeComparisons++;
 	}
 }
 
 
-std::deque<ssize_t>	getJacobsIndex(std::deque<unsigned int>& smaller) {
-
-	std::deque<ssize_t> arr;
-
-	ssize_t smallerSize = smaller.size();
-	if (smallerSize == 1) {
-
-		arr.push_back(0);
-		return (arr);
-	}
-
-	ssize_t prev0 = 0;
-	ssize_t prev1 = 1;
-	ssize_t jacobsBorderNum = 0;
-	while (smallerSize >= jacobsBorderNum) {
-
-		jacobsBorderNum = prev1 + 2 * prev0; 	// Jacobs Num Calc
-		if (jacobsBorderNum <= smallerSize)
-			arr.push_back(jacobsBorderNum - 1);
-
-		ssize_t tmp = jacobsBorderNum;
-		while (tmp > prev1) {
-
-			tmp -= 1;
-			if (tmp <= smallerSize && tmp != prev1)
-				arr.push_back(tmp - 1);
-		}
-		prev0 = prev1;
-		prev1 = jacobsBorderNum;
-	}
-	return arr;
-}
-
-
-std::deque<unsigned int>::iterator	binaryInsert(
-		unsigned int target,
-		std::deque<unsigned int>::iterator start,
-		std::deque<unsigned int>::iterator end,
+// binaere Suche nach der Einfuegeposition von target im Bereich [start,end)
+taggedDeque::iterator	binaryInsertTagged(
+		TaggedUint target,
+		taggedDeque::iterator start,
+		taggedDeque::iterator end,
 		size_t& comparisons) {
 
 	if (start == end)
 			return start;
 
-	std::deque<unsigned int>::iterator middle = start + (end - start) / 2;
+	taggedDeque::iterator middle = start + (end - start) / 2;
 
 	comparisons++;
-	if (target <= *middle)
-			return (binaryInsert(target, start, middle, comparisons));
+	if (target.first <= middle->first)
+			return (binaryInsertTagged(target, start, middle, comparisons));
 
-	if (target > *middle)
-		return (binaryInsert(target, middle + 1, end, comparisons));
+	if (target.first > middle->first)
+		return (binaryInsertTagged(target, middle + 1, end, comparisons));
 	throw std::runtime_error("Error");
 }
 
 
-std::deque<unsigned int>&	insertSmaller(
-			std::deque<ssize_t>& jacobsIndexVec,
-			std::deque<unsigned int>& smaller,
-			std::deque<unsigned int>& mainDeque,
+// fuegt jedes ak in Jacobsthal-Reihenfolge ein; sucht nur bis zur bekannten Position von bk
+taggedDeque&	insertSmallerTagged(
+			std::vector<ssize_t>& jacobsIndexVec,
+			taggedDeque& smaller,
+			taggedDeque& bigger,
+			taggedDeque& mainDeque,
 			size_t& comparisons) {
 
-	std::deque<ssize_t>::iterator idx = jacobsIndexVec.begin();
-	std::deque<ssize_t>::iterator end = jacobsIndexVec.end();
-	std::deque<unsigned int>::iterator smallBegin = smaller.begin();
+	// einmaliger Durchlauf: id -> aktuelle Position in mainDeque (kein Suchen noetig)
+	std::map<size_t, size_t> positionOf;
+	for (size_t i = 0; i < mainDeque.size(); i++)
+		positionOf[mainDeque[i].second] = i;
+
+	std::vector<ssize_t>::iterator idx = jacobsIndexVec.begin();
+	std::vector<ssize_t>::iterator end = jacobsIndexVec.end();
 
 	for( ; idx != end; idx++) {
 
-		std::deque<unsigned int>::iterator pos = binaryInsert(smallBegin[*idx], mainDeque.begin(), mainDeque.end(), comparisons);
+		TaggedUint target = smaller[*idx];
+		size_t partnerId = bigger[*idx].second;
+		size_t bound = positionOf[partnerId];		// Obergrenze = Position von bk, statt end()
 
-		//std::cout << " insert " << smallBegin[*idx] << " before number " << *pos << "\n";
-		mainDeque.insert(pos, smallBegin[*idx]);
+		taggedDeque::iterator pos = binaryInsertTagged(target, mainDeque.begin(), mainDeque.begin() + bound, comparisons);
+		size_t insertIndex = pos - mainDeque.begin();
+
+		mainDeque.insert(pos, target);
+
+		// Verschiebung durch die Einfuegung nachfuehren: alle Positionen ab insertIndex ruecken um 1
+		std::map<size_t, size_t>::iterator mapIt = positionOf.begin();
+		std::map<size_t, size_t>::iterator mapEnd = positionOf.end();
+		for (; mapIt != mapEnd; ++mapIt) {
+
+			if (mapIt->second >= insertIndex)
+				mapIt->second++;
+		}
 	}
 	return mainDeque;
 }
 
 
 
-containerDeque PmergeMe::sortDeque(containerDeque& deque) {
+// eigentlicher rekursiver Ford-Johnson-Kern, arbeitet auf getaggten Werten
+taggedDeque	PmergeMe::sortDequeTagged(taggedDeque& deq) {
 
-	if (deque.size() <= 1)
-		return deque;
+	if (deq.size() <= 1)
+		return deq;
 
-	ssize_t leftover = -1;
-	pairDeque pairDeque = makePairs(deque);
+	bool hasLeftover = false;
+	TaggedUint leftover;
+	taggedPairDeque pairDeq = makeTaggedPairs(deq);
 
-	if ((pairDeque.size() * 2 + 1) == deque.size() )
-		leftover = *(deque.end() - 1);
+	if ((pairDeq.size() * 2 + 1) == deq.size() ) {
 
-	std::deque<unsigned int> smaller;
-	std::deque<unsigned int> bigger;
+		hasLeftover = true;
+		leftover = *(deq.end() - 1);
+	}
 
-	comparePairs(pairDeque, smaller, bigger);
+	taggedDeque smaller;
+	taggedDeque bigger;
 
-	std::deque<unsigned int> mainDeque = sortDeque(bigger);
-	std::deque<ssize_t> jacobsIndexDeque = getJacobsIndex(smaller);
+	comparePairsTagged(pairDeq, smaller, bigger);
 
-	mainDeque = insertSmaller(jacobsIndexDeque, smaller, mainDeque, _dequeComparisons);
+	taggedDeque mainDeque = sortDequeTagged(bigger);
+	std::vector<ssize_t> jacobsIndexDeque = getJacobsIndex(smaller.size());
 
-	if (leftover != -1) {
+	mainDeque = insertSmallerTagged(jacobsIndexDeque, smaller, bigger, mainDeque, _dequeComparisons);
 
-		std::deque<unsigned int>::iterator pos = binaryInsert(leftover, mainDeque.begin(), mainDeque.end(), _dequeComparisons);
+	if (hasLeftover) {
+
+		taggedDeque::iterator pos = binaryInsertTagged(leftover, mainDeque.begin(), mainDeque.end(), _dequeComparisons);
 		mainDeque.insert(pos, leftover);
 	}
 	return mainDeque;
+}
+
+
+// oeffentliche API: taggt die Werte, ruft den getaggten Kern auf, streift die ids wieder ab
+containerDeque PmergeMe::sortDeque(containerDeque& deque) {
+
+	taggedDeque tagged;
+	for (size_t i = 0; i < deque.size(); i++)
+		tagged.push_back(std::make_pair(deque[i], i));
+
+	taggedDeque sorted = sortDequeTagged(tagged);
+
+	containerDeque result;
+	for (size_t i = 0; i < sorted.size(); i++)
+		result.push_back(sorted[i].first);
+	return result;
 }
 
 
