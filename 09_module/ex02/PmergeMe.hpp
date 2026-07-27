@@ -23,13 +23,13 @@ typedef std::vector<unsigned int> containerVector;
 typedef std::deque<unsigned int> containerDeque;
 
 // Wert + eindeutige Ursprungs-ID; die ID wandert beim Sortieren automatisch mit
-typedef std::pair<unsigned int, size_t> TaggedUint;
+typedef std::pair<unsigned int, size_t> IndexedValue;
 
-typedef std::vector<TaggedUint> taggedVector;
-typedef std::vector<std::pair<TaggedUint, TaggedUint> > taggedPairVector;
+typedef std::vector<IndexedValue> IndexedVector;
+typedef std::vector<std::pair<IndexedValue, IndexedValue> > IndexedPairVector;
 
-typedef std::deque<TaggedUint> taggedDeque;
-typedef std::deque<std::pair<TaggedUint, TaggedUint> > taggedPairDeque;
+typedef std::deque<IndexedValue> IndexedDeque;
+typedef std::deque<std::pair<IndexedValue, IndexedValue> > IndexedPairDeque;
 
 class PmergeMe {
 
@@ -41,17 +41,17 @@ class PmergeMe {
 		containerVector				sortVector(containerVector& vector);
 		containerDeque				sortDeque(containerDeque& deque);
 
-		// rekursiver Ford-Johnson-Kern + Paarvergleich, arbeiten auf getaggten Werten (vector)
-		taggedVector				sortVectorTagged(taggedVector& vec);
-		void						comparePairsTagged(taggedPairVector& pairVec,
-											taggedVector& smaller,
-											taggedVector& bigger);
+		// rekursiver Ford-Johnson-Kern + Paarvergleich, arbeiten auf indizierten Werten (vector)
+		IndexedVector				sortVectorIndexed(IndexedVector& vec);
+		void						comparePairsIndexed(IndexedPairVector& pairVec,
+											IndexedVector& smaller,
+											IndexedVector& bigger);
 
 		// dasselbe fuer deque
-		taggedDeque					sortDequeTagged(taggedDeque& deq);
-		void						comparePairsTagged(taggedPairDeque& pairVec,
-											taggedDeque& smaller,
-											taggedDeque& bigger);
+		IndexedDeque					sortDequeIndexed(IndexedDeque& deq);
+		void						comparePairsIndexed(IndexedPairDeque& pairVec,
+											IndexedDeque& smaller,
+											IndexedDeque& bigger);
 
 		containerVector				_vector;
 		std::deque<unsigned int>	_deque;

@@ -159,12 +159,12 @@ std::vector<ssize_t>	getJacobsIndex(size_t smallerSizeIn) {
 }
 
 
-// gruppiert aufeinanderfolgende Elemente zu Paaren (ak,bk), traegt die id unveraendert mit
-taggedPairVector	makeTaggedPairs(taggedVector& vec) {
+// gruppiert aufeinanderfolgende Elemente zu Paaren (smaller,bigger), traegt die id unveraendert mit
+IndexedPairVector	makeIndexedPairs(IndexedVector& vec) {
 
-	taggedVector::iterator begin = vec.begin();
-	taggedVector::iterator end = vec.end();
-	taggedPairVector pairVec;
+	IndexedVector::iterator begin = vec.begin();
+	IndexedVector::iterator end = vec.end();
+	IndexedPairVector pairVec;
 
 	for(; begin != end; ++begin) {
 
@@ -180,12 +180,12 @@ taggedPairVector	makeTaggedPairs(taggedVector& vec) {
 
 
 // vergleicht jedes Paar nach .first (Wert); .second (id) bleibt am Element haengen
-void	PmergeMe::comparePairsTagged(taggedPairVector& pairVec,
-			taggedVector& smaller,
-			taggedVector& bigger) {
+void	PmergeMe::comparePairsIndexed(IndexedPairVector& pairVec,
+			IndexedVector& smaller,
+			IndexedVector& bigger) {
 
-	taggedPairVector::iterator begin = pairVec.begin();
-	taggedPairVector::iterator end = pairVec.end();
+	IndexedPairVector::iterator begin = pairVec.begin();
+	IndexedPairVector::iterator end = pairVec.end();
 
 	for(; begin != end; begin++) {
 
@@ -205,33 +205,33 @@ void	PmergeMe::comparePairsTagged(taggedPairVector& pairVec,
 
 
 // binaere Suche nach der Einfuegeposition von target im Bereich [start,end)
-taggedVector::iterator	binaryInsertTagged(
-		TaggedUint target,
-		taggedVector::iterator start,
-		taggedVector::iterator end,
+IndexedVector::iterator	binaryInsertIndexed(
+		IndexedValue target,
+		IndexedVector::iterator start,
+		IndexedVector::iterator end,
 		size_t& comparisons) {
 
 	if (start == end)
 			return start;
 
-	taggedVector::iterator middle = start + (end - start) / 2;
+	IndexedVector::iterator middle = start + (end - start) / 2;
 
 	comparisons++;
 	if (target.first <= middle->first)
-			return (binaryInsertTagged(target, start, middle, comparisons));
+			return (binaryInsertIndexed(target, start, middle, comparisons));
 
 	if (target.first > middle->first)
-		return (binaryInsertTagged(target, middle + 1, end, comparisons));
+		return (binaryInsertIndexed(target, middle + 1, end, comparisons));
 	throw std::runtime_error("Error");
 }
 
 
-// fuegt jedes ak in Jacobsthal-Reihenfolge ein; sucht nur bis zur bekannten Position von bk
-taggedVector&	insertSmallerTagged(
+// fuegt jedes smaller-Element in Jacobsthal-Reihenfolge ein; sucht nur bis zur bekannten Position des zugehoerigen bigger-Elements
+IndexedVector&	insertSmallerIndexed(
 			std::vector<ssize_t>& jacobsIndexVec,
-			taggedVector& smaller,
-			taggedVector& bigger,
-			taggedVector& mainVec,
+			IndexedVector& smaller,
+			IndexedVector& bigger,
+			IndexedVector& mainVec,
 			size_t& comparisons) {
 
 	// einmaliger Durchlauf: id -> aktuelle Position in mainVec (kein Suchen noetig)
@@ -244,11 +244,11 @@ taggedVector&	insertSmallerTagged(
 
 	for( ; idx != end; idx++) {
 
-		TaggedUint target = smaller[*idx];
+		IndexedValue target = smaller[*idx];
 		size_t partnerId = bigger[*idx].second;
-		size_t bound = positionOf[partnerId];		// Obergrenze = Position von bk, statt end()
+		size_t bound = positionOf[partnerId];		// Obergrenze = Position des bigger-Partners, statt end()
 
-		taggedVector::iterator pos = binaryInsertTagged(target, mainVec.begin(), mainVec.begin() + bound, comparisons);
+		IndexedVector::iterator pos = binaryInsertIndexed(target, mainVec.begin(), mainVec.begin() + bound, comparisons);
 		size_t insertIndex = pos - mainVec.begin();
 
 		mainVec.insert(pos, target);
@@ -266,15 +266,15 @@ taggedVector&	insertSmallerTagged(
 }
 
 
-// eigentlicher rekursiver Ford-Johnson-Kern, arbeitet auf getaggten Werten
-taggedVector	PmergeMe::sortVectorTagged(taggedVector& vec) {
+// rekursiver Ford Johnson core
+IndexedVector	PmergeMe::sortVectorIndexed(IndexedVector& vec) {
 
 	if (vec.size() <= 1)
 		return vec;
 
 	bool hasLeftover = false;
-	TaggedUint leftover;
-	taggedPairVector pairVec = makeTaggedPairs(vec);
+	IndexedValue leftover;
+	IndexedPairVector pairVec = makeIndexedPairs(vec);
 
 	if ((pairVec.size() * 2 + 1) == vec.size() ) {
 
@@ -282,33 +282,33 @@ taggedVector	PmergeMe::sortVectorTagged(taggedVector& vec) {
 		leftover = *(vec.end() - 1);
 	}
 
-	taggedVector smaller;
-	taggedVector bigger;
+	IndexedVector smaller;
+	IndexedVector bigger;
 
-	comparePairsTagged(pairVec, smaller, bigger);
+	comparePairsIndexed(pairVec, smaller, bigger);
 
-	taggedVector mainVec = sortVectorTagged(bigger);
+	IndexedVector mainVec = sortVectorIndexed(bigger);
 	std::vector<ssize_t> jacobsIndexVec = getJacobsIndex(smaller.size());
 
-	mainVec = insertSmallerTagged(jacobsIndexVec, smaller, bigger, mainVec, _vectorComparisons);
+	mainVec = insertSmallerIndexed(jacobsIndexVec, smaller, bigger, mainVec, _vectorComparisons);
 
 	if (hasLeftover) {
 
-		taggedVector::iterator pos = binaryInsertTagged(leftover, mainVec.begin(), mainVec.end(), _vectorComparisons);
+		IndexedVector::iterator pos = binaryInsertIndexed(leftover, mainVec.begin(), mainVec.end(), _vectorComparisons);
 		mainVec.insert(pos, leftover);
 	}
 	return mainVec;
 }
 
 
-// oeffentliche API: taggt die Werte, ruft den getaggten Kern auf, streift die ids wieder ab
+// indiziert die Werte und ID
 containerVector PmergeMe::sortVector(containerVector& vector) {
 
-	taggedVector tagged;
+	IndexedVector indexed;
 	for (size_t i = 0; i < vector.size(); i++)
-		tagged.push_back(std::make_pair(vector[i], i));
+		indexed.push_back(std::make_pair(vector[i], i));
 
-	taggedVector sorted = sortVectorTagged(tagged);
+	IndexedVector sorted = sortVectorIndexed(indexed);
 
 	containerVector result;
 	for (size_t i = 0; i < sorted.size(); i++)
@@ -322,12 +322,12 @@ containerVector PmergeMe::sortVector(containerVector& vector) {
 // #########################   D E Q U E   ##############################
 // ######################################################################
 
-// gruppiert aufeinanderfolgende Elemente zu Paaren (ak,bk), traegt die id unveraendert mit
-taggedPairDeque	makeTaggedPairs(taggedDeque& deq) {
+// gruppiert aufeinanderfolgende Elemente zu Paaren (smaller,bigger), traegt die id unveraendert mit
+IndexedPairDeque	makeIndexedPairs(IndexedDeque& deq) {
 
-	taggedDeque::iterator begin = deq.begin();
-	taggedDeque::iterator end = deq.end();
-	taggedPairDeque pairDeq;
+	IndexedDeque::iterator begin = deq.begin();
+	IndexedDeque::iterator end = deq.end();
+	IndexedPairDeque pairDeq;
 
 	for(; begin != end; ++begin) {
 
@@ -343,12 +343,12 @@ taggedPairDeque	makeTaggedPairs(taggedDeque& deq) {
 
 
 // vergleicht jedes Paar nach .first (Wert); .second (id) bleibt am Element haengen
-void	PmergeMe::comparePairsTagged(taggedPairDeque& pairVec,
-			taggedDeque& smaller,
-			taggedDeque& bigger) {
+void	PmergeMe::comparePairsIndexed(IndexedPairDeque& pairVec,
+			IndexedDeque& smaller,
+			IndexedDeque& bigger) {
 
-	taggedPairDeque::iterator begin = pairVec.begin();
-	taggedPairDeque::iterator end = pairVec.end();
+	IndexedPairDeque::iterator begin = pairVec.begin();
+	IndexedPairDeque::iterator end = pairVec.end();
 
 	for(; begin != end; begin++) {
 
@@ -368,33 +368,33 @@ void	PmergeMe::comparePairsTagged(taggedPairDeque& pairVec,
 
 
 // binaere Suche nach der Einfuegeposition von target im Bereich [start,end)
-taggedDeque::iterator	binaryInsertTagged(
-		TaggedUint target,
-		taggedDeque::iterator start,
-		taggedDeque::iterator end,
+IndexedDeque::iterator	binaryInsertIndexed(
+		IndexedValue target,
+		IndexedDeque::iterator start,
+		IndexedDeque::iterator end,
 		size_t& comparisons) {
 
 	if (start == end)
 			return start;
 
-	taggedDeque::iterator middle = start + (end - start) / 2;
+	IndexedDeque::iterator middle = start + (end - start) / 2;
 
 	comparisons++;
 	if (target.first <= middle->first)
-			return (binaryInsertTagged(target, start, middle, comparisons));
+			return (binaryInsertIndexed(target, start, middle, comparisons));
 
 	if (target.first > middle->first)
-		return (binaryInsertTagged(target, middle + 1, end, comparisons));
+		return (binaryInsertIndexed(target, middle + 1, end, comparisons));
 	throw std::runtime_error("Error");
 }
 
 
-// fuegt jedes ak in Jacobsthal-Reihenfolge ein; sucht nur bis zur bekannten Position von bk
-taggedDeque&	insertSmallerTagged(
+// fuegt jedes smaller-Element in Jacobsthal-Reihenfolge ein; sucht nur bis zur bekannten Position des zugehoerigen bigger-Elements
+IndexedDeque&	insertSmallerIndexed(
 			std::vector<ssize_t>& jacobsIndexVec,
-			taggedDeque& smaller,
-			taggedDeque& bigger,
-			taggedDeque& mainDeque,
+			IndexedDeque& smaller,
+			IndexedDeque& bigger,
+			IndexedDeque& mainDeque,
 			size_t& comparisons) {
 
 	// einmaliger Durchlauf: id -> aktuelle Position in mainDeque (kein Suchen noetig)
@@ -407,11 +407,11 @@ taggedDeque&	insertSmallerTagged(
 
 	for( ; idx != end; idx++) {
 
-		TaggedUint target = smaller[*idx];
+		IndexedValue target = smaller[*idx];
 		size_t partnerId = bigger[*idx].second;
-		size_t bound = positionOf[partnerId];		// Obergrenze = Position von bk, statt end()
+		size_t bound = positionOf[partnerId];		// Obergrenze = Position des bigger-Partners, statt end()
 
-		taggedDeque::iterator pos = binaryInsertTagged(target, mainDeque.begin(), mainDeque.begin() + bound, comparisons);
+		IndexedDeque::iterator pos = binaryInsertIndexed(target, mainDeque.begin(), mainDeque.begin() + bound, comparisons);
 		size_t insertIndex = pos - mainDeque.begin();
 
 		mainDeque.insert(pos, target);
@@ -430,15 +430,15 @@ taggedDeque&	insertSmallerTagged(
 
 
 
-// eigentlicher rekursiver Ford-Johnson-Kern, arbeitet auf getaggten Werten
-taggedDeque	PmergeMe::sortDequeTagged(taggedDeque& deq) {
+// eigentlicher rekursiver Ford-Johnson-Kern, arbeitet auf indizierten Werten
+IndexedDeque	PmergeMe::sortDequeIndexed(IndexedDeque& deq) {
 
 	if (deq.size() <= 1)
 		return deq;
 
 	bool hasLeftover = false;
-	TaggedUint leftover;
-	taggedPairDeque pairDeq = makeTaggedPairs(deq);
+	IndexedValue leftover;
+	IndexedPairDeque pairDeq = makeIndexedPairs(deq);
 
 	if ((pairDeq.size() * 2 + 1) == deq.size() ) {
 
@@ -446,33 +446,33 @@ taggedDeque	PmergeMe::sortDequeTagged(taggedDeque& deq) {
 		leftover = *(deq.end() - 1);
 	}
 
-	taggedDeque smaller;
-	taggedDeque bigger;
+	IndexedDeque smaller;
+	IndexedDeque bigger;
 
-	comparePairsTagged(pairDeq, smaller, bigger);
+	comparePairsIndexed(pairDeq, smaller, bigger);
 
-	taggedDeque mainDeque = sortDequeTagged(bigger);
+	IndexedDeque mainDeque = sortDequeIndexed(bigger);
 	std::vector<ssize_t> jacobsIndexDeque = getJacobsIndex(smaller.size());
 
-	mainDeque = insertSmallerTagged(jacobsIndexDeque, smaller, bigger, mainDeque, _dequeComparisons);
+	mainDeque = insertSmallerIndexed(jacobsIndexDeque, smaller, bigger, mainDeque, _dequeComparisons);
 
 	if (hasLeftover) {
 
-		taggedDeque::iterator pos = binaryInsertTagged(leftover, mainDeque.begin(), mainDeque.end(), _dequeComparisons);
+		IndexedDeque::iterator pos = binaryInsertIndexed(leftover, mainDeque.begin(), mainDeque.end(), _dequeComparisons);
 		mainDeque.insert(pos, leftover);
 	}
 	return mainDeque;
 }
 
 
-// oeffentliche API: taggt die Werte, ruft den getaggten Kern auf, streift die ids wieder ab
+// oeffentliche API: indiziert die Werte, ruft den indizierten Kern auf, streift die ids wieder ab
 containerDeque PmergeMe::sortDeque(containerDeque& deque) {
 
-	taggedDeque tagged;
+	IndexedDeque indexed;
 	for (size_t i = 0; i < deque.size(); i++)
-		tagged.push_back(std::make_pair(deque[i], i));
+		indexed.push_back(std::make_pair(deque[i], i));
 
-	taggedDeque sorted = sortDequeTagged(tagged);
+	IndexedDeque sorted = sortDequeIndexed(indexed);
 
 	containerDeque result;
 	for (size_t i = 0; i < sorted.size(); i++)
@@ -490,7 +490,7 @@ void	PmergeMe::parseNumbersAndFillContainer(char **arr, int ac) {
 		if (*endptr != '\0')
 			throw std::runtime_error("Error: invalid char detected");
 		if (num < 1 || num > UINT_MAX)
-			throw std::runtime_error("Error: number not in range from 1 to INT_MAX");
+			throw std::runtime_error("Error: number not in range from 1 to UINT_MAX");
 
 		_vector.push_back(static_cast<unsigned int> (num));
 		_deque.push_back(static_cast<unsigned int> (num));
