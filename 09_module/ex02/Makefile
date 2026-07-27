@@ -1,13 +1,24 @@
 NAME		= PmergeMe
 CXX			= c++
-CPPFLAGS	= -Wall -Werror -Wextra -MMD -MP -std=c++98
+CXXFLAGS	= -Wall -Werror -Wextra -MMD -MP -std=c++98
 MAKEFLAGS	+= --no-print-directory
+
+DEBUG_FLAGS = -DDEBUG=1
+
+DEBUG		?= 0
 
 OBJ_DIR		= objs
 
 SRCS		=	main.cpp \
-				PmergeMe.cpp
+				PmergeMe.cpp \
+				PmergeMe.Vector.cpp \
+				PmergeMe.Deque.cpp \
+				PmergeMe.Utils.cpp
 
+
+ifeq ($(DEBUG),1)
+	CXXFLAGS    += $(DEBUG_FLAGS)
+endif
 
 
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
@@ -89,9 +100,12 @@ all:
 		$(MAKE) $(NAME)
 	fi
 
+debug:
+	$(MAKE) all DEBUG=1
+
 $(OBJ_DIR)/%.o: %.cpp $(HEADERS)
 	mkdir -p "$(OBJ_DIR)"
-	if $(CXX) $(CPPFLAGS) -c "$<" -o "$@"; then
+	if $(CXX) $(CXXFLAGS) -c "$<" -o "$@"; then
 		printf "$(OK)│ %-*s │$(RST)\n" $(W) "✔ $@" >> "$(COMPILE_LOG)"
 	else
 		printf "\n$(HDR)%s$(RST)\n" "$(TOP_COMPILE)"
